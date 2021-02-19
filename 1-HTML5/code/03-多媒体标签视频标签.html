@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>视频标签</title>
+</head>
+
+<body>
+    <!-- controls="controls" 视频显示控件 -->
+    <!-- autoplay="autoplay" 自动播放，但是Chrome浏览器禁用，但是有解决方案，给视频添加静音 -->
+    <!-- loop="loop" 视频循环播放 -->
+    <video src="../resource/video/房间.mp4" autoplay="autoplay" loop="loop" muted="muted"></video>
+    <p>因为不同浏览器支持不同格式，我们采取的解决方案是我们为这个视频准备多个格式</p>
+
+    <!-- <audio></audio>视频标签的第二种格式（详细版本） -->
+    <video controls="controls" loop="loop">
+        <source src="../resource/video/房间.mp4" type="video/mp4">
+        <source src="../resource/video/房间.ogg" type="video/ogg">
+        <p>您的浏览器不支持video标签</p>
+    </video>
+</body>
+
+</html>
