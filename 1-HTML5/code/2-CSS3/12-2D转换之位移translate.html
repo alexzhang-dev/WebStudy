@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2D转换之位移translate</title>
+    <style>
+        /* 移动盒子的位置： 定位  盒子的外边距  2d位移 */
+        
+        div:first-of-type {
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+            /* x就是在x轴移动位置，y就是在y轴上移动位置 */
+            /* transform: translate(x, y); */
+            transform: translate(30px, 30px);
+            /* 只移动X轴 */
+            /* transform: translateX(50px); */
+            /* 只移动Y轴 */
+            /* transform: translateY(30px); */
+        }
+        /* translate 不会影响其他元素的位置 */
+        
+        div:last-of-type {
+            width: 200px;
+            height: 200px;
+            background-color: purple;
+        }
+    </style>
+</head>
+
+<body>
+    <div></div>
+    <div></div>
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>伪类选择器</title>
+    <style>
+        div {
+            width: 200px;
+            height: 3 00px;
+            border: 1px solid #000;
+        }
+        /* 在div前面插入一句话 */
+        
+        div::before {
+            content: "前面";
+            /* before和after是重新创建一个元素，就相当于一个div，所以可以给他属性。 */
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background-color: pink;
+        }
+        /* 在div后面插入一句话 */
+        
+        div::after {
+            content: "后面";
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background-color: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <div>我是div</div>
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>让盒子实现水平和垂直居中</title>
+    <style>
+        /**div {
+          width: 100px;
+          height: 100px;
+          background: #000;
+          我们在translate中写50%的意思是基于div本身的宽高的50%移动的
+          这里的50%就是 100px*50%=50px 向X轴和Y轴移动了50px的距离
+          transform: translate(50%, 50%);
+      }**/
+        
+        div {
+            position: relative;
+            width: 800px;
+            height: 800px;
+            background: #000;
+        }
+        
+        div :first-child {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            background: rgb(255, 0, 0);
+        }
+        
+        span {
+            /* 无效，因为translate对于行内元素无效 */
+            transform: translate(100px, 100px);
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <p></p>
+        <span>123</span>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>伪元素选择器案例</title>
+    <style>
+        @font-face {
+            font-family: "iconfont";
+            src: url("fonts/iconfont.eot");
+            src: url("fonts/iconfont.eot?#iefix") format("embedded-opentype"), url("fonts/iconfont.woff2") format("woff2"), url("fonts/iconfont.woff") format("woff"), url("fonts/iconfont.ttf") format("truetype"), url("fonts/iconfont.svg#iconfont") format("svg");
+        }
+        
+        div {
+            width: 200px;
+            height: 100px;
+            border: 1px solid #000;
+        }
+        
+        div>span::before {
+            content: "\e957";
+            font-family: "iconfont";
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <span></span>
+    </div>
+</body>
+
+</html>

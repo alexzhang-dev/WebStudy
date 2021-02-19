@@ -1,2 +1,7 @@
 # WebStudy
-This is a tutorial for newcomers to Web programming, I hope it will help you.
+这个教程帮助的是哪些人？
+
+* 在职，对于前端感兴趣
+* 想自学前端，但是不知道如何入门
+* 对于HTML有基本的认知（有一点点的小白基础）
+

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H5新增input表单类型</title>
+</head>
+
+<body>
+    <form action="">
+        <ul>
+            <!-- required="required" 表示该input属于必填项 -->
+            <li>用户：<input type="text" required="required" /></li>
+
+            <!-- placeholder="提示信息" -->
+            <li>日期：<input type="text" placeholder="这里输入日期" /></li>
+
+            <!-- autofocus="autofocus" 自动聚焦 -->
+            <li>聚焦：<input type="text" autofocus="autofocus" /></li>
+
+            <!-- autocomplete="on" 显示出之前输入过的数据，默认为打开，必须要有name属性 -->
+            <li>搜索：<input type="search" autocomplete="on" name="search" /></li>
+
+            <!-- multiple="multiple" 上传文件时可以多选文件 -->
+            <li>上传：<input type="file" multiple="multiple" /></li>
+
+            <li><input type="submit" value="提交"></li>
+        </ul>
+    </form>
+</body>
+
+</html>

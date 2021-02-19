@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS3属性选择器</title>
+    <style>
+        button {
+            cursor: pointer
+        }
+        /* 1. 属性选择器使用方法 []里面写属性名称 */
+        /* 选择的是：既是button，又是具有disabled属性的元素 */
+        /* 属性选择器的权重是10 */
+        
+        button[disabled] {
+            cursor: default;
+        }
+        /* 2. 属性等于值 */
+        
+        input[type="search"] {
+            color: red;
+        }
+        /* 3. 属性以某个值开头 */
+        
+        div[class^="icon"] {
+            color: green
+        }
+        /* 4. 属性以某个值结尾 */
+        
+        div[class$="icon"] {
+            color: yellow
+        }
+        /* 5. 属性包含某个值 */
+        
+        div[class*="icon"] {
+            font-size: 20px;
+            font-weight: bold
+        }
+    </style>
+</head>
+
+<body>
+    <button>按钮1</button>
+    <!-- disabled="disable" 禁用按钮 -->
+    <button disabled="disable">按钮2</button>
+
+    <input type="text" name="" value="文本框">
+    <input type="search" name="" id="" value="搜索框">
+
+    <div class="icon1">图片1</div>
+    <div class="icon2">图片2</div>
+    <div class="Myicon">图片3</div>
+    <div class="Absicon">图片3</div>
+</body>
+
+</html>

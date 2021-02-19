@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nth-of-type</title>
+    <style>
+        font {
+            color: red;
+        }
+        /* 选择div中所有子元素的第二个 */
+        
+        div :nth-child(2) {
+            color: red;
+        }
+        /* 选择div中指定的span元素的第二个 */
+        
+        div>span:nth-of-type(2) {
+            color: blue
+        }
+    </style>
+</head>
+
+<body>
+    <p>nth-of-type和nth-child的区别就是</p>
+    <ul>
+        <li>nth-of-type是
+            <font>指定元素</font>的第几个
+        </li>
+        <li>nth-child是
+            <font>所有子元素</font>的第几个
+        </li>
+    </ul>
+    <p>举例：</p>
+    <div>
+        <p>我是p</p>
+        <span>我是span1</span>
+        <span>我是span2</span>
+        <span>我是span3</span>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nth-child测试</title>
+    <style>
+        /* 选择偶数，也就是2,4,6,8,10 */
+        
+        ul>li:nth-child(even) {
+            background-color: rgb(216, 216, 216);
+        }
+        /* 选择奇数 */
+        
+        ul>li:nth-child(odd) {
+            background-color: white;
+        }
+        /* 利用even和odd可以做到隔行变色的效果 */
+        /* n用公式 */
+        /* 2n表示隔两个选择1个 */
+        
+        ul>li:nth-child(2n) {
+            color: red
+        }
+        /* 2n表示隔2个+1个选择1个，也就是奇数 */
+        
+        ul>li:nth-child(2n+1) {
+            color: green
+        }
+        /* 3n表示隔3个选择1个 */
+        
+        ul>li:nth-child(3n) {
+            font-size: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+        <li>7</li>
+        <li>8</li>
+        <li>9</li>
+        <li>10</li>
+    </ul>
+</body>
+
+</html>

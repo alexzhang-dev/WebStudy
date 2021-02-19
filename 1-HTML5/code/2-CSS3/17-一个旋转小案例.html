@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>一个旋转小案例</title>
+    <style>
+        div {
+            width: 300px;
+            height: 300px;
+            border: 1px solid black;
+            position: relative;
+            margin-left: 20%;
+            margin-top: 20%;
+            /* 溢出部分自动隐藏 */
+            overflow: hidden;
+        }
+        
+        div::before {
+            content: "";
+            display: block;
+            width: 300px;
+            height: 300px;
+            position: absolute;
+            background-color: pink;
+            transform-origin: left bottom;
+            transform: rotate(180deg);
+            transition: all 0.5s;
+        }
+        
+        div:hover::before {
+            content: "alex";
+            background-color: rgb(143, 143, 211);
+            transform: rotate(0deg);
+        }
+    </style>
+</head>
+
+<body>
+    <div></div>
+    <div></div>
+</body>
+
+</html>
