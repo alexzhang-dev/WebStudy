@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>动画属性</title>
+    <style>
+        @keyframes move {
+            100% {
+                transform: translateX(1000px);
+            }
+        }
+        
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: blue;
+            /* 动画名称 */
+            animation-name: move;
+            /* 动画持续时间 */
+            animation-duration: 2s;
+            /* 运动曲线 */
+            animation-timing-function: ease-in-out;
+            /* 规定动画何时开始 */
+            animation-delay: 0.5s;
+            /* 规定动画被播放的次数，默认是1，有属性值infinite(也就是无限循环) */
+            /* animation-iteration-count: infinite; */
+            /* 规定动画是否在下个周期倒放 默认normal 有属性值alternate(逆向播放) */
+            /* animation-direction: alternate; */
+            /* 规定动画播放后的状态 停留在当前状态：forwards，回到初始状态：backwards */
+            /* 这个状态不要和循环和逆向播放一同用，会冲突 */
+            animation-fill-mode: forwards;
+            /* move:动画名称 2s:持续时间 linear:匀速 0.5s:动画开始的等待时间  infintre:无限循环 alternate:倒放 */
+            animation: move 2s linear 0.5s infinite alternate;
+        }
+        
+        div:hover {
+            /* 鼠标经过div时，让这个div的动画停止播放，鼠标离开就继续播放 */
+            animation-play-state: paused;
+        }
+    </style>
+</head>
+
+<body>
+    <div></div>
+</body>
+
+</html>

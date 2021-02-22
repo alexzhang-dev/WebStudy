@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>scale图片放大</title>
+    <style>
+        div {
+            width: 510px;
+            height: 331px;
+            overflow: hidden;
+        }
+        
+        div>img {
+            transition: all 0.3s;
+        }
+        
+        div>img:hover {
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <img src="images/cat.jpg" />
+    </div>
+</body>
+
+</html>

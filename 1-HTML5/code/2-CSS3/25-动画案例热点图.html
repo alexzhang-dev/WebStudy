@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>热点图</title>
+    <style>
+        body {
+            background-color: rgb(58, 57, 57);
+        }
+        
+        .map {
+            width: 612px;
+            height: 510px;
+            background: url(images/map.png) no-repeat;
+            position: relative;
+            margin: 0 auto;
+        }
+        
+        .city {
+            display: block;
+            position: absolute;
+        }
+        
+        .beijing {
+            top: 209px;
+            right: 185px;
+        }
+        
+        .henan {
+            top: 281px;
+            right: 210px;
+        }
+        
+        .guangdong {
+            top: 396px;
+            right: 206px;
+        }
+        
+        .bluepoint {
+            width: 5px;
+            height: 5px;
+            background-color: #009dfd;
+            border-radius: 50%;
+        }
+        
+        .city div[class^="pulse"] {
+            width: 5px;
+            height: 5px;
+            box-shadow: 0 0 12px #009dfd;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulse 1.8s linear infinite;
+        }
+        /* !important 让浏览器优先执行 */
+        
+        .pulse-2 {
+            animation-delay: 0.6s !important;
+        }
+        /* !important 让浏览器优先执行 */
+        
+        .pulse-3 {
+            animation-delay: 1s !important;
+        }
+        
+        @keyframes pulse {
+            70% {
+                width: 20px;
+                height: 20px;
+                opacity: 1;
+            }
+            100% {
+                width: 40px;
+                height: 40px;
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="map">
+        <div class="city beijing">
+            <div class="bluepoint"></div>
+            <div class="pulse-1"></div>
+            <div class="pulse-2"></div>
+            <div class="pulse-3"></div>
+        </div>
+        <div class="city henan">
+            <div class="bluepoint"></div>
+            <div class="pulse-1"></div>
+            <div class="pulse-2"></div>
+            <div class="pulse-3"></div>
+        </div>
+        <div class="city guangdong">
+            <div class="bluepoint"></div>
+            <div class="pulse-1"></div>
+            <div class="pulse-2"></div>
+            <div class="pulse-3"></div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>速度曲线步长</title>
+    <style>
+        div {
+            width: 0px;
+            height: 26px;
+            /* linear:匀速  steps()设定步长 */
+            animation: a 2s steps(6) forwards;
+            font-size: 20px;
+            overflow: hidden;
+        }
+        
+        @keyframes a {
+            100% {
+                width: 120px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div>世界如此简单</div>
+</body>
+
+</html>
