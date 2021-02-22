@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3d位移</title>
+    <style>
+        body {
+            /* 透视写在被观察元素的父元素上面 */
+            perspective: 500px;
+        }
+        
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: blue;
+            /* transform: translateX(100px) translateY(100px) translateZ(100px); */
+            /* 1. translateZ() 表示在Z轴移动 */
+            /* 2. translateZ()我们一般px单位，很少用百分比% */
+            /* 3. translateZ(100px)表示向外移动100px */
+            /* 4. translateZ()一般和透视perspective一起用才能看到效果 */
+            /* 5. 3d位移简写：transform: translate3d(x,y,z) */
+            /* 6. 里面的x,y,z不能省略，若无值必须占位可写0 */
+            /* transform:translate3d(0,0,100px) */
+            transform: translate3d(300px, 100px, -100px);
+        }
+    </style>
+</head>
+
+<body>
+    <div></div>
+</body>
+
+</html>

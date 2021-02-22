@@ -266,7 +266,7 @@ animation: 动画名称 持续时间 运动曲线 何时开始 播放次数 是�
 **请严格按照这个顺序去写，否则效果会错乱**
 
 ```css
-naimation:move 1s linear 2s infinite alternate
+animation:move 1s linear 2s infinite alternate
 ```
 
 * 简写属性里面不包含 animation-play-state
@@ -286,4 +286,57 @@ animation-timing-function：规定动画的速度曲线，默认是“ease”
 | ease-out    | 动画以低速结束                               |
 | ease-in-out | 动画以低速开始和结束                         |
 | steps()     | 指定了间隔数量（步长）                       |
+
+# 5. CSS3 3D转换
+
+3D 转换常用的是 3D位移 和 3D旋转
+
+**主要知识点：**
+
+* 3D位移：translate3d(x,y,z)
+* 3D旋转：rotate3d(x,y,z)
+* 透视：perspective
+* 3D呈现：transform-style
+
+### 5.1 三维坐标系
+
+三维坐标就是指立体空间，立体空间由3个轴组成。
+
+* X 轴：水平向右。**注意：x 右边是正值，左边是负值**
+* Y 轴：垂直向下。**注意：y 下面是正值，上面是负值**
+* Z 轴：垂直屏幕。**注意：z 往外是正值，往里是负值**
+
+### 5.2 3D位移 translate3d
+
+* transform: translateX(100px)：仅仅在 X轴 上移动
+* transform: translateY(100px)：仅仅在 Y轴 上移动
+* transform: translateZ(100px)：仅仅在 Z轴 上移动（注意：translateZ一般用**px**单位）
+* transform: translate3d(x,y,z)：在 x y z 轴上移动
+
+### 5.3 透视 perspective
+
+ 在2D平面上产生近大远小视觉立体，但是效果只是2维的
+
+* 如果想要在网页产生3D效果需要透视（理解成3D物体投影在2D平面内）
+* 模拟人类的视觉位置，可认为安排一只眼睛去看
+* 透视，我们也称为视距：视距就是人眼到屏幕的距离
+* 透视的值越大，元素越大；透视的值越小，元素越小。
+* 透视的单位是像素（px）
+* 透视写在被观察元素的**父元素**上面
+
+### 5.4 3D旋转 rotate3d
+
+3D旋转可以让元素在三维沿着X轴、Y轴、Z轴或者自定义轴进行旋转
+
+##### 语法：
+
+* transform: rotateX(45deg)：沿着 X轴 正方向旋转45°
+* transform: rotateY(45deg)：沿着 Y轴 正方向旋转45°
+* transform: rotateZ(45deg)：沿着 Z轴 正方向旋转45°
+* transform: rotate3d(x,y,z,deg)：沿着 自定义轴 旋转，deg为角度
+
+对于元素旋转的方向的判断，可以依靠一个左手准则。
+
+* 左手的大拇指指向 X轴/Y轴/Z轴 的正方向
+* 其余的手指弯曲的方向就是该元素沿着 X轴/Y轴/Z轴 旋转的方向。
 
