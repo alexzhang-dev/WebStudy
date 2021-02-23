@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>rotateZ</title>
+    <style>
+        body {
+            perspective: 500px;
+        }
+        
+        p {
+            text-align: center;
+        }
+        
+        img {
+            display: block;
+            margin: auto;
+            transition: all 0.5s;
+        }
+        
+        img[class="img_1"]:hover {
+            transform: rotateZ(45deg);
+        }
+        
+        img[class="img_2"]:hover {
+            transform: rotateZ(-45deg);
+        }
+    </style>
+</head>
+
+<body>
+    <p>若rotateZ()里面是正数如何旋转：rotateZ(45deg)</p>
+    <img src="images/cat.jpg" class="img_1" />
+    <p>若rotateZ()里面是负数如何旋转：rotateZ(-45deg)</p>
+    <img src="images/cat.jpg" class="img_2" />
+</body>
+
+</html>

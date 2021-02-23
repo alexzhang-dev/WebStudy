@@ -16,11 +16,11 @@
 
 | 选择符        | 简介                                      |
 | :------------ | :---------------------------------------- |
-| Eatt]        | 选择具有att属性的E元素                    |
-| Eatt="val"]  | 选择具有att属性并且属性值等于val的E元素   |
-| Eatt^="val"] | 匹配具有att属性，且值以val**开头**的E元素 |
-| Eatt$="val"] | 匹配具有att属性，且值以val**结尾**的E元素 |
-| Eatt*="val"] | 匹配具有att属性，且值**包含**val的E元素   |
+| [E="att"] | 选择具有att属性的E元素                    |
+| [att="val"] | 选择具有att属性并且属性值等于val的E元素   |
+| [att^="val"] | 匹配具有att属性，且值以val**开头**的E元素 |
+| [att$="val"] | 匹配具有att属性，且值以val**结尾**的E元素 |
+| [att*="val"] | 匹配具有att属性，且值**包含**val的E元素   |
 
 ### 2.2 结构伪类选择器
 
@@ -66,7 +66,7 @@ even表示偶数，odd表示奇数
 
 在伪元素选择器中插入内容需要属性content:"值"
 
-!image-20210219144641476](resource/image/伪类选择器.png)
+![image-20210219144641476](resource/image/伪类选择器.png)
 
 **注意：**
 
@@ -308,10 +308,12 @@ animation-timing-function：规定动画的速度曲线，默认是“ease”
 
 ### 5.2 3D位移 translate3d
 
-* transform: translateX(100px)：仅仅在 X轴 上移动
-* transform: translateY(100px)：仅仅在 Y轴 上移动
-* transform: translateZ(100px)：仅仅在 Z轴 上移动（注意：translateZ一般用**px**单位）
-* transform: translate3d(x,y,z)：在 x y z 轴上移动
+##### 语法：
+
+* `transform: translateX(100px)`：仅仅在 X轴 上移动
+* `transform: translateY(100px)`：仅仅在 Y轴 上移动
+* `transform: translateZ(100px)`：仅仅在 Z轴 上移动（注意：translateZ一般用**px**单位）
+* `transform: translate3d(x,y,z)`：在 x y z 轴上移动
 
 ### 5.3 透视 perspective
 
@@ -330,13 +332,132 @@ animation-timing-function：规定动画的速度曲线，默认是“ease”
 
 ##### 语法：
 
-* transform: rotateX(45deg)：沿着 X轴 正方向旋转45°
-* transform: rotateY(45deg)：沿着 Y轴 正方向旋转45°
-* transform: rotateZ(45deg)：沿着 Z轴 正方向旋转45°
-* transform: rotate3d(x,y,z,deg)：沿着 自定义轴 旋转，deg为角度
+* `transform: rotateX(45deg)`：沿着 X轴 正方向旋转45°
+* `transform: rotateY(45deg)`：沿着 Y轴 正方向旋转45°
+* `transform: rotateZ(45deg)`：沿着 Z轴 正方向旋转45°
+* `transform: rotate3d(x,y,z,deg)`：沿着 自定义轴 旋转，deg为角度
 
 对于元素旋转的方向的判断，可以依靠一个左手准则。
 
 * 左手的大拇指指向 X轴/Y轴/Z轴 的正方向
 * 其余的手指弯曲的方向就是该元素沿着 X轴/Y轴/Z轴 旋转的方向。
 
+transform: rotate3d(x,y,z,deg)中的 x,y,z 代表旋转轴的矢量。
+
+```css
+/* 沿着 x,y相交 轴旋转 */
+transform: rotate3d(1, 1, 0, 45deg);
+/* 沿着 y,z相交 轴旋转 */
+transform: rotate3d(0, 1, 1, 45deg);
+```
+
+### 5.5 3D呈现 transform-style
+
+##### 重点：
+
+* 控制子元素是否打开三维立体
+* `transform-style: flat;` 子元素**不开启**3d立体，默认是这个属性。
+* `transform-style: preserve-3d;` 子元素**开启**立体空间
+* 属性给父元素，但影响的是子元素
+* 这个属性很重要，后面必用
+
+# 6. H5C3 综合案例
+
+[效果图](code/2-CSS3/36-H5C3综合案例.html)
+
+### 6.1 创建骨架
+
+```html
+<section>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+</section>
+```
+
+### 6.2 优化样式
+
+```css
+body {
+    perspective: 1000px;
+}
+
+section {
+    width: 250px;
+    height: 140px;
+    margin: 300px auto;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: rotate linear 10s infinite;
+    background: url(images/horse.jpg);
+}
+
+section:hover {
+    /* 鼠标经过暂停动画 */
+    animation-play-state: paused;
+}
+
+section div {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: url(images/dog.jpg);
+}
+
+section div:nth-child(1) {
+    transform: translateZ(300px);
+}
+
+section div:nth-child(2) {
+    transform: rotateY(60deg) translateZ(300px);
+}
+
+section div:nth-child(3) {
+    transform: rotateY(120deg) translateZ(300px);
+}
+
+section div:nth-child(4) {
+    transform: rotateY(180deg) translateZ(300px);
+}
+
+section div:nth-child(5) {
+    transform: rotateY(240deg) translateZ(300px);
+}
+
+section div:nth-child(6) {
+    transform: rotateY(300deg) translateZ(300px);
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotateY(360deg);
+    }
+}
+```
+
+# 7. 浏览器私有前缀
+
+浏览器私有前缀是为了兼容老版本的写法，比较新版本的浏览器无需添加
+
+### 7.1 私有前缀
+
+* `-moz-`：代表 firefox 浏览器私有属性
+* `-ms-`：代表 ie 浏览器私有属性
+* `-webkit-`：代表 safari、chrome私有属性
+* `-o-`：代表 Opera 私有属性
+
+### 7.2 提倡的写法
+
+```css
+-moz-border-redius: 10px;
+-webkit-border-redius: 10px;
+-o-border-redius: 10px;
+border-redius: 10px;
+```
+
+可以先写各浏览器的私有前缀，再写一个不带前缀的属性。

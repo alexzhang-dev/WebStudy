@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3D导航栏</title>
+    <style>
+        ul {
+            margin: 100px;
+        }
+        
+        li {
+            width: 100px;
+            height: 50px;
+            list-style: none;
+            float: left;
+            perspective: 500px;
+            margin: 0 20px;
+        }
+        
+        .box {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: all 0.4s;
+        }
+        
+        .box:hover {
+            transform: rotateX(90deg);
+        }
+        
+        .top,
+        .down {
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            line-height: 50px;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        
+        .top {
+            background-color: rgb(157, 157, 202);
+            z-index: 1;
+            transform: translateZ(25px);
+        }
+        
+        .down {
+            background-color: rgb(101, 221, 3);
+            color: #fff;
+            transform: translateY(50%) rotateX(-90deg);
+        }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li>
+            <div class="box">
+                <div class="top">导航栏</div>
+                <div class="down">导航栏下面</div>
+            </div>
+        </li>
+        <li>
+            <div class="box">
+                <div class="top">导航栏</div>
+                <div class="down">导航栏下面</div>
+            </div>
+        </li>
+        <li>
+            <div class="box">
+                <div class="top">导航栏</div>
+                <div class="down">导航栏下面</div>
+            </div>
+        </li>
+    </ul>
+</body>
+
+</html>
