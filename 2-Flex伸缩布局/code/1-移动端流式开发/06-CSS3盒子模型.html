@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS3盒子模型</title>
+    <style>
+        div:nth-child(1) {
+            /* 传统盒子模型计算 = width + padding + border */
+            width: 200px;
+            height: 200px;
+            background-color: blue;
+            border: 10px solid red;
+            padding: 10px;
+        }
+        
+        div:nth-child(2) {
+            /* 加上 box-sizing 后padding和border就不会影响width了 */
+            box-sizing: border-box;
+            width: 200px;
+            height: 200px;
+            background-color: purple;
+            border: 10px solid pink;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div></div>
+    <div></div>
+</body>
+
+</html>

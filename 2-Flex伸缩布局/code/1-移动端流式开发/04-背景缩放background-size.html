@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>背景缩放backgroud-size</title>
+    <style>
+        div {
+            width: 500px;
+            height: 500px;
+            border: 2px solid red;
+            background: url(images/dog.jpg) no-repeat;
+            /* background-size: 图片的宽度 图片的高度 */
+            background-size: 500px 500px;
+            /* 1.只写一个参数，肯定是宽度，高度会更比例缩放 */
+            background-size: 500px;
+            /* 2. 里面的单位会跟百分比 */
+            background-size: 50%;
+            /* 3. cover代表完全覆盖(按照比例完全覆盖，但是图片不一定完整) */
+            background-size: cover;
+            /* 3. contain：图片完全按照比例拓展到最大，但是背景不一定完全被覆盖 */
+            background-size: contain;
+        }
+    </style>
+</head>
+
+<body>
+    <div></div>
+</body>
+
+</html>

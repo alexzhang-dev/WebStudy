@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>特殊样式</title>
+    <style>
+        a {
+            /* 清除移动端长按链接背景会变色 */
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        input {
+            /* 清除ios端给input的特殊样式 */
+            -webkit-appearance: none;
+        }
+        
+        a,
+        img {
+            /* 禁用移动端长按后弹出菜单 */
+            -webkit-touch-callout: none;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="#">链接</a>
+    <input type="button" value="按钮" />
+</body>
+
+</html>
