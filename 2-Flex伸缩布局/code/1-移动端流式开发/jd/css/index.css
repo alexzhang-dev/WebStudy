@@ -6,13 +6,34 @@ body {
     font-size: 14px;
     font-family: -apple-system, Helvetica, sans-serif;
     color: #666;
+    background-color: #F6F6F6;
     line-height: 1.5;
+}
+
+img,
+a {
+    -webkit-touch-callout: none;
 }
 
 ul {
     margin: 0;
     padding: 0;
     list-style: none;
+}
+
+img {
+    /* 去除图片底色空白 */
+    vertical-align: middle;
+}
+
+a {
+    color: #666;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+input {
+    -webkit-appearance: none;
 }
 
 .app {
@@ -53,4 +74,195 @@ ul {
 .app ul li:nth-child(4) {
     width: 25%;
     background-color: #f63515;
+}
+
+
+/* 搜索 */
+
+.search-wrap {
+    height: 44px;
+    position: fixed;
+    overflow: hidden;
+    width: 100%;
+    min-width: 320px;
+    max-width: 640px;
+}
+
+.search-btn {
+    width: 40px;
+    height: 44px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.search-btn::before {
+    content: "";
+    display: block;
+    width: 20px;
+    height: 18px;
+    background: url(../images/s-btn.png) no-repeat;
+    background-size: 20px 18px;
+    margin: 14px 0 0 15px;
+}
+
+.search {
+    height: 30px;
+    background-color: blue;
+    margin: 0 50px;
+    border-radius: 15px;
+    background-color: #fff;
+    margin-top: 8px;
+    position: relative;
+}
+
+.jd-icon {
+    width: 20px;
+    height: 15px;
+    background: url(../images/jd.png) no-repeat;
+    position: absolute;
+    top: 8px;
+    left: 13px;
+    background-size: 20px 15px;
+}
+
+.jd-icon::after {
+    content: "";
+    width: 1px;
+    background: #ccc;
+    display: block;
+    height: 15px;
+    position: absolute;
+    right: -8px;
+    top: 0;
+}
+
+.search-icon {
+    width: 18px;
+    height: 15px;
+    background-color: blue;
+    position: absolute;
+    top: 8px;
+    left: 48px;
+    background: url(../images/jd-sprites.png) no-repeat -81px 0px;
+    background-size: 200px;
+}
+
+#search-input {
+    border: none;
+    position: absolute;
+    right: 10px;
+    top: 4px;
+    height: 20px;
+    width: 68%;
+}
+
+.search-login {
+    width: 40px;
+    height: 44px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #fff;
+    line-height: 44px;
+}
+
+
+/* banner */
+
+.slider img {
+    width: 100%;
+}
+
+
+/* brand */
+
+.brand {
+    width: 100%;
+    overflow: hidden;
+}
+
+.brand div {
+    width: 33.33%;
+    float: left;
+}
+
+.brand div img {
+    width: 100%;
+}
+
+
+/* nav */
+
+nav {
+    height: 162px;
+}
+
+nav a {
+    width: 20%;
+    float: left;
+    text-align: center;
+}
+
+nav a img {
+    width: 40px;
+    margin: 10px auto;
+}
+
+nav a span {
+    display: block;
+}
+
+
+/* 活动 */
+
+.news {
+    height: 120px;
+}
+
+.news a {
+    float: left;
+    box-sizing: border-box;
+}
+
+.news a:nth-child(1) {
+    width: 50%;
+}
+
+.news a:nth-child(n+2) {
+    width: 25%;
+    border-left: 1px solid rgb(201, 201, 201)
+}
+
+.news a img {
+    width: 100%;
+}
+
+
+/* 产品推荐 */
+
+.product {
+    width: 96%;
+    margin: 2% auto;
+    background-color: #fff;
+    min-height: 200px;
+}
+
+.product div {
+    width: 25%;
+    float: left;
+}
+
+.product div p {
+    font-size: 18px;
+    font-weight: bold;
+    height: 20px;
+}
+
+.product div span {
+    display: block;
+}
+
+.product div img {
+    width: 100%;
 }

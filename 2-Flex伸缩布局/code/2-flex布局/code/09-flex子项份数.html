@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>flex子项份数</title>
+    <style>
+        section {
+            width: 800px;
+            height: 500px;
+            background-color: red;
+            display: flex;
+        }
+        
+        section div:nth-child(1) {
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+        }
+        
+        section div:nth-child(2) {
+            background-color: blue;
+            /* flex 子项占剩余空间的比例 值是1代表100% */
+            /* 宽高都不用写 */
+            flex: 1;
+            flex: 0.5;
+        }
+        
+        section div:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            background-color: purple;
+        }
+    </style>
+</head>
+
+<body>
+    <section>
+        <div></div>
+        <div></div>
+        <div></div>
+    </section>
+</body>
+
+</html>

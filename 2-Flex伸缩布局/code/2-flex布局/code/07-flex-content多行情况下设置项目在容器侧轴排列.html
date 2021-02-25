@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>多行情况下设置项目在容器侧轴排列</title>
+    <style>
+        div {
+            width: 800px;
+            height: 500px;
+            background-color: blue;
+            display: flex;
+            /* 换行 */
+            flex-wrap: wrap;
+            /* 因为换行，此时侧轴是多行，所以用aligin-content控制排列方式 */
+            /* 侧轴居上（默认） */
+            align-content: flex-start;
+            /* 侧轴居末 */
+            align-content: flex-end;
+            /* 侧轴居中 */
+            align-content: center;
+            /* 侧轴平分 */
+            align-content: space-around;
+            /* 侧轴先贴边，再平分 */
+            align-content: space-between;
+            /* 平分 */
+            align-content: stretch;
+        }
+        
+        div span {
+            width: 150px;
+            height: 100px;
+            background-color: red;
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <span>1</span>
+        <span>2</span>
+        <span>3</span>
+        <span>4</span>
+        <span>5</span>
+        <span>6</span>
+    </div>
+</body>
+
+</html>

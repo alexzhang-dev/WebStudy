@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>flex主轴方向</title>
+    <style>
+        div {
+            width: 80%;
+            height: 300px;
+            background-color: blue;
+            /* 给父元素添加flex属性 */
+            display: flex;
+            /* 改变主轴方向 默认主轴是x轴，侧轴是y轴，我们的元素是根据主轴排列的 */
+            flex-direction: column;
+        }
+        
+        div span {
+            width: 150px;
+            height: 100px;
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <span>1</span>
+        <span>2</span>
+        <span>3</span>
+    </div>
+</body>
+
+</html>
