@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>align-self和order</title>
+    <style>
+        div {
+            width: 300px;
+            height: 200px;
+            background-color: pink;
+            display: flex;
+        }
+        
+        div span {
+            background-color: blue;
+            width: 50px;
+            height: 50px;
+            margin: 10px;
+            color: #fff;
+        }
+        
+        div span:nth-child(3) {
+            /* order自定义排列方式，默认值0，数值越小排列越靠前 */
+            order: -1;
+        }
+        
+        div span:nth-child(2) {
+            /* 单独对第二个span设置侧轴对齐方式 */
+            align-self: flex-end;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <span>1</span>
+        <span>2</span>
+        <span>3</span>
+    </div>
+</body>
+
+</html>
