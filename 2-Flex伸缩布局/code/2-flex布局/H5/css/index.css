@@ -1,0 +1,491 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    width: 100%;
+    max-width: 540px;
+    margin: 0 auto;
+    font: 400 16px/1.5 PingFangSC-regular, Tahoma, "Lucida Grande", Verdana, "Microsoft Yahei", STXihei, hei;
+}
+
+a {
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+}
+
+div {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.search_box {
+    width: 100%;
+    position: fixed;
+    max-width: 540px;
+    height: 44px;
+    left: 50%;
+    top: 0;
+    /* 别忘了-webkit- */
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    display: flex;
+    z-index: 12;
+}
+
+
+/* 搜索 */
+
+.search {
+    flex: 1;
+    background-color: #fff;
+    border-radius: 15px;
+    margin: 7px 0px 7px 10px;
+    line-height: 30px;
+    font-size: 15px;
+    color: rgb(126, 123, 123);
+    padding-left: 40px;
+}
+
+.search::before {
+    content: '';
+    display: block;
+    width: 35px;
+    height: 28px;
+    background: url(../images/home-common-sprite@2x.png) no-repeat;
+    background-size: 21px auto;
+    position: absolute;
+    left: 26px;
+    top: 15px;
+}
+
+
+/* 我的 */
+
+.user {
+    width: 51px;
+    height: 44px;
+    margin-right: 3px;
+    float: right;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+}
+
+.user::before {
+    content: "";
+    width: 22px;
+    height: 22px;
+    background: url(../images/home-common-sprite@2x.png) no-repeat;
+    background-position: 1px -36px;
+    background-size: 21px auto;
+    display: block;
+    margin: 4px 13px 0;
+}
+
+
+/* focus焦点图 */
+
+.focus {
+    width: 100%;
+    height: 259px;
+    overflow: hidden;
+    position: relative;
+    z-index: -1;
+}
+
+.focus img {
+    width: 100%;
+    height: 100%;
+}
+
+.focus::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    display: block;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, .4), rgba(0, 0, 0, 0));
+}
+
+
+/* 导航1 */
+
+.local_nav {
+    height: 64px;
+    z-index: 12;
+    background-color: #fff;
+    margin: auto 12px;
+    margin-top: -20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgb(0 0 0 / 8%);
+}
+
+.local_nav ul {
+    width: 100%;
+    display: flex;
+}
+
+.local_nav li {
+    list-style: none;
+    float: left;
+    display: block;
+    flex: 1;
+}
+
+.local_nav li a {
+    display: flex;
+    /* 把主轴变成Y轴 */
+    flex-direction: column;
+    /* 让Y轴上的居中 */
+    align-items: center;
+    font-size: 13px;
+    color: #222;
+}
+
+.local_nav li span[class^="local_nav_icon"] {
+    display: block;
+    width: 40px;
+    height: 40px;
+    background: url(../images/home-fivemain-sprite@2x.png) no-repeat;
+    background-size: 40px auto;
+}
+
+
+/* 攻略·景点 */
+
+.local_nav li span[class*="book"] {
+    background-position: 0 0;
+}
+
+
+/* 门票·活动 */
+
+.local_nav li span[class*="ticket"] {
+    background-position: 0 -40px;
+}
+
+
+/* 美食林 */
+
+.local_nav li span[class*="food"] {
+    background-position: 0 -80px;
+}
+
+
+/* 周边游 */
+
+.local_nav li span[class*="travel"] {
+    background-position: 0 -120px;
+}
+
+
+/* 一日游 */
+
+.local_nav li span[class*="oneday"] {
+    background-position: 0 -160px;
+}
+
+
+/* -----------------导航1结束-------------------- */
+
+
+/* 大导航 */
+
+.nav {
+    height: 198px;
+    margin: 10px 10px 0 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.nav a {
+    font-size: 14px;
+    color: #fff;
+    box-sizing: border-box;
+}
+
+.nav div {
+    flex: 1;
+    display: flex;
+}
+
+.nav-1 {
+    background: linear-gradient(to right, #fa5956, #fb8650 54%);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+
+/* 酒店 */
+
+.nav-1 .hotel {
+    flex: 1.2;
+    flex-direction: column;
+    display: flex;
+    padding-left: 15px;
+    justify-content: center;
+    background: url(../images/nav-hotel.png) no-repeat right bottom;
+    background-size: 73px auto;
+    border-right: 1px solid #fff;
+}
+
+
+/* 民宿 */
+
+.nav-1 .minsu {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-right: 1px solid #fff;
+    background: url(../images/nav-minsu.png) no-repeat left bottom;
+    background-size: 37px auto;
+}
+
+
+/* 特价 */
+
+.nav-1 .hot {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url(../images/nav-hot.png) no-repeat right bottom #FFBF4A;
+    background-size: 100% auto;
+    color: #a05416;
+    padding-left: 1px;
+    border-top-right-radius: 8px;
+}
+
+
+/* -------------第一排结束------------ */
+
+.nav-2 {
+    background: linear-gradient(to right, #4b8fed, #53bced);
+}
+
+.nav-2 .plane {
+    flex: 1.2;
+    flex-direction: column;
+    display: flex;
+    padding-left: 15px;
+    justify-content: center;
+    background: url(../images/nav-flight.png) no-repeat right bottom;
+    background-size: 73px auto;
+    border-right: 1px solid #fff;
+}
+
+.nav-2 .train {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-right: 1px solid #fff;
+    background: url(../images/nav-train.png) no-repeat left bottom;
+    background-size: 37px auto;
+}
+
+.nav-2 .ship {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-right: 1px solid #fff;
+}
+
+.nav-2 .car {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* -------------第二排结束------------ */
+
+.nav-3 {
+    background: linear-gradient(to right, #34c2aa, #6cd557);
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.nav-3 .travel {
+    flex: 1.2;
+    flex-direction: column;
+    display: flex;
+    padding-left: 15px;
+    justify-content: center;
+    background: url(../images/nav-travel.png) no-repeat right bottom;
+    background-size: 73px auto;
+    border-right: 1px solid #fff;
+}
+
+.nav-3 .gaotie {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-right: 1px solid #fff;
+    background: url(../images/nav-gaotie.png) no-repeat left bottom;
+    background-size: 37px auto;
+}
+
+.nav-3 .cruise {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-right: 1px solid #fff;
+}
+
+.nav-3 .dingzhi {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* ---------------subnav开始--------------- */
+
+.subnav_entry {
+    width: 100%;
+    height: 110px;
+    margin: 10px auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.subnav_entry ul {
+    width: 100%;
+}
+
+.subnav_entry li {
+    width: 20%;
+    float: left;
+    list-style: none;
+}
+
+.subnav_entry li a {
+    color: #222;
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.subnav_entry li a span[class^="subnav_icon"] {
+    width: 28px;
+    height: 28px;
+    display: block;
+    background: url(../images/subnav@2x.png) no-repeat;
+    background-size: 28px auto;
+    margin: 4px 0;
+}
+
+
+/* 自由行 */
+
+.subnav_entry li a span[class*="travel"] {
+    background-position: 0 0;
+}
+
+
+/* wifi */
+
+.subnav_entry li a span[class*="wifi"] {
+    background-position: 0 -28px;
+}
+
+
+/* 保险·签证 */
+
+.subnav_entry li a span[class*="insurance"] {
+    background-position: 0 -56px;
+}
+
+
+/* 换钞·购物 */
+
+.subnav_entry li a span[class*="shopping"] {
+    background-position: 0 -84px;
+}
+
+
+/* 向导·包车 */
+
+.subnav_entry li a span[class*="guide"] {
+    background-position: 0 -112px;
+}
+
+
+/* 特价机票 */
+
+.subnav_entry li a span[class*="flight"] {
+    background-position: 0 -140px;
+}
+
+
+/* 礼品卡 */
+
+.subnav_entry li a span[class*="card"] {
+    background-position: 0 -168px;
+}
+
+
+/* 申卡·借钱 */
+
+.subnav_entry li a span[class*="creditCard"] {
+    background-position: 0 -196px;
+}
+
+
+/* 社区 */
+
+.subnav_entry li a span[class*="photograph"] {
+    background-position: 0 -224px;
+}
+
+
+/* 更多 */
+
+.subnav_entry li a span[class*="more"] {
+    background-position: 0 -252px;
+}
+
+
+/* 下方工具栏开始 */
+
+.tool_box {
+    width: 100%;
+    height: 60px;
+    background-color: #fff;
+    border-top: 1px solid #c2c2c2;
+    border-bottom: 1px solid #c2c2c2;
+    margin: 10px auto;
+    display: flex;
+}
+
+.tool_box svg {
+    width: 20px;
+    height: 20px;
+    margin-bottom: 2px;
+    color: rgb(153, 151, 151);
+}
+
+.tool_box a {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: rgb(153, 151, 151);
+    font-size: 12px;
+}
