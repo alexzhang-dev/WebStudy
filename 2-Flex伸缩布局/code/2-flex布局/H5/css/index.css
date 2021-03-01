@@ -218,6 +218,7 @@ div {
     background: linear-gradient(to right, #fa5956, #fb8650 54%);
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
+    border-bottom: 1px solid #fff;
 }
 
 
@@ -267,6 +268,7 @@ div {
 
 .nav-2 {
     background: linear-gradient(to right, #4b8fed, #53bced);
+    border-bottom: 1px solid #fff;
 }
 
 .nav-2 .plane {
