@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>媒体查询+rem</title>
+    <style>
+        @media screen and (max-width: 959px) {
+            html {
+                font-size: 14px;
+            }
+        }
+        
+        @media screen and (min-width: 960px) {
+            html {
+                font-size: 24px;
+            }
+        }
+        
+        .top {
+            height: 5rem;
+            font-size: 2rem;
+            background-color: pink;
+            /* 绝对居中（垂直+水平） */
+            text-align: center;
+            line-height: 5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="top">购物车</div>
+</body>
+
+</html>

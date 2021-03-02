@@ -1,0 +1,14 @@
+// 定义一个粉色的变量
+@color: pink;
+
+// 错误的命名：@1 @color~
+// 大小写敏感 @Color和@color不是一个变量
+
+body {
+  // 可以直接使用变量
+  background-color: @color;
+}
+
+div {
+  color: @color;
+}

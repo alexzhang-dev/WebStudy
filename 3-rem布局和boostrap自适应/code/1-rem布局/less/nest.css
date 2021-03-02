@@ -1,0 +1,19 @@
+.header {
+  width: 200px;
+  height: 200px;
+  border: 1px solid red;
+}
+.header a {
+  color: #bdbd11;
+}
+.header a:hover {
+  color: green;
+}
+nav {
+  width: 200px;
+  height: 200px;
+  border: 1px solid red;
+}
+nav .logo {
+  color: red;
+}

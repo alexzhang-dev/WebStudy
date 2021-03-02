@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>rem单位</title>
+    <style>
+        html {
+            font-size: 14px;
+        }
+        
+        div {
+            font-size: 12px;
+        }
+        
+        p {
+            /* 1. em是根据父元素的字体大小来说的
+                  此时父元素字体12px，10em换算就是120px */
+            /* width: 10em;
+            height: 10em; */
+            /* 2. rem是根据根标签（html）的字体大小来计算的
+                  此时根元素字体14px，10rem换算就是140px */
+            width: 10rem;
+            height: 10rem;
+            background-color: blue;
+            /* 3. rem的优点就是可以通过修改html里面的文字大小来整体控制页面的元素大小 */
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <p></p>
+    </div>
+</body>
+
+</html>

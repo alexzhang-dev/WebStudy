@@ -1,0 +1,21 @@
+.header {
+  width: 200px;
+  height: 200px;
+  border: 1px solid red;
+  // 直接在父元素里面写子元素
+  a {
+    color: rgb(189, 189, 17);
+    &:hover {
+      color: green;
+    }
+  }
+}
+
+nav {
+  width: 200px;
+  height: 200px;
+  border: 1px solid red;
+  .logo {
+    color: red;
+  }
+}
