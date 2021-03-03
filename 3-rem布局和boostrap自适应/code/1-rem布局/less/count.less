@@ -1,0 +1,23 @@
+@baseFont: 50px;
+html {
+  font-size: @baseFont;
+}
+
+@width:1000px + 5;
+.main {
+  width: @width;
+  height: @width * 2;
+  background-color: blue;
+}
+
+.inner {
+  // 做除的时候记得用小括号括起来
+  width: (82rem / @baseFont);
+  height: (82rem / @baseFont);
+  background-color: pink;
+  //   颜色也可以参与运算
+  color: #444 - #222;
+}
+// 1.less运算符左右需要有空格隔开
+// 2.两个数参与运算，只有一个数有单位，那么就以这个单位为准
+// 3.两个数参与运算，两个数都有单位且不同，那么以前一个数的单位为准(所以如果是rem前面的单位就要用rem)

@@ -1,0 +1,14 @@
+html {
+  font-size: 50px;
+}
+.main {
+  width: 1005px;
+  height: 2010px;
+  background-color: blue;
+}
+.inner {
+  width: 1.64rem;
+  height: 1.64rem;
+  background-color: pink;
+  color: #222222;
+}
