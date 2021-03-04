@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>栅格系统使用</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        [class^="col-"] {
+            border: 1px solid red;
+        }
+        
+        .shower {
+            height: 120px;
+            background-color: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <!-- 一行共平均分为12列，在大屏情况下每个占3份，在小屏情况下每个占4份 -->
+            <div class="col-lg-3">1</div>
+            <div class="col-lg-3">2</div>
+            <div class="col-lg-3">3</div>
+            <div class="col-lg-3">4</div>
+        </div>
+        <div class="row">
+            <!-- 如果份数相加刚好等于12，那么就会占满整个container -->
+            <div class="col-lg-6">1</div>
+            <div class="col-lg-2">2</div>
+            <div class="col-lg-2">3</div>
+            <div class="col-lg-2">4</div>
+        </div>
+        <div class="row">
+            <!-- 如果份数相加超过12，那么多余的份数就会换行 -->
+            <div class="col-lg-6">1</div>
+            <div class="col-lg-4">2</div>
+            <div class="col-lg-4">3</div>
+            <div class="col-lg-4">4</div>
+        </div>
+
+        <div class="row">
+            <!-- 在大屏情况下，每个占3分，刚好一列4个 col-lg-3 -->
+            <!-- 在中屏情况下，每个占4分，一列刚好3个 col-md-4 -->
+            <!-- 在小屏情况下，每个占6份，刚好一列2个 col-sm-6 -->
+            <!-- 超小屏情况下，每个占12份，刚好一列1个 col-xs-12 -->
+            <div class="shower col-lg-3 col-md-4 col-sm-6 col-xs-12">1</div>
+            <div class="shower col-lg-3 col-md-4 col-sm-6 col-xs-12">2</div>
+            <div class="shower col-lg-3 col-md-4 col-sm-6 col-xs-12">3</div>
+            <div class="shower col-lg-3 col-md-4 col-sm-6 col-xs-12">4</div>
+            <div class="shower col-lg-3 col-md-4 col-sm-6 col-xs-12">4</div>
+            <div class="shower col-lg-3 col-md-4 col-sm-6 col-xs-12">4</div>
+        </div>
+    </div>
+</body>
+
+</html>

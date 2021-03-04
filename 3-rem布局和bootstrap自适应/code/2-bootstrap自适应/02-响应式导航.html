@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>响应式导航</title>
+    <style>
+        .container {
+            margin: 0 auto;
+        }
+        /* 1. 超小屏幕下(<768px)，宽度是100% */
+        
+        @media screen and (max-width: 767px) {
+            .container {
+                width: 100%;
+            }
+        }
+        /* 1. 小屏幕下(>=768px)，宽度是750px */
+        
+        @media screen and (min-width: 768px) {
+            .container {
+                width: 750px;
+            }
+        }
+        /* 1. 中等屏幕下(>=992px)，宽度是970px */
+        
+        @media screen and (min-width: 992px) {
+            .container {
+                width: 970px;
+            }
+        }
+        /* 1. 大屏幕下(>=1200px)，宽度是1170px */
+        
+        @media screen and (min-width: 1200px) {
+            .container {
+                width: 1170px;
+            }
+        }
+        
+        .nav {
+            width: 100%;
+        }
+        
+        .nav ul {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav ul li {
+            float: left;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            color: #fff;
+            background-color: green;
+            list-style-type: none;
+        }
+        /* 中等屏幕和大屏幕一行显示 */
+        
+        @media screen and (min-width: 970px) {
+            .nav ul li {
+                width: 12.5%;
+            }
+        }
+        /* 小屏幕和超小屏幕分三行显示 */
+        
+        @media screen and (max-width: 969px) {
+            .nav ul li {
+                width: 33.33%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="nav">
+            <ul>
+                <li>导航1</li>
+                <li>导航2</li>
+                <li>导航3</li>
+                <li>导航4</li>
+                <li>导航5</li>
+                <li>导航6</li>
+                <li>导航7</li>
+                <li>导航8</li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>响应式布局原理</title>
+    <style>
+        .container {
+            height: 150px;
+            margin: 0 auto;
+            background-color: blue;
+        }
+        /* 1. 超小屏幕下(<768px)，宽度是100% */
+        
+        @media screen and (max-width: 767px) {
+            .container {
+                width: 100%;
+            }
+        }
+        /* 1. 小屏幕下(>=768px)，宽度是750px */
+        
+        @media screen and (min-width: 768px) {
+            .container {
+                width: 750px;
+            }
+        }
+        /* 1. 中等屏幕下(>=992px)，宽度是970px */
+        
+        @media screen and (min-width: 992px) {
+            .container {
+                width: 970px;
+            }
+        }
+        /* 1. 大屏幕下(>=1200px)，宽度是1170px */
+        
+        @media screen and (min-width: 1200px) {
+            .container {
+                width: 1170px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 在响应式开发中，需要一个布局容器 -->
+    <div class="container"></div>
+</body>
+
+</html>

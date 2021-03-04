@@ -288,7 +288,7 @@ rem+媒体查询+rem
 @import "common.less";
 ```
 
-##### 5.6 body样式
+### 5.6 body样式
 
 苏宁原版
 
@@ -302,6 +302,4 @@ body {
   background-color: #f2f2f2;
 }
 ```
-
-
 
