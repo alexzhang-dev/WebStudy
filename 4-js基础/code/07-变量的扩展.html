@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>变量的扩展</title>
+    <script>
+        // 1. 更新变量
+        var my_name = "alex";
+        my_name = "alex111";
+        // 多次修改变量的值后以最后一个值为准
+        console.log(my_name);
+        // 2. 声明多个变量，以逗号分隔
+        var age = 0,
+            address = "Beijing";
+        console.log(age, address);
+        // 3. 声明变量的特殊情况
+        // 3.1 只声明不赋值，结果undefined(未定义)
+        var sex;
+        console.log(sex);
+        // 3.2 不声明直接使用，直接报错
+        // console.log(email);
+        // 3.3 不声明，只赋值，结果是100，是因为默认自带var
+        tel = 100;
+        console.log(tel);
+    </script>
+</head>
+
+<body></body>
+
+</html>
