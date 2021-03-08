@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+        // for循环可以执行不同的代码
+        for (var i = 1; i <= 100; i++) {
+            console.log("今天我" + i + "岁了");
+        }
+
+        // 求1-100之间数字的平均值
+        var sum = 0;
+        for (var i = 1; i <= 100; i++) {
+            sum += i;
+        }
+        console.log(sum / 100);
+
+        // 求1-100之间能被3整除的值
+        var sum = 0;
+        for (var i = 1; i <= 100; i++) {
+            if (i % 3 == 0) {
+                sum += i;
+            }
+        }
+        console.log(sum);
+        // 打印一行星星
+        var str = "";
+        for (var i = 0; i < 5; i++) {
+            str += "★";
+        }
+        console.log(str);
+    </script>
+</head>
+
+<body></body>
+
+</html>

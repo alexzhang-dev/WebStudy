@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+        // 之前用 1=1 && 2=2
+        // 1+1 && 2+2 这种返回的是什么值？
+        // 如果左边返回是真，那么取右边，如果左边返回是假，那么取左边
+        console.log(1 + 1 && 2 + 2); // 因为左边是真，所以计算右边，所以是4
+        console.log(0 && 2 + 2); // 因为左边是假，那么直接返回左边
+
+        // 逻辑或就相反了
+        // 如果左边为真，那么取左边，如果左边为假那么取右边
+        console.log(0 || 2 + 2); // 左边为假，那么取右边
+        console.log(2 + 3 || 0); // 左边为真，那么取左边
+
+        // 小例子
+        var num = 0;
+        console.log(123 || num++);
+        console.log(0); // 最后结果是0，因为上面左边123是真，就不会运算右边的num++了
+    </script>
+</head>
+
+<body></body>
+
+</html>

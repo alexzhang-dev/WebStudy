@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+        // continue关键字用于立即跳出本次循环，继续下次循环
+        console.log("我就不执行3");
+        for (var i = 0; i < 5; i++) {
+            if (i == 3) {
+                continue;
+            }
+            console.log("此时i是" + i);
+        }
+        // 求1-100能被3整除之外的数的和
+        var sum = 0;
+        for (var i = 1; i <= 100; i++) {
+            if (i % 3 == 0) {
+                continue;
+            }
+            sum += i;
+        }
+        console.log(sum);
+    </script>
+</head>
+
+<body></body>
+
+</html>
