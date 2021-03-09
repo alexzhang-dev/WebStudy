@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+        // 根据作用域的不同，变量可以分为两种：
+        // 1. 全局变量(直接在全局作用域下声明)
+        // 注意：如果在函数内部没有声明直接赋值的变量也属于全局变量
+        var num = 0;
+        console.log(num); // 全局可使用
+        function fn1() {
+            console.log(num); // 局部可使用
+        }
+        fn1();
+        // 2. 局部变量(声明在函数内部)
+        // 注意：函数的形参也可以看做是局部变量
+        function fn2() {
+            var num2 = 1;
+            num3 = 2; // 这个也属于全局变量
+            console.log(num2); // 局部可使用
+        }
+        fn2();
+        // console.log(num2); // 全局不可使用，会报错
+        console.log(num3);
+    </script>
+</head>
+
+<body></body>
+
+</html>

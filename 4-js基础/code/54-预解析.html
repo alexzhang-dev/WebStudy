@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+        // 问题1
+        console.log(num);
+        var num = 1; // 打印不会报错，而会显示undefined
+        // 问题2
+        fn();
+
+        function fn() {
+            console.log("fn...");
+        }
+
+        // 问题3
+        fn2(); //报错！
+
+        var fn2 = function() {
+            console.log("fn2...");
+        };
+
+        // 1. 我们解释器在运行JS分为两步：预解析、代码执行
+        //   (1). 预解析 js引擎会把所有的var function 提升到当前作用域的最前面
+        //   (2). 代码执行  按照代码书写的顺序从上往下执行
+        // 2. 预解析分为：变量预解析(变量提升)和函数预解析(函数提升)
+        //   (1). 变量提升：把所有的变量声明提升到当前的作用域最前面(只提升变量声明，不提升赋值操作)
+    </script>
+</head>
+
+<body></body>
+
+</html>

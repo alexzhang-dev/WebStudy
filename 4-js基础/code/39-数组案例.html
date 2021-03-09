@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+        // 获取最大值
+        var arr = [1, 15, 54, 123, 288, 5];
+        var max_num = arr[1]; // max初始值为数组的第一个数
+        for (var i = 1; i < arr.length; i++) {
+            // 因为max已经是第一个数了，所以从第二个开始遍历
+            if (arr[i] > max_num) {
+                max_num = arr[i];
+            }
+        }
+        console.log(max_num);
+
+        // 数组转换为字符串
+        var arr2 = ["red", "green", "blue"];
+        var str = "";
+        for (var i = 0; i < arr2.length; i++) {
+            str += arr2[i] += "|";
+        }
+        console.log(str);
+
+        // 数组存放1-100
+        var arr3 = [];
+        for (var i = 0; i < 100; i++) {
+            arr3[i] = i + 1;
+        }
+        console.log(arr3);
+
+        // 把数组中大于10的选出来放入新数组
+        var arr4 = [1, 5, 8, 18, 4, 20, 6, 12];
+        var new_arr4 = [];
+        for (var i = 0; i < arr4.length; i++) {
+            if (arr4[i] > 10) {
+                new_arr4.push(arr4[i]);
+            }
+        }
+        console.log(new_arr4);
+
+        // 反转数组
+        var arr5 = [1, 2, 3, 4, 5];
+        var new_arr5 = [];
+        for (var i = 0; i < arr5.length; i++) {
+            new_arr5[arr5.length - i - 1] = arr5[i];
+        }
+        console.log(new_arr5);
+    </script>
+</head>
+
+<body></body>
+
+</html>

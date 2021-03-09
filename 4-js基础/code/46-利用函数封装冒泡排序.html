@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+        function sort(nums) {
+            var temp = 0;
+            for (var i = 0; i < nums.length - 1; i++) {
+                for (var j = 0; j < nums.length - i; j++) {
+                    if (nums[j] > nums[j + 1]) {
+                        temp = nums[j];
+                        nums[j] = nums[j + 1];
+                        nums[j + 1] = temp;
+                    }
+                }
+            }
+            return nums;
+        }
+        var arr = [9, 1, 4, 15, 88, 35, 41, 105, 13];
+        console.log(sort(arr));
+    </script>
+</head>
+
+<body></body>
+
+</html>

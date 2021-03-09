@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+        function getSum(num1, num2) {
+            console.log(num1 + num2);
+        }
+        // 1. 如果形参实参个数匹配，则正确输出结果
+        getSum(2, 3); //5
+        // 2. 如果实参的个数多于形参的个数，则多的参数接不到
+        getSum(2, 3, 4); // 5
+        // 3. 如果实参的个数少于形参的个数，则少的实参会被定义为undefined，最后结果是NaN
+        getSum(2); // NaN
+    </script>
+</head>
+
+<body></body>
+
+</html>

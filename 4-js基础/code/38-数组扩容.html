@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+        // 1. 修改length长度来扩容数组
+        var arr = [1, 2, 3];
+        arr.length = 5;
+        console.log(arr[3]); // 由于没有定义扩容的值，默认undefined
+        console.log(arr[4]);
+
+        // 2. 修改索引号
+        var arr1 = [1, 2, 3];
+        arr1[3] = "我是3"; // 追加数组元素
+        arr1[4] = "我是4";
+        console.log(arr1);
+
+        // 3.push
+        var arr2 = [1, 2, 3, 4];
+        arr2.push("我是5");
+        console.log(arr2);
+    </script>
+</head>
+
+<body></body>
+
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+        function fn() {
+            console.log(arguments);
+            console.log(arguments.length);
+            // 遍历arguments
+            for (var i = 0; i < arguments.length; i++) {
+                console.log(arguments[i]);
+            }
+        }
+        fn(1, 2, 3);
+
+        // 伪数组，并不是真正意义的数组
+        // 1. 有数组的length属性
+        // 2. 按照索引的方式进行储存的
+        // 3. 没有真正数组的一些方法 pop()  push()
+    </script>
+</head>
+
+<body></body>
+
+</html>

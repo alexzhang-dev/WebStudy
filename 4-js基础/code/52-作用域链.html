@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+        // 作用域链：内部函数访问外部函数的变量，采取的是链式查找的机制决定取的是那个值
+        var num = 10;
+
+        function fn() {
+            // 外部函数
+            var num = 20;
+
+            function fn2() {
+                console.log(num); // 内部函数可以访问外部函数的变量
+            }
+            fn2();
+        }
+        fn();
+    </script>
+</head>
+
+<body></body>
+
+</html>
