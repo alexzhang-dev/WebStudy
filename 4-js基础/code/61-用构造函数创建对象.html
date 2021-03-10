@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+        // 用构造函数创建对象
+        // 我们需要四大天王的对象。相同的属性：名字、年龄、性别。相同的方法：唱歌
+        // 构造函数的语法格式：
+        // function 构造函数名() {
+        //     this.属性 = 值;
+        //     this.方法 = function() {};
+        // }
+        // 使用构造函数
+        // new 构造函数名();
+        function Star(uname, age, sex) {
+            this.uname = uname;
+            this.age = age;
+            this.sex = sex;
+            this.sing = function(song) {
+                console.log("唱了" + song);
+            };
+        }
+        var ldh = new Star("刘德华", 18, "男");
+
+        console.log(ldh.uname);
+        console.log(typeof ldh);
+        ldh.sing("冰雨");
+        var zxy = new Star("张学友", 19, "男");
+        console.log(zxy.uname);
+    </script>
+</head>
+
+<body></body>
+
+</html>

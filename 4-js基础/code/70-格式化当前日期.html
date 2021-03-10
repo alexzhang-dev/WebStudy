@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+        // 格式化当前日期
+        var date = new Date();
+        console.log(date.getFullYear()); // 获取当年
+        console.log(date.getMonth() + 1); // 获取当月(0-11)，所以要加1
+        console.log(date.getDate()); // 获取当天
+        console.log(date.getDay()); // 获取周几(周日0-周六6)
+        console.log(date.getHours()); // 获取当前时
+        console.log(date.getMinutes()); // 获取当前分
+        console.log(date.getSeconds()); // 获取当前秒
+        var week_day = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
+        // 我们要这种格式的   xxxx年x月x日  x时:x分:秒
+        console.log(
+            date.getFullYear() +
+            "年" +
+            (date.getMonth() + 1) +
+            "月" +
+            date.getDate() +
+            "日 " +
+            week_day[date.getDay()] +
+            " " +
+            date.getHours() +
+            ":" +
+            date.getMinutes() +
+            ":" +
+            date.getSeconds()
+        );
+
+        // 封装一个函数获取当前时间
+        function getTime() {
+            var date = new Date();
+            var h = date.getHours();
+            h = h < 10 ? "0" + h : h;
+            var m = date.getMinutes();
+            m = m < 10 ? "0" + m : m;
+            var s = date.getSeconds();
+            s = s < 10 ? "0" + s : s;
+            return h + ":" + m + ":" + s;
+        }
+        console.log(getTime());
+    </script>
+</head>
+
+<body></body>
+
+</html>

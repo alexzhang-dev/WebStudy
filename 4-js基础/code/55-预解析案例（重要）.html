@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+        // 预解析案例
+        // 案例1
+        var num = 10;
+        fun();
+
+        function fun() {
+            console.log(num);
+            var num = 20;
+        }
+        // 结果是undefined
+        // 相当于执行了以下操作：
+        var num;
+
+        function fun() {
+            var num;
+            console.log(num);
+            num = 20;
+        }
+        num = 10;
+        fun();
+
+        // 案例2
+        var num = 10;
+
+        function fn() {
+            console.log(num);
+            var num = 20;
+            console.log(num);
+        }
+        fn();
+        // 结果是：undefined、20
+        // 相当于执行了以下操作
+        // var num;
+
+        // function fn() {
+        //     var num;
+        //     console.log(num);
+        //     num = 20;
+        //     console.log(num);
+        // }
+        // num = 10;
+        // fn();
+
+        // 案例3
+        var a = 18;
+        f1();
+
+        function f1() {
+            var b = 9;
+            console.log(a);
+            console.log(b);
+            var a = "123";
+        }
+        // 结果是：undefined、9
+        // 相当于执行了下面操作：
+        // var a;
+        // function f1(){
+        //     var b;
+        //     var a;
+        //     b = 9;
+        //     console.log(a);
+        //     console.log(b);
+        //     a = '123';
+        // }
+        // a = 18;
+        // f1();
+        console.log(1111);
+        // 案例4
+        f1();
+        console.log(c);
+        console.log(b);
+        console.log(a);
+
+        function f1() {
+            var a = (b = c = 9);
+            // 相当于： var a = 9; b = 9; c = 9;这里的b和c没有var声明直接赋值，所以当全局变量看
+            // 集体声明： var a=9 , b=9 , c=9
+            console.log(a);
+            console.log(b);
+            console.log(c);
+        }
+        // 相当于执行了下面操作
+        function f1() {
+            var a;
+            a = b = c = 9;
+            console.log(a);
+            console.log(b);
+            console.log(c);
+        }
+        f1();
+        console.log(c);
+        console.log(b);
+        console.log(a); // 因为a是局部变量，所以会报错
+    </script>
+</head>
+
+<body></body>
+
+</html>

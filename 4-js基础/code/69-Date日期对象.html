@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+        // Date是一个内置对象，但是它是一个构造函数对象，想要使用必须要先new Date()一个实例
+        // 1.使用date 如果没有参数则返回当前时间
+        var date = new Date();
+        console.log(date);
+        // 2. 带参数，数字型：2008,10,30 或字符串型："2008-10-30 15:15:15"
+        var date = new Date(2008, 10, 30); // 返回的是11月不是10月
+        console.log(date);
+        var date = new Date("2008-10-30 15:15:15");
+        console.log(date);
+    </script>
+</head>
+
+<body></body>
+
+</html>

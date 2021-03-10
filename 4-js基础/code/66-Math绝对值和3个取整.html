@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+        // 1. 绝对值
+        console.log(Math.abs(1)); // 1
+        console.log(Math.abs(-1)); // 1
+        console.log(Math.abs("-1")); // 隐式转化成了number类
+        // 2. 3个取整方法
+        //    (1). floor向下取整，往小了取
+        console.log(Math.floor(1.4)); // 1
+        console.log(Math.floor(1.9)); // 1
+        //    (2). ceil向上取整，往大了取
+        console.log(Math.ceil(1.4)); // 2
+        console.log(Math.ceil(1.9)); // 2
+        //    (3). round四舍五入，其他数字正常，只有.5是往大了取，也就是为什么-1.5是-1
+        console.log(Math.round(1.4)); // 1
+        console.log(Math.round(1.5)); // 2
+        console.log(Math.round(-1.1)); // -1
+        console.log(Math.round(-1.5)); // -1
+    </script>
+</head>
+
+<body></body>
+
+</html>

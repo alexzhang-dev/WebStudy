@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+        // 程序随机生成1-50之间的数字，用户输入一个数字
+        // 如果大于这个数字，显示大了
+        // 如果小于这个数字，显示小了
+        // 猜对了显示猜对了，退出程序
+        // 一共10次机会，猜错了少一次，次数用完弹出提示
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+        var random_num = getRandomInt(1, 50);
+        var count = 10;
+        while (count != 0) {
+            var guess_num = prompt(
+                "请输入一个1-50之间的整数！你还有" + count + "次机会"
+            );
+            if (guess_num > random_num) {
+                alert("猜的数大了，请重新输入！");
+                count--;
+                continue;
+            } else if (guess_num < random_num) {
+                alert("猜的数小了，请重新输入！");
+                count--;
+                continue;
+            } else {
+                alert("恭喜你，猜对了！");
+                break;
+            }
+        }
+        if (count == 0) {
+            alert("次数已用完，请刷新页面再来一次吧！");
+        }
+    </script>
+</head>
+
+<body></body>
+
+</html>
