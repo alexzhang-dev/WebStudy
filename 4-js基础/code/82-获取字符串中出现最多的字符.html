@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+        // 获取字符串中出现最多的字符
+        var str = "ioashfoanvhaohfnanvallkbaalggawe";
+        var count = {};
+        for (var i = 0; i < str.length; i++) {
+            char = str.charAt(i);
+            if (count[char]) {
+                count[char]++;
+            } else {
+                count[char] = 1;
+            }
+        }
+        var max_num = 0;
+        var max_key = "";
+        for (var key in count) {
+            if (count[key] > max_num) {
+                max_num = count[key];
+                max_key = key;
+            }
+        }
+        console.log(max_num);
+        console.log(max_key);
+    </script>
+</head>
+
+<body></body>
+
+</html>

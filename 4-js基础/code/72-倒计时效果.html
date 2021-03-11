@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+        // 我们使用预定的时间的时间戳减去现在的时间戳就是剩余时间的时间戳
+        var fina_timezone = +new Date("2021-03-12 0:0:0");
+        var new_timezone = +new Date();
+        var surplus_seconds = (fina_timezone - new_timezone) / 1000; // 剩余的秒数
+        console.log("日：" + parseInt(surplus_seconds / 60 / 60 / 24));
+        console.log("时：" + parseInt((surplus_seconds / 60 / 60) % 24));
+        console.log("分：" + parseInt((surplus_seconds / 60) % 60));
+        console.log("秒：" + parseInt(surplus_seconds % 60));
+        console.log(new Date());
+    </script>
+</head>
+
+<body></body>
+
+</html>

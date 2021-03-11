@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+        var str = "andy";
+        console.log(str.length);
+        // 复杂数据类型才会有属性和方法，可是简单数据类型为什么也有？
+        // 这是因为string是包装类型
+        // 基本包装类型：把简单数据类型包装成了复杂数据类型
+        // (1). 把简单数据类型包装为复杂数据类型
+        var temp = new String("andy");
+        // (2). 把临时变量的值给变量
+        var str = temp;
+        // (3). 销毁临时变量
+        temp = null;
+    </script>
+</head>
+
+<body></body>
+
+</html>

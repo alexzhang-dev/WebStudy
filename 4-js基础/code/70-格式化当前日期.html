@@ -35,7 +35,7 @@
         );
 
         // 封装一个函数获取当前时间
-        function getTime() {
+        function getTimer() {
             var date = new Date();
             var h = date.getHours();
             h = h < 10 ? "0" + h : h;
@@ -45,7 +45,7 @@
             s = s < 10 ? "0" + s : s;
             return h + ":" + m + ":" + s;
         }
-        console.log(getTime());
+        console.log(getTimer());
     </script>
 </head>
 

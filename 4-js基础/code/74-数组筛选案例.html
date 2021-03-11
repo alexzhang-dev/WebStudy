@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+        // 将数组中不重复的放到新数组中，重复的只保留一个
+        var arr = ["c", "z", "a", "b", "t", "z", "c", "t"];
+        // 核心：遍历旧数组中所有的数字，如果-1放进新数组，如果存在就存进去
+        var new_arr = [];
+        for (var i = 0; i < arr.length; i++) {
+            if (new_arr.indexOf(arr[i]) == -1) {
+                new_arr.push(arr[i]);
+            }
+        }
+        console.log(new_arr);
+    </script>
+</head>
+
+<body></body>
+
+</html>

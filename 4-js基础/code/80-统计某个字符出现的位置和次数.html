@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+        // 统计某个字符出现的位置和次数
+        var str = "改革春风吹满地吹满地呀吹满地"; // 统计吹出现的位置和次数
+        function getCount(str, char) {
+            var index = str.indexOf(char);
+            var positions = [];
+            while (index != -1) {
+                positions.push(index);
+                index = str.indexOf(char, index + 1);
+            }
+            return (
+                char +
+                "所有的位置：" +
+                positions.join() +
+                "，出现的次数：" +
+                positions.length
+            );
+        }
+        console.log(getCount(str, "吹"));
+    </script>
+</head>
+
+<body></body>
+
+</html>

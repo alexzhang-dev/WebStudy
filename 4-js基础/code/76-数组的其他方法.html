@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+        // concat
+        var arr1 = [1, 2, 3, 4];
+        var arr2 = [4, 5, 6, 7];
+        console.log(arr1.concat(arr2)); // [1, 2, 3, 4, 4, 5, 6, 7]
+
+        // slice()
+        var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+        console.log(arr.slice(0, 5)); // [1, 2, 3, 4, 5]
+        console.log(arr); // slice()不会影响原数组
+
+        //splice()
+        var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+        console.log(arr.splice(0, 5)); // [1, 2, 3, 4, 5]
+        console.log(arr); // [6, 7, 8, 9]  splice()会影响数组
+    </script>
+</head>
+
+<body></body>
+
+</html>

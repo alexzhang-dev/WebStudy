@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+        // 逆转数组
+        function reverse(arr) {
+            var reversed_arr = [];
+            for (var i = 0; i < arr.length; i++) {
+                reversed_arr[arr.length - i - 1] = arr[i];
+            }
+            return reversed_arr;
+        }
+        console.log(reverse([1, 2, 3, 5, 7, 9, 12]));
+        console.log(reverse(1, 2, 3)); // 如果输入的非数组，那么就会报错，所以我们要检测是否为数组
+        console.log([1, 2, 3] instanceof Array); // 1. instanceof Array检测数组，是就返回true
+        // 优化方法
+        function reverse2(arr) {
+            if (arr instanceof Array) {
+                var reversed_arr = [];
+                for (var i = 0; i < arr.length; i++) {
+                    reversed_arr[arr.length - i - 1] = arr[i];
+                }
+                return reversed_arr;
+            } else {
+                return "您的参数并不是数组类型的";
+            }
+        }
+        console.log(reverse2([1, 2, 3, 5, 7, 9, 12]));
+        console.log(reverse2(1, 2, 3));
+
+        // 2. isArray()
+        console.log(Array.isArray([1, 2, 3]));
+    </script>
+</head>
+
+<body></body>
+
+</html>
