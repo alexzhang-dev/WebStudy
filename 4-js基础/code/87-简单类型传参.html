@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+        // 函数的形参也可以看做是一个变量，但我们把一个值类型变量作为参数传给函数的形参时，
+        // 其实是把变量在栈空间的值复制一份给形参，那么在方法内部对形参做任何更改，都不会影响到方法外部的变量
+        function fn(a) {
+            a += 10;
+            console.log(a);
+        }
+        var num = 1;
+        fn(num); // 11
+        console.log(num); // 外部的变量没有发生改变，仍然是1
+    </script>
+</head>
+
+<body></body>
+
+</html>
