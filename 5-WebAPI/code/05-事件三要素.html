@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btn">点击</button>
+    <script>
+        // 事件有三部分组成：事件源（事件被触发的对象） 事件类型 事件处理程序
+        // 1. 事件源（事件被触发的对象）
+        var btn = document.getElementById("btn");
+        // 2. 事件类型（鼠标点击、鼠标经过、鼠标悬停......）
+        // 3. 事件处理程序（使用函数赋值）
+        btn.onclick = function() {
+            alert("哈哈哈哈");
+        };
+    </script>
+</body>
+
+</html>

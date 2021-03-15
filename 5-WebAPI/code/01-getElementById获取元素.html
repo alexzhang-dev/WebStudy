@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <p id="text">这是一段话</p>
+    <script>
+        // 1. 因为页面从上往下加载，所以需要先有标签，<script>要写在标签下面
+        // 2. document.getElementById(id) 参数是id，大小写敏感
+        var text = document.getElementById("text");
+        console.log(typeof text); // 返回值是一个元素对象
+        // 3. console.dir()可以打印返回的元素对象，更好的查看元素的属性和方法
+        console.dir(text);
+    </script>
+</body>
+
+</html>

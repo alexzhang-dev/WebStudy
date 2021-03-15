@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        div {
+            width: 300px;
+            margin: 0 auto;
+        }
+        
+        .info {
+            color: rgb(180, 175, 175);
+            font-size: 12px;
+        }
+        
+        .error {
+            color: red;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <input type="password" />
+        <span class=""></span>
+        <script>
+            var check_pwd = document.querySelector("span");
+            var pwd_input = document.querySelector("input");
+            pwd_input.onfocus = function() {
+                check_pwd.className = "info";
+                check_pwd.innerText = "6-16位字符";
+            };
+            pwd_input.onblur = function() {
+                if (this.value.length < 6 || this.value.length > 16) {
+                    check_pwd.className = "error";
+                    check_pwd.innerText = "密码不足6位或超过16位";
+                } else {
+                    check_pwd.innerText = "";
+                }
+            };
+        </script>
+    </div>
+</body>
+
+</html>

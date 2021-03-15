@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .box {
+            width: 100%;
+            position: relative;
+        }
+        
+        #pwd {
+            width: 96%;
+            height: 50px;
+            margin-left: 2%;
+            border: none;
+            border-bottom: 1px solid #efefef;
+            font-size: 18px;
+            line-height: 50px;
+        }
+        
+        .box img {
+            width: 24px;
+            height: 24px;
+            position: absolute;
+            right: 5%;
+            top: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <input type="password" name="" id="pwd" placeholder="请输入密码" />
+        <img src="images/hide_pwd.png" alt="" />
+        <script>
+            var pwd_input = document.querySelector("#pwd");
+            var eye = document.querySelector("img");
+            var flag = 0; // 0:关闭  1:开启
+            eye.onclick = function() {
+                if (flag == 0) {
+                    pwd_input.type = "text";
+                    flag = 1;
+                    eye.src = "images/open_pwd.png";
+                } else {
+                    pwd_input.type = "password";
+                    flag = 0;
+                    eye.src = "images/hide_pwd.png";
+                }
+            };
+        </script>
+    </div>
+</body>
+
+</html>

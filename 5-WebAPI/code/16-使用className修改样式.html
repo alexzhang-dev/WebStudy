@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        div {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .bgc_pink {
+            background-color: pink;
+        }
+        
+        .bgc_blue {
+            background-color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bgc_pink">123</div>
+    <script>
+        var div = document.querySelector("div");
+        div.onclick = function() {
+            if (this.className == "bgc_pink") {
+                this.className = "bgc_blue";
+            } else {
+                this.className = "bgc_pink";
+            }
+        };
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div></div>
+    <script>
+        // innerText 和 innerHTML 的区别
+        // 1. innerText 不识别 HTML 标签 非标准
+        var div = document.querySelector("div");
+        div.innerText = "<strong>今天是 ：20</strong>";
+        // 2. innerHTML 识别 HTML 标签 W3C标准
+        div.innerHTML = "<strong>今天是 ：20</strong>";
+    </script>
+</body>
+
+</html>

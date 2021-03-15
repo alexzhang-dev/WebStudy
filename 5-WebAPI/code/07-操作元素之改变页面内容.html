@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <button>显示时间</button>
+    <div>某个时间</div>
+    <p>111222333</p>
+    <script>
+        // 当我们点击按钮，某个时间会跟改为时间
+        var btn = document.querySelector("button");
+        var div = document.querySelector("div");
+        btn.onclick = function() {
+            div.innerText = getTimer();
+        };
+
+        function getTimer() {
+            var date = new Date();
+            var h = date.getHours();
+            h = h < 10 ? "0" + h : h;
+            var m = date.getMinutes();
+            m = m < 10 ? "0" + m : m;
+            var s = date.getSeconds();
+            s = s < 10 ? "0" + s : s;
+            return h + ":" + m + ":" + s;
+        }
+        var p = document.querySelector("p");
+        p.innerText = "456";
+    </script>
+</body>
+
+</html>

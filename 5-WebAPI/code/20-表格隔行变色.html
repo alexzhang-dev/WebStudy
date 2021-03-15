@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        table {
+            width: 600px;
+            margin: 0 auto;
+            margin-top: 100px;
+            border-collapse: collapse;
+        }
+        
+        table tr {
+            height: 30px;
+            line-height: 30px;
+        }
+        
+        thead tr {
+            background-color: #8cd1e7;
+        }
+        
+        thead tr td {
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        tbody tr {
+            border-bottom: 1px solid #ccc;
+            height: 30px;
+            line-height: 30px;
+        }
+        
+        tbody tr td {
+            color: #2612d4;
+            text-align: center;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <table border="0" cellspacing="0">
+        <thead>
+            <tr>
+                <td>代码</td>
+                <td>名称</td>
+                <td>最近公布净值</td>
+                <td>累计净值</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>003526</td>
+                <td>农银金穗3个月定期开房债券</td>
+                <td>1.075</td>
+                <td>1.079</td>
+            </tr>
+            <tr>
+                <td>003526</td>
+                <td>农银金穗3个月定期开房债券</td>
+                <td>1.075</td>
+                <td>1.079</td>
+            </tr>
+            <tr>
+                <td>003526</td>
+                <td>农银金穗3个月定期开房债券</td>
+                <td>1.075</td>
+                <td>1.079</td>
+            </tr>
+            <tr>
+                <td>003526</td>
+                <td>农银金穗3个月定期开房债券</td>
+                <td>1.075</td>
+                <td>1.079</td>
+            </tr>
+        </tbody>
+    </table>
+    <script>
+        var trs = document.querySelector("tbody").querySelectorAll("tr");
+        for (var i = 0; i < trs.length; i++) {
+            trs[i].onmouseover = function() {
+                for (var i = 0; i < trs.length; i++) {
+                    trs[i].style.backgroundColor = "";
+                }
+                this.style.backgroundColor = "#8cd1e7";
+                this.style.color = "#fff";
+            };
+            trs[i].onmouseout = function() {
+                this.style.backgroundColor = "";
+            };
+        }
+    </script>
+</body>
+
+</html>

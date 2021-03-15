@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+    </ul>
+    <ul id="nav">
+        <li>生僻字</li>
+        <li>生僻字</li>
+        <li>生僻字</li>
+    </ul>
+    <script>
+        // 1. 返回的是元素的集合，以伪数组存在
+        var lis = document.getElementsByTagName("li");
+        console.dir(lis);
+        console.log(lis[0]);
+        // 2. 使用循环遍历集合
+        for (var i = 0; i < lis.length; i++) {
+            console.log(lis[i]);
+        }
+        // 获取生僻字
+        var lis_2 = document.getElementById("nav").getElementsByTagName("li");
+        console.log(lis_2);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=., initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        img {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <button>刘德华</button>
+    <button>张学友</button>
+    <img src="images/ldh.jpg" alt="" title="刘德华" />
+    <script>
+        // 点击刘德华，图片切换至刘德华，点击张学友图片切换张学友
+        var ldh_button = document.querySelectorAll("button")[0];
+        var zxy_button = document.querySelectorAll("button")[1];
+        var img = document.querySelector("img");
+        ldh_button.onclick = function() {
+            img.src = "images/ldh.jpg";
+            img.title = "刘德华";
+        };
+        zxy_button.onclick = function() {
+            img.src = "images/zxy.jpg";
+            img.title = "张学友";
+        };
+    </script>
+</body>
+
+</html>
