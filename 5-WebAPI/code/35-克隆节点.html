@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+    <script>
+        var ul = document.querySelector("ul");
+        // 1. node.cloneNode()
+        //  参数为空或者false为浅拷贝，不拷贝子节点
+        var li = ul.children[0].cloneNode();
+        ul.appendChild(li);
+        //  参数为true为深拷贝，子节点和本身都拷贝
+        var li_2 = ul.children[0].cloneNode(true);
+        ul.appendChild(li_2);
+    </script>
+</body>
+
+</html>

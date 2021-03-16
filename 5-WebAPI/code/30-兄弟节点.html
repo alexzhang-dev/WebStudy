@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div>我是div</div>
+    <span>我是span</span>
+    <script>
+        var div = document.querySelector("div");
+        // nextSibling 获取下一个兄弟元素（包括文本元素）
+        console.log(div.nextSibling);
+        // 这两个获取上一个和下一个元素节点
+        console.log(div.nextElementSibling);
+        console.log(div.previousElementSibling);
+
+        // 只能通过封装兼容函数的方式来解决兼容问题
+        function getNextElement(element) {
+            // 如果兼容，就调用兼容的方法
+            if (element.nextElementSibling) {
+                return element.nextElementSibling;
+            } else {
+                var next = element.nextSibling; //下一个兄弟节点
+                while (next.nodeType !== 1) {
+                    //有 并且 不是我想要的
+                    next = next.nextSibling;
+                }
+                return next;
+            }
+        }
+        console.log(getNextElement(div));
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        a {
+            text-decoration: none;
+        }
+        
+        .tab {
+            width: 800px;
+            height: auto;
+            margin: 0 auto;
+        }
+        
+        .tab_list {
+            width: 100%;
+        }
+        
+        .tab_list ul {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .tab_list li {
+            float: left;
+            list-style: none;
+            cursor: pointer;
+            width: 200px;
+            height: 40px;
+            display: block;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f7f7f7;
+            color: rgb(146, 145, 145);
+        }
+        
+        .tab_list li:hover {
+            color: red;
+        }
+        
+        .tab_list li[class="current_tab"] {
+            color: #fff;
+            background-color: rgb(201, 77, 77);
+        }
+        
+        .tab_content .item {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="tab">
+        <div class="tab_list">
+            <ul>
+                <li>商品介绍</li>
+                <li>规格与包装</li>
+                <li>售后保障</li>
+                <li>商品评价（50000）</li>
+            </ul>
+        </div>
+        <div class="tab_content">
+            <div class="item">商品介绍内容</div>
+            <div class="item">规格与包装内容</div>
+            <div class="item">售后保障内容</div>
+            <div class="item">商品评价内容</div>
+        </div>
+    </div>
+    <script>
+        var tab_content_items = document.getElementsByClassName("item");
+        var tabs = document
+            .getElementsByClassName("tab_list")[0]
+            .getElementsByTagName("li");
+        tabs[0].className = "current_tab";
+        tab_content_items[0].style.display = "block";
+        for (var i = 0; i < tabs.length; i++) {
+            tabs[i].setAttribute("index", i);
+            tabs[i].onclick = function() {
+                for (var j = 0; j < tabs.length; j++) {
+                    tabs[j].className = "";
+                    tab_content_items[j].style.display = "none";
+                }
+                this.className = "current_tab";
+                tab_content_items[this.getAttribute("index")].style.display = "block";
+            };
+        }
+    </script>
+</body>
+
+</html>

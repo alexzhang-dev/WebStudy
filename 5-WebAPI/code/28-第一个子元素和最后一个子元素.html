@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+    <script>
+        var ul = document.querySelector("ul");
+        // 获取第一个节点，不管是元素节点还是文本节点
+        console.log(ul.firstChild);
+        // 只返回元素节点  有兼容性问题
+        console.log(ul.firstElementChild);
+        console.log(ul.lastElementChild);
+        // 实际开放中的方法，没有兼容问题
+        console.log(ul.children[ul.children.length - 1]);
+    </script>
+</body>
+
+</html>

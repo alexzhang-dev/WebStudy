@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="demo" index="1"></div>
+    <script>
+        var demo = document.querySelector("#demo");
+        // 1. 获取属性值
+        //    (1). element.属性名  这个方法只能获取内置属性
+        console.log(demo.id);
+        //    (2). element.getAttribute('属性名') 这个方法主要获取自定义属性
+        console.log(demo.getAttribute("id"));
+        // 2. 设置属性值
+        //    (1). element.属性 = "值"  设置内置属性值
+        demo.className = "demo_01";
+        //    (2). element.setAttribute('属性名','值')  主要针对于自定义属性
+        demo.setAttribute("index", "2");
+    </script>
+</body>
+
+</html>

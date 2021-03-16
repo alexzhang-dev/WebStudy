@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        /* 800,550 */
+        
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .tab {
+            width: 800px;
+            height: 600px;
+            margin: 0 auto;
+            margin-top: 50px;
+            border-top: 1px solid #999;
+        }
+        
+        .tab ul li {
+            float: left;
+            width: 80px;
+            height: 50px;
+            line-height: 50px;
+            list-style: none;
+            text-align: center;
+        }
+        
+        .current {
+            background-color: red;
+            color: #fff;
+        }
+        
+        .tab_content div {
+            display: none;
+        }
+        
+        .tab_content img {
+            width: 800px;
+            height: 550px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="tab">
+        <div class="tab_title">
+            <ul>
+                <li>所</li>
+                <li>见</li>
+                <li>即</li>
+                <li>所</li>
+                <li>得</li>
+            </ul>
+        </div>
+        <div class="tab_content">
+            <div><img src="images/1.jpg" alt="" /></div>
+            <div><img src="images/2.jpg" alt="" /></div>
+            <div><img src="images/3.jpg" alt="" /></div>
+            <div><img src="images/4.jpg" alt="" /></div>
+            <div><img src="images/5.jpg" alt="" /></div>
+        </div>
+    </div>
+    <script>
+        tab_title_list = document
+            .getElementsByClassName("tab_title")[0]
+            .getElementsByTagName("li");
+        tab_content_list = document
+            .getElementsByClassName("tab_content")[0]
+            .getElementsByTagName("div");
+        tab_title_list[0].className = "current";
+        tab_content_list[0].style.display = "block";
+        for (var i = 0; i < tab_title_list.length; i++) {
+            tab_title_list[i].setAttribute("data-index", i);
+            tab_title_list[i].onmouseover = function() {
+                for (var j = 0; j < tab_title_list.length; j++) {
+                    tab_title_list[j].className = "";
+                    tab_content_list[j].style.display = "none";
+                }
+                this.className = "current";
+                tab_content_list[this.getAttribute("data-index")].style.display =
+                    "block";
+            };
+        }
+    </script>
+</body>
+
+</html>

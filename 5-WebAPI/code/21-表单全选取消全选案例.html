@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        table {
+            width: 300px;
+            margin: 0 auto;
+            margin-top: 100px;
+            border-collapse: collapse;
+        }
+        
+        table tr {
+            height: 30px;
+            line-height: 30px;
+        }
+        
+        thead tr {
+            background-color: #8cd1e7;
+        }
+        
+        thead tr td {
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        tbody tr {
+            border-bottom: 1px solid #ccc;
+            height: 30px;
+            line-height: 30px;
+        }
+        
+        tbody tr td {
+            color: #2612d4;
+            text-align: center;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <table border="0" cellspacing="0">
+        <thead>
+            <tr>
+                <td><input type="checkbox" name="" id="check_all_btn" /></td>
+                <td>商品</td>
+                <td>价格</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="checkbox" name="" class="check" /></td>
+                <td>iPhone 8</td>
+                <td>8000</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" name="" class="check" /></td>
+                <td>iPhone 8</td>
+                <td>8000</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" name="" class="check" /></td>
+                <td>iPhone 8</td>
+                <td>8000</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="checkbox" name="" class="check" />
+                </td>
+                <td>iPhone 8</td>
+                <td>8000</td>
+            </tr>
+        </tbody>
+    </table>
+    <script>
+        var check_all_btn = document.getElementById("check_all_btn");
+        var check_btns = document.getElementsByClassName("check");
+        check_all_btn.onclick = function() {
+            for (var i = 0; i < check_btns.length; i++) {
+                check_btns[i].checked = check_all_btn.checked;
+            }
+        };
+        for (var i = 0; i < check_btns.length; i++) {
+            check_btns[i].onclick = function() {
+                for (var j = 0; j < check_btns.length; j++) {
+                    var flag = true;
+                    if (!check_btns[j].checked) {
+                        flag = false;
+                        break; // 只要有一个按钮没选中直接退出循环，提高运行效率
+                    }
+                }
+                check_all_btn.checked = flag;
+            };
+        }
+    </script>
+</body>
+
+</html>

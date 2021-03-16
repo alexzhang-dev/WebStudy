@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <button>按钮</button>
+    <div></div>
+    <script>
+        // 1. document.write() 会导致页面重绘（重新创建一个页面）
+        // var btn = document.querySelector("button");
+        // btn.onclick = function() {
+        //     document.write("<div>123</div>");
+        // };
+        // 2. createElement() 和 element.innerHTML 的执行效率区别
+        // createElement()的执行效率：
+        var div = document.querySelector("div");
+
+        function getInnerHTMLTime() {
+            // 使用数组方式效率最高
+            var arr = [];
+            var start_time = +new Date();
+            for (var i = 0; i < 1000; i++) {
+                arr.push(
+                    '<div style="width:100px; height:2px; border:1px solid blue;"></div>'
+                );
+            }
+            div.innerHTML = arr.join("");
+            var end_time = +new Date();
+            console.log(end_time - start_time);
+        }
+        getInnerHTMLTime(); // 差不多4毫秒左右
+
+        function getCreateElementTime() {
+            var start_time = +new Date();
+            for (var i = 0; i < 1000; i++) {
+                var div2 = document.createElement("div");
+                div.style.width = "100px";
+                div.style.height = "2px";
+                div.style.border = "1px solid red";
+                div.appendChild(div2);
+            }
+            var end_time = +new Date();
+            console.log(end_time - start_time);
+        }
+        getCreateElementTime(); // 差不多8毫秒左右
+    </script>
+</body>
+
+</html>

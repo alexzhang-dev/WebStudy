@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div data-index="1" data-list-name="andy"></div>
+    <script>
+        var div = document.querySelector("div");
+        // 兼容性较好
+        console.log(div.getAttribute("data-index"));
+        // H5新增
+        //   (1)
+        console.log(div.dataset.index);
+        //  如果data-后面的有分隔符，那么使用驼峰命名法
+        console.log(div.dataset.listName);
+        //   (2)
+        console.log(div.dataset["index"]);
+        console.log(div.dataset["listName"]);
+    </script>
+</body>
+
+</html>

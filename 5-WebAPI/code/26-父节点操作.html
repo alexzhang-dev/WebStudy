@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="box">
+        <span class="qrcode">×</span>
+    </div>
+    <script>
+        // 1. 父节点 parentNode
+        //  (1).常规方法获取
+        var qrcode = document.querySelector(".qrcode");
+        var box = document.querySelector(".box");
+        //  (2).使用节点操作获取
+        var qrcode = document.querySelector(".qrcode");
+        // 得到的是最近的父节点，如果找不到父节点就返回为null
+        var box = qrcode.parentNode;
+        console.log(box);
+    </script>
+</body>
+
+</html>
