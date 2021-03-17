@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 通过keyCode可以获取对应的ASCII码
+        // keyup和keydown不区分大小写
+        document.addEventListener("keydown", function(e) {
+            console.log(e.keyCode);
+        });
+        // keypress区分大小写
+        document.addEventListener("keypress", function(e) {
+            console.log(e.keyCode);
+        });
+    </script>
+</body>
+
+</html>

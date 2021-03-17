@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="search" />
+    <script>
+        // 按下s光标进入search框
+        var input = document.querySelector("input");
+        // 如果是keydown那么input里面就会输入一个s，如果是keyup就完美解决
+        document.addEventListener("keyup", function(e) {
+            if (e.keyCode === 83) {
+                input.focus();
+                input.value = "";
+            }
+        });
+    </script>
+</body>
+
+</html>

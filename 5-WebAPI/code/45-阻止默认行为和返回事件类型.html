@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div>123</div>
+    <a href="https://www.baidu.com/" target="_blank">百度</a>
+    <script>
+        // 1. 返回事件类型
+        var div = document.querySelector("div");
+        div.addEventListener("click", function(e) {
+            console.log(e.type);
+        });
+        // 2. 阻止默认行为   让链接不跳转，或者让提交按钮不提交
+        var a = document.querySelector("a");
+        a.addEventListener("click", function(e) {
+            e.preventDefault(); // dom标准写法
+        });
+
+        // 3. 传统的注册方式
+        a.onclick = function(e) {
+            // 普通浏览器
+            // e.preventDefault();
+            // 低版本浏览器
+            e.returnValue; // 这是个属性
+            // 我们也可以利用 return false
+            return false; // 没有兼容性问题，不过这个方法后面的代码不会执行了，而且只限于传统的方式
+        };
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <button>1</button>
+    <button>2</button>
+    <button>3</button>
+    <script>
+        var btns = document.querySelectorAll("button");
+        btns[0].onclick = function() {
+            alert("1");
+            // 1. 传统方式的解绑
+            btns[0].onclick = null;
+        };
+
+        // 这里的fn不需要()调用
+        btns[1].addEventListener("click", fn);
+
+        function fn() {
+            alert("2");
+            // 2. 监听器方式移除
+            btns[1].removeEventListener("click", fn);
+        }
+        // 3. attachEvent移除
+        function fn2() {
+            alert("3");
+            btns[2].detachEvent("onclick", fn2);
+        }
+        btns[2].attachEvent("onclick", fn2);
+    </script>
+</body>
+
+</html>

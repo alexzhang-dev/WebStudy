@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div>123</div>
+    <ul>
+        <li>abc</li>
+        <li>abc</li>
+        <li>abc</li>
+    </ul>
+    <script>
+        // 常见事件对象的属性和方法
+        var div = document.querySelector("div");
+        // 1. target返回的是触发事件的对象（元素）
+        div.addEventListener("click", function(e) {
+            console.log(e.target);
+            // this 返回的是绑定事件的对象
+            console.log(this);
+        });
+        var ul = document.querySelector("ul");
+        ul.addEventListener("click", function(e) {
+            // e.target指向点击的对象，如果点击li，那么e.target就会指向li
+            console.log(e);
+            // 我们给 ul 绑定事件，那么this指向ul
+            console.log(this);
+        });
+
+        // 了解一下兼容性的写法
+        // div.onclick = function(e) {
+        //     e = e || window.event;
+        //     var target = e.target || e.srcElement;
+        //     console.log(target);
+        // };
+
+        // 了解 和this有一个很相似的属性：currentTarget
+    </script>
+</body>
+
+</html>

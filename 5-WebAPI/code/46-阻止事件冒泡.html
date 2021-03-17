@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        .father {
+            width: 400px;
+            height: 400px;
+            background-color: pink;
+            margin: 0 auto;
+            margin-top: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .son {
+            width: 250px;
+            height: 250px;
+            background-color: purple;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="father">
+        <div class="son">son盒子</div>
+    </div>
+    <script>
+        // 冒泡，如果addEventListener的第三个参数为false或者省略，则是冒泡
+        //    .son->.father->body->html->document
+        var son = document.querySelector(".son");
+        son.addEventListener(
+            "click",
+            function(e) {
+                alert("son");
+                // 阻止事件冒泡
+                // e.stopPropagation();
+                // IE9以下能用的
+                // e.cancelBubble = true;
+                // 兼容解决方案
+                if (e && e.stopPropagation) {
+                    e.stopPropagation();
+                } else {
+                    window.event.cancelBubble = true;
+                }
+            },
+            false
+        );
+
+        // 阻止事件冒泡的兼容函数
+
+        //  因为处理捕获阶段，所以先弹出father，再弹出son
+        var father = document.querySelector(".father");
+        father.addEventListener(
+            "click",
+            function() {
+                alert("father");
+            },
+            false
+        );
+        document.addEventListener(
+            "click",
+            function() {
+                alert("document");
+            },
+            false
+        );
+    </script>
+</body>
+
+</html>

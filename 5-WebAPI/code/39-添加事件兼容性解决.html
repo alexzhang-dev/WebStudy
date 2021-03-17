@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <button>兼容性解决</button>
+    <script>
+        function addEventListener(element, eventName, fn) {
+            // 判断当前浏览器是否支持 addEventListener 方法
+            if (element.addEventListener) {
+                element.addEventListener(eventName, fn);
+            } else if (event.attachEvent) {
+                eventName = "on" + eventName;
+                element.attachEvent(eventName, fn);
+            } else {
+                // 相当于 element.onlick = fn;
+                element["on" + eventName] = fn;
+            }
+        }
+        var btn = document.querySelector("button");
+        addEventListener(btn, "click", function() {
+            alert("我是全兼容的！");
+        });
+    </script>
+</body>
+
+</html>

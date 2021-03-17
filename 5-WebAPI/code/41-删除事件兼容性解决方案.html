@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <button>删除事件兼容性解决方案</button>
+    <script>
+        function removeEvent(element, eventName, fn) {
+            // 检测是否支持 removeEventListener
+            if (element.removeEventListener) {
+                element.removeEventListener(eventName, fn);
+            } else if (element.detachEvent) {
+                element.detachEvent("on" + eventName, fn);
+            } else {
+                // 相当于 element.onclick = null;
+                element["on" + eventName] = null;
+            }
+        }
+        var btn = document.querySelector("button");
+
+        function fn() {
+            alert("只弹出一次！");
+            removeEvent(btn, "click", fn);
+        }
+        btn.onclick = fn;
+    </script>
+</body>
+
+</html>
