@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+        // 1. setTimeout
+        //    语法规范：window.setTimeout(调用函数,延迟毫秒数);
+        //    (1). window在调用时可以省略
+        // setTimeout(function() {
+        //     console.log(1);
+        // }, 1000);
+
+        function callback() {
+            console.log(111);
+        }
+        // setTimeout(callback, 3000);
+        var time1 = setTimeout("callback()", 3000);
+        var time2 = setTimeout(callback, 5000);
+
+        // 停止setTimeout
+        clearTimeout(time1);
+    </script>
+</head>
+
+<body></body>
+
+</html>

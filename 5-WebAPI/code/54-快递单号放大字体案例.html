@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .main {
+            width: 400px;
+            height: 100px;
+            margin: 0 auto;
+            margin-top: 200px;
+        }
+        
+        .text {
+            display: block;
+            width: 100px;
+            height: 26px;
+            line-height: 26px;
+            text-align: center;
+            float: left;
+            font-size: 12px;
+        }
+        
+        input {
+            width: 150px;
+            display: block;
+            float: left;
+            height: 26px;
+            margin-right: 12px;
+            padding-left: 2px;
+            box-sizing: border-box;
+        }
+        
+        .message {
+            width: 150px;
+            height: 35px;
+            position: absolute;
+            left: 44.75%;
+            top: 48%;
+            display: none;
+        }
+        
+        .message .content {
+            z-index: 99;
+            height: 100%;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 4px rgb(0 0 0 / 20%);
+            padding-left: 2px;
+            line-height: calc(35px - 3px);
+            box-sizing: border-box;
+        }
+        
+        .message .arrow {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #fff;
+            bottom: -5px;
+            left: 20%;
+            transform: rotate(45deg);
+            border-right: 1px solid rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+        }
+        
+        a {
+            width: 55px;
+            height: 26px;
+            display: block;
+            float: left;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            background-color: #388bff;
+            line-height: 26px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="message">
+        <div class="content">aa</div>
+        <div class="arrow"></div>
+    </div>
+    <div class="main">
+        <p class="text">快递单号</p>
+
+        <input type="text" placeholder="请输入您的快递单号" />
+        <a href="javascript:;">查询</a>
+    </div>
+    <script>
+        var input = document.querySelector("input");
+        var message = document.querySelector(".message");
+        var content = document.querySelector(".content");
+        document.addEventListener("keyup", function(e) {
+            if (e.keyCode === 83) {
+                input.focus();
+            }
+        });
+        input.addEventListener("keyup", function(e) {
+            if (input.value != null && input.value != "") {
+                message.style.display = "block";
+                content.innerText = input.value;
+                if (input.value.length > 15) {
+                    content.style.width = "auto";
+                }
+            } else {
+                message.style.display = "none";
+            }
+        });
+    </script>
+</body>
+
+</html>

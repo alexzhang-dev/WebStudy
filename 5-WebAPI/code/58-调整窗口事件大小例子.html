@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        .big {
+            width: 50px;
+            height: 200px;
+            background-color: blue;
+        }
+        
+        .small {
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+        }
+    </style>
+    <script>
+        window.addEventListener("load", function() {
+            var div = document.querySelector("div");
+            // 默认给一个className
+            if (window.innerWidth >= 1000) {
+                div.className = "big";
+            } else {
+                div.className = "small";
+            }
+            window.addEventListener("resize", function() {
+                if (window.innerWidth >= 1000) {
+                    div.className = "big";
+                } else {
+                    div.className = "small";
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div></div>
+</body>
+
+</html>

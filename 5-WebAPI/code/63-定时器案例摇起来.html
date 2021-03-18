@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        .main {
+            width: 800px;
+            height: 800px;
+            border: 1px solid red;
+            margin-top: 10px;
+            position: relative;
+        }
+        
+        .main img {
+            width: 100px;
+            position: absolute;
+        }
+    </style>
+    <script>
+        window.addEventListener("load", function() {
+            var img = document.querySelector("img");
+            var start = document.querySelector("button");
+            var stop = document.querySelectorAll("button")[1];
+            var timer = null;
+
+            function randomInt(min, max) {
+                return Math.floor(Math.random() * (max - min)) + min;
+            }
+
+            function randomImgXAndY() {
+                // console.log(randomInt(1, 100));
+                img.style.top = randomInt(1, 80) + "%";
+                img.style.left = randomInt(1, 80) + "%";
+            }
+            randomImgXAndY();
+            start.addEventListener("click", function() {
+                if (!timer) {
+                    timer = setInterval(randomImgXAndY, 10);
+                }
+            });
+            stop.addEventListener("click", function() {
+                clearInterval(timer);
+                timer = null;
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <button>摇起来</button>
+    <button>别摇了，停下来</button>
+    <div class="main">
+        <img src="images/interval.jpeg" alt="" />
+    </div>
+</body>
+
+</html>

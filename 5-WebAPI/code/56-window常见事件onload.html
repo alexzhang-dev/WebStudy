@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+        // 之前说过，必须有元素才能找到，所以script一定要写到元素的后面
+        // var btn = document.querySelector("button");
+        // btn.addEventListener("click", function() {
+        //     alert(111);
+        // });
+        // window.onload 等待文档加载完毕后才会执行函数
+        window.addEventListener("load", function() {
+            console.log("所有页面元素已加载完毕！");
+            var btn = document.querySelector("button");
+            btn.addEventListener("click", function() {
+                alert(111);
+            });
+        });
+        // DOMContentLoaded事件触发时，仅是当DOM加载完成，不包括图片，CSS等内容 IE9以上才支持。
+        document.addEventListener("DOMContentLoaded", function() {
+            console.log("所有DOM元素已加载完毕");
+        });
+
+        // load事件是等待页面全部加载完毕之后，DOMContentLoaded是等DOM加载完毕
+        // DOMContentLoaded速度更快
+    </script>
+</head>
+
+<body>
+    <button>按钮</button>
+</body>
+
+</html>

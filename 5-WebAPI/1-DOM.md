@@ -4,7 +4,7 @@ DOM（Document Object Model）文档对象模型，是W3C组织推荐的处理�
 
 DOM 将 HTML 文档表达为树结构
 
-![DOM树](C:\Users\Administrator\Desktop\前端学习\5-WebAPI\resource\htmltree.gif)
+![DOM树](/resource/htmltree.gif)
 
 * 文档：一个页面就是一个文档，在DOM中使用`document`表示
 * 元素：页面中所有的标签都是元素，在DOM中使用`element`表示

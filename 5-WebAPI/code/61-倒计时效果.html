@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        a {
+            text-decoration: none;
+            color: #fff;
+        }
+        
+        .countdown {
+            margin-top: 100px;
+            margin-left: 800px;
+            width: 190px;
+            height: 260px;
+            background: url(images/jd_bg.png) no-repeat;
+            float: left;
+        }
+        
+        .countdown-title {
+            width: 100%;
+            font-size: 30px;
+            font-weight: 700;
+            margin-top: 31px;
+            text-align: center;
+        }
+        
+        .countdown-description {
+            margin-top: 90px;
+            text-align: center;
+            font-size: 15px;
+        }
+        
+        .countdown-description strong {
+            font-size: 18px;
+        }
+        
+        .countdown-main {
+            display: block;
+            width: 130px;
+            height: 30px;
+            margin-left: 50%;
+            margin-top: 15px;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content: space-between;
+            font-size: 18px;
+            line-height: 27px;
+            font-weight: 700;
+        }
+        
+        .hour,
+        .minute,
+        .second {
+            display: block;
+            width: 30px;
+            height: 30px;
+            background: #000;
+            line-height: 30px;
+            font-size: 18px;
+            font-weight: 700;
+        }
+    </style>
+    <script>
+        window.addEventListener("load", function() {
+            var hour = document.querySelector(".hour");
+            var minute = document.querySelector(".minute");
+            var second = document.querySelector(".second");
+            // 结束时间
+            var final_timezone = +new Date("2021-03-18 18:00:00");
+
+            function countdown() {
+                // 获取时间和换算时间都要放进函数中，因为我们要每隔一段时间就获取一个时间
+                // 当前时间
+                var now_timezone = +new Date();
+                // 剩余时间（秒）
+                var left_time = (final_timezone - now_timezone) / 1000;
+                var hour_time = parseInt((left_time / 60 / 60) % 24);
+                // 如果小于10就在前面加上0，为了美观
+                hour_time = hour_time < 10 ? "0" + hour_time : hour_time;
+                var minute_time = parseInt((left_time / 60) % 60);
+                minute_time = minute_time < 10 ? "0" + minute_time : minute_time;
+                var second_time = parseInt(left_time % 60);
+                second_time = second_time < 10 ? "0" + second_time : second_time;
+                // 最后把值放进去
+                hour.innerText = hour_time;
+                minute.innerText = minute_time;
+                second.innerText = second_time;
+            }
+            // 先调用一次函数，防止刷新时出现空白，因为定时器需要等一秒钟
+            countdown();
+            setInterval(countdown, 1000);
+        });
+    </script>
+</head>
+
+<body>
+    <a href="javascript:;">
+        <div class="countdown">
+            <div class="countdown-title">京东秒杀</div>
+            <div>
+                <div class="countdown-description">
+                    <strong>14:00</strong> 点场&nbsp;倒计时
+                    <span class="countdown-main">
+              <span class="hour">00</span>: <span class="minute">00</span>:
+                    <span class="second">00</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </a>
+</body>
+
+</html>

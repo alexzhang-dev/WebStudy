@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 一般我们直接使用document，其实完整的写法是
+        window.document;
+        var num = 10;
+        console.log(num);
+        // 其实完整的写法是：
+        console.log(window.num);
+        // 又比如函数：
+        function fn() {
+            console.log(111);
+        }
+        fn();
+        // 其实也是可以这样的
+        window.fn();
+
+        // window.alert("11");
+        console.log(window.name);
+    </script>
+</body>
+
+</html>

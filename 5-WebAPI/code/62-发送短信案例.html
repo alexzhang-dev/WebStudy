@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+        window.addEventListener("load", function() {
+            var btn = document.querySelector("button");
+            var timer = null;
+            var time = 10;
+            btn.addEventListener("click", function() {
+                btn.disabled = true;
+
+                function getTime() {
+                    if (time == 0) {
+                        clearInterval(timer);
+                        btn.disabled = false;
+                        btn.innerHTML = "获取验证码";
+                        time = 10; // 时间要重新开始
+                    } else {
+                        btn.innerHTML = "还剩下" + time + "秒";
+                        time--;
+                    }
+                }
+                getTime();
+                timer = setInterval(getTime, 1000);
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <input type="text" placeholder="请输入验证码" />
+    <button>获取验证码</button>
+</body>
+
+</html>

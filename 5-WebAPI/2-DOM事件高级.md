@@ -119,7 +119,7 @@ function removeEvent(element, eventName, fn) {
 
 比如我们给div注册了点击事件：
 
-![dom事件流](C:\Users\Administrator\Desktop\前端学习\5-WebAPI\resource\dom_event_stream.jpg)
+![dom事件流](/resource/dom_event_stream.jpg)
 
 DOM事件流分3个阶段：
 
