@@ -14,21 +14,93 @@
         
         .tab {
             width: 400px;
-            height: 200px;
+            height: 130px;
             margin: 0 auto;
             margin-top: 100px;
+            border: 1px solid #ccc;
+        }
+        
+        .tab-title {
+            height: 30px;
         }
         
         .tab-title li {
             width: calc(400px / 4);
             text-align: center;
-            list-style-type: none;
             float: left;
             height: 30px;
             background-color: #f5f5f5;
             line-height: 30px;
+            box-sizing: border-box;
+            border-bottom: 1px solid #ccc;
+            list-style-type: none;
+        }
+        
+        .tab-title li:nth-of-type(n + 2) {
+            border-left: 1px solid #ccc;
+        }
+        
+        .tab li[class="current"] {
+            border-bottom: none;
+            background-color: #fff;
+        }
+        
+        .tab_content {
+            width: 100%;
+            height: 100px;
+        }
+        
+        .tab-content-main {
+            list-style-type: none;
+            height: 100px;
+            display: none;
+        }
+        
+        .tab-content-main ol {
+            margin-top: 10px;
+            margin-left: 25px;
         }
     </style>
+    <script>
+        window.addEventListener("load", function() {
+            var tab = document.querySelector(".tab");
+            var tab_title_ul = document.querySelector(".tab-title");
+            var tab_content_ul = document.querySelector(".tab-content");
+            // 先默认第一个是当前的
+            tab_title_ul.children[0].className = "current";
+            tab_content_ul.children[0].style.display = "block";
+            for (var i = 0; i < tab_title_ul.children.length; i++) {
+                tab_title_ul.children[i].setAttribute("data-index", i);
+            }
+            // 使用事件委派，ul委派时间，然后根据冒泡获取下面的li
+            tab_title_ul.addEventListener("mouseover", function(e) {
+                for (var i = 0; i < this.children.length; i++) {
+                    this.children[i].className = "";
+                    tab_content_ul.children[i].style.display = "none";
+                }
+                e.target.className = "current";
+                tab_content_ul.children[
+                    e.target.getAttribute("data-index")
+                ].style.display = "block";
+            });
+            tab_title_ul.addEventListener("mouseout", function(e) {
+                e.target.className = "";
+                tab_content_ul.children[
+                    e.target.getAttribute("data-index")
+                ].style.display = "none";
+            });
+            // 如果鼠标移出大的tab外面了，就让最后一个保持
+            tab.addEventListener("blur", function() {
+                mouse_on_tab = false;
+                console.log(222);
+            });
+            // 如果进来了，那么就是正常效果
+            tab.addEventListener("mouseover", function() {
+                mouse_on_tab = true;
+                // console.log(111);
+            });
+        });
+    </script>
 </head>
 
 <body>
@@ -38,6 +110,30 @@
             <li>国内新闻</li>
             <li>体育新闻</li>
             <li>娱乐新闻</li>
+        </ul>
+        <ul class="tab-content">
+            <li class="tab-content-main">
+                <ol>
+                    <li>习近平100句金句 读懂这五年 治国理政 砥砺奋进</li>
+                    <li>深刻理解“新的发展阶段”重大判断</li>
+                    <li>中国慰安妇生下的日本后人：这坏名声我背得好苦</li>
+                </ol>
+            </li>
+            <li class="tab-content-main">
+                <ol>
+                    <li>国内新闻2</li>
+                </ol>
+            </li>
+            <li class="tab-content-main">
+                <ol>
+                    <li>体育新闻3</li>
+                </ol>
+            </li>
+            <li class="tab-content-main">
+                <ol>
+                    <li>娱乐新闻4</li>
+                </ol>
+            </li>
         </ul>
     </div>
 </body>

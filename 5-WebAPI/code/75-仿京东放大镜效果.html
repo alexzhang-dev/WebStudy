@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        .product {
+            width: 450px;
+            height: 450px;
+            margin-left: 100px;
+            margin-top: 100px;
+            border: 1px solid #ccc;
+            position: relative;
+        }
+        
+        .product:hover {
+            cursor: move;
+        }
+        
+        .mask {
+            position: absolute;
+            z-index: 9999;
+            width: 303.75px;
+            height: 303.75px;
+            background-color: #f5de7a;
+            top: 0;
+            left: 0;
+            opacity: 0.7;
+            display: none;
+        }
+    </style>
+    <script>
+        window.addEventListener("load", function() {
+            var mask = document.querySelector(".mask");
+            var product = document.querySelector(".product");
+            // 鼠标进入product，就要开始计算鼠标在mask里面的距离了！
+            product.addEventListener("mouseover", function(e) {
+                // 先得到鼠标距离product的距离，在得到鼠标距离mask的距离
+                // 两者相减就能得到mask移动的距离！
+                mask.style.display = "block";
+                product.addEventListener("mousemove", function(e) {
+                    var top_in_product = e.pageY - this.offsetTop;
+                    var left_in_product = e.pageX - this.offsetLeft;
+                    mask.style.top = top_in_product / 2 + "px";
+                    mask.style.left = left_in_product / 2 + "px";
+                });
+            });
+            product.addEventListener("mouseout", function() {
+                mask.style.display = "none";
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="product">
+        <img src="images/jd_p_sm.jpg" alt="" />
+        <div class="mask"></div>
+    </div>
+</body>
+
+</html>
