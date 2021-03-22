@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+        // 立即执行函数：不需要调用，立马能够自己执行代码
+        function fn() {
+            console.log(111);
+        }
+        fn();
+        // 写法：
+        // (function(){})() 或者 (function(){}())
+        (function(name) {
+            console.log(name);
+        })("alex");
+    </script>
+</head>
+
+<body></body>
+
+</html>

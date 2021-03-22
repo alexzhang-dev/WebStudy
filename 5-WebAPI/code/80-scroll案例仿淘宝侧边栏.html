@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        header,
+        nav,
+        main,
+        footer,
+        .banner {
+            width: 80%;
+            margin: 0 auto;
+        }
+        
+        header {
+            height: 200px;
+            background-color: pink;
+        }
+        
+        nav {
+            height: 100px;
+            background-color: #ccc;
+        }
+        
+        .banner {
+            height: 300px;
+            background-color: rgb(185, 240, 185);
+        }
+        
+        main {
+            height: 1200px;
+            background-color: #8cc9fc;
+        }
+        
+        footer {
+            height: 300px;
+            background-color: #999;
+        }
+        
+        .right {
+            width: 50px;
+            height: 120px;
+            position: absolute;
+            right: 50px;
+            top: 500px;
+            background: pink;
+        }
+    </style>
+    <script>
+        window.addEventListener("load", function() {
+            var right = document.querySelector(".right");
+            var banner_top = document.querySelector(".banner").offsetTop;
+            var slider_top = right.offsetTop - banner_top;
+            window.addEventListener("scroll", function() {
+                // 页面被卷去的头部:window.pageYOffset
+                if (window.pageYOffset >= banner_top) {
+                    right.style.position = "fixed";
+                    right.style.top = slider_top + "px";
+                    // console.log(window.pageYOffset);
+                } else {
+                    right.style.position = "absolute";
+                    right.style.top = "500px";
+                }
+                if (window.pageYOffset >= 930) {
+                    right.innerHTML = "返回顶部";
+                } else {
+                    right.innerHTML = "";
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <header>头部</header>
+    <nav>导航栏</nav>
+    <div class="banner">banner</div>
+    <main>主体部分</main>
+    <footer>底部部分</footer>
+    <div class="right"></div>
+</body>
+
+</html>

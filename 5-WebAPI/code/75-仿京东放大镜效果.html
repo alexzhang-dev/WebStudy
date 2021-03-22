@@ -22,34 +22,80 @@
         
         .mask {
             position: absolute;
-            z-index: 9999;
+            z-index: 99;
             width: 303.75px;
             height: 303.75px;
             background-color: #f5de7a;
             top: 0;
             left: 0;
             opacity: 0.7;
+            /* display: none; */
+        }
+        
+        .big_product {
+            width: 500px;
+            height: 500px;
+            border: 1px solid #ccc;
+            position: absolute;
+            top: 0;
+            left: 460px;
+            z-index: 999;
+            overflow: hidden;
             display: none;
+        }
+        
+        .big_product img {
+            position: absolute;
+            top: 0;
+            left: 0;
         }
     </style>
     <script>
         window.addEventListener("load", function() {
             var mask = document.querySelector(".mask");
             var product = document.querySelector(".product");
-            // 鼠标进入product，就要开始计算鼠标在mask里面的距离了！
-            product.addEventListener("mouseover", function(e) {
-                // 先得到鼠标距离product的距离，在得到鼠标距离mask的距离
-                // 两者相减就能得到mask移动的距离！
+            var big = document.querySelector(".big_product");
+            // 1. 鼠标移动入盒子，mask和big_product显现，反之消失
+            product.addEventListener("mouseover", function() {
                 mask.style.display = "block";
-                product.addEventListener("mousemove", function(e) {
-                    var top_in_product = e.pageY - this.offsetTop;
-                    var left_in_product = e.pageX - this.offsetLeft;
-                    mask.style.top = top_in_product / 2 + "px";
-                    mask.style.left = left_in_product / 2 + "px";
-                });
+                big.style.display = "block";
             });
             product.addEventListener("mouseout", function() {
                 mask.style.display = "none";
+                big.style.display = "none";
+            });
+            // 2. 鼠标移动，mask和大图片同步移动
+            product.addEventListener("mousemove", function(e) {
+                // (1)先计算出鼠标在盒子内的坐标
+                var x = e.pageX - this.offsetLeft;
+                var y = e.pageY - this.offsetTop;
+                // (2)因为我们的鼠标处于mask的中央，所以mask要往上走自己高度的一半，往左走自己高度的一半
+                //    也就是 mask.offsetWidth / 2 和 mask.offsetHeight / 2
+                var maskX = x - mask.offsetWidth / 2;
+                var maskY = y - mask.offsetHeight / 2;
+                // (3)遮挡层不能超过外面的大盒子，所以如果坐标小于0，就让他等于0
+                if (maskX <= 0) {
+                    maskX = 0;
+                } else if (maskX >= this.offsetWidth - mask.offsetWidth) {
+                    // (3.1)如果mask移动的距离超过了product-mask的距离，就让他固定为那个数值，这样右边也卡住了
+                    maskX = this.offsetWidth - mask.offsetWidth;
+                }
+                // (4)如法炮制，Y轴也是如此
+                if (maskY <= 0) {
+                    maskY = 0;
+                } else if (maskY >= this.offsetHeight - mask.offsetHeight) {
+                    // (4.1)如果mask移动的距离超过了product-mask的距离，就让他固定为那个数值，这样下边也卡住了
+                    maskY = this.offsetHeight - mask.offsetHeight;
+                }
+                mask.style.left = maskX + "px";
+                mask.style.top = maskY + "px";
+                // (5).开始计算大图片移动的距离
+                //    (5.1)其实就是mask最终的移动距离乘以大图片和mask的比例
+                big_img = big.children[0];
+                bigX = maskX * (big_img.offsetWidth / mask.offsetWidth);
+                bigY = maskY * (big_img.offsetHeight / mask.offsetHeight);
+                big_img.style.left = -bigX + "px";
+                big_img.style.top = -bigY + "px";
             });
         });
     </script>
@@ -59,6 +105,9 @@
     <div class="product">
         <img src="images/jd_p_sm.jpg" alt="" />
         <div class="mask"></div>
+        <div class="big_product">
+            <img src="images/jd_p_big.jpg" alt="" />
+        </div>
     </div>
 </body>
 

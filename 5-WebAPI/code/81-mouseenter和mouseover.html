@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        .father {
+            width: 600px;
+            height: 600px;
+            background-color: pink;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .son {
+            width: 200px;
+            height: 200px;
+            background-color: rgb(169, 183, 224);
+        }
+    </style>
+    <script>
+        window.addEventListener("load", function() {
+            var father = document.querySelector(".father");
+            var son = document.querySelector(".son");
+            // mouseover：鼠标经过子盒子也会触发
+            father.addEventListener("mouseover", function() {
+                console.log(11);
+            });
+            father.addEventListener("mouseenter", function() {
+                console.log(22);
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="father">
+        <div class="son"></div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+            border: 10px solid red;
+            padding: 10px;
+            overflow: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <p>我是内容</p>
+        <p>我是内容</p>
+        <p>我是内容</p>
+        <p>我是内容</p>
+        <p>我是内容</p>
+        <p>我是内容</p>
+        <p>我是内容</p>
+        <p>我是内容</p>
+        <p>我是内容</p>
+        <p>我是内容</p>
+    </div>
+    <script>
+        // scroll系列
+        var div = document.querySelector("div");
+        // 不含边框
+        // console.log(div.scrollWidth);
+        console.log(div.clientHeight);
+        // 如果文字超过盒子，那么clientHeight不会显示多余的，而scrollHeight会显示超出部分
+        console.log(div.scrollHeight);
+
+        // scorll 滚动事件，当我们滚动时会触发时间
+        div.addEventListener("scroll", function() {
+            // 页面一滚动就打印被卷去的高度
+            console.log(this.scrollTop);
+        });
+    </script>
+</body>
+
+</html>

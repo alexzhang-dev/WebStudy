@@ -255,6 +255,17 @@ if (e && e.stopPropagation) {
 
 上面的案例，我们给`ul`添加事件监听器，利用事件对象的`target`找到当前的`li`，因为点击`li`，会冒泡到`ul`上，`ul`有注册事件，就会触发事件监听器
 
+### 事件委托代码
+
+```javascript
+// 事件委托的核心原理：把事件监听器放到其父节点上，利用冒泡原理影响设置每个子节点
+var ul = document.querySelector("ul");
+ul.addEventListener("click", function(e) {
+    // e.target可以得到我们点击的对象，也就是ul的子元素li
+    e.target.style.backgroundColor = "pink";
+});
+```
+
  ### 事件委托的作用
 
 我们只操作了一次DOM，提高了程序的性能
@@ -280,6 +291,13 @@ document.addEventListener("selectstart", function(e) {
     e.preventDefault();
 });
 ```
+
+### 7.3. mouseenter 和 mouseover 的区别
+* 当鼠标移动到元素上就会触发`mouseenter`事件
+* 类似于`mouseover`，他们两者之间的差别是：
+* `mouseover`鼠标经过`自身盒子和子盒子`都会触发，`mouseenter`鼠标`只经过自身盒子`会触发
+* 之所以这样，是因为`mouseenter不会冒泡`
+* 跟`mouseenter`搭配鼠标离开`mouseleave`也不会冒泡
 
 # 8. 鼠标事件对象
 
