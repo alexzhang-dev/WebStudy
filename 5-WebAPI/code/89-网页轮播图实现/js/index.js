@@ -54,14 +54,12 @@ window.addEventListener("load", function() {
 
 
     // 5. 点击左侧按钮和右侧按钮图片会更改
-    // num作为次数
+    // num作为次数，因为我们后面要使用num和小圆点同步
+    // 所以num的值使用小圆点的data-index的值+1
     var num = 0;
-    left.addEventListener("click", function() {
-
-    });
-
 
     right.addEventListener("click", function() {
+        console.log(num);
         // 因为图片滚动到最后一张再滚动又会回到第一张，这是因为图片无缝滚动。
         // 无缝滚动原理：将第一张图片复制一份放到最后一张的后面
         // 当图片滚动到最后一张的时候，直接让他跳到第一张，这样看起来相当于是跳到了第一张
@@ -73,7 +71,53 @@ window.addEventListener("load", function() {
         num++;
         // 点击一下，其实就是ul往右边移动了一个宽度*次数
         animate(banner_img_ul, -(num * focus_width), );
+        // 排他思想，先清除所有的className
+        for (var i = 0; i < circle.children.length; i++) {
+            circle.children[i].className = "";
+        }
+        // 因此得知，num就相当于小圆点的data-index，所以我们取所有的小圆点
+        // 因为我们使用无缝滚动，所以当到复制的第一张图片的时候，我们就把小圆点放给第一个
+        if (num == banner_img_ul.children.length - 1) {
+            circle.children[0].className = "current";
+        } else {
+            circle.children[num].className = "current";
+        }
+    });
+
+    // 左边也是同理
+    left.addEventListener("click", function() {
+        console.log(num);
+        if (num == 0) {
+            banner_img_ul.style.left = (banner_img_ul.children.length - 1) * focus_width;
+            num = banner_img_ul.children.length - 1;
+        }
+        // 因为是左边，所以是--
+        num--;
+        // 点击一下，其实就是ul往右边移动了一个宽度*次数
+        animate(banner_img_ul, -(num * focus_width), );
+        // 排他思想，先清除所有的className
+        for (var i = 0; i < circle.children.length; i++) {
+            circle.children[i].className = "";
+        }
+        if (num == banner_img_ul.children.length - 1) {
+            circle.children[0].className = "current";
+        } else {
+            circle.children[num].className = "current";
+        }
     });
 
 
+    //6. 最后一步，让这个幻灯片在不移动的时候动起来，鼠标移动到focus的地方的时候停下来
+    focus.addEventListener("mouseenter", function() {
+
+    });
+    setInterval(function() {
+        animate(banner_img_ul, -(num + 1) * focus_width, function() {
+            num++;
+            if (num > banner_img_ul.length - 1) {
+                num = 0;
+                console.log(111);
+            }
+        });
+    }, 3000);
 })
