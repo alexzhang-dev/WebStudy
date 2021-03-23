@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+            position: absolute;
+            left: 0;
+        }
+    </style>
+    <script>
+        window.addEventListener("load", function() {
+            var btn500 = document.querySelector(".go500");
+            var btn800 = document.querySelector(".go800");
+            var div = document.querySelector("div");
+            btn500.addEventListener("click", function() {
+                animate(div, 500);
+            });
+            btn800.addEventListener("click", function() {
+                animate(div, 800);
+            });
+
+            function animate(obj, target) {
+                clearInterval(obj.move);
+                obj.move = setInterval(function() {
+                    // 缓动动画核心算法：核心算法：（目标值 - 现在的位置） / 10 作为每次移动的步长
+                    // 把步长改为整数，不要出现小数的问题
+                    // 如果是正值，就往上取整，如果是负值，就往下取整
+                    var step = (target - obj.offsetLeft) / 100;
+                    step = step > 0 ? Math.ceil(step) : Math.floor(step);
+                    obj.style.left = obj.offsetLeft + step + "px";
+                    if (obj.offsetLeft == target) {
+                        clearInterval(obj.move);
+                    }
+                }, 15);
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <button class="go500">点击到达500</button>
+    <button class="go800">点击到达800</button>
+    <div></div>
+</body>
+
+</html>

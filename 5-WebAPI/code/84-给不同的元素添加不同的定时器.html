@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+            position: absolute;
+            left: 0;
+        }
+        
+        span {
+            display: block;
+            width: 150px;
+            height: 150px;
+            background-color: purple;
+            position: absolute;
+            left: 0;
+            top: 300px;
+        }
+    </style>
+    <script>
+        window.addEventListener("load", function() {
+            // 注意函数需要传递2个参数，动画对象和移动的距离。
+            // 给不同的元素指定了不同的定时器，有什么好处？
+            // 1. 结构清晰
+            // 2. 避免了每调用一次定时器方法，就创建了一次move变量，节省了内存空间
+            function animate(obj, target) {
+                // 保证只会有一个定时器
+                clearInterval(obj.move);
+                obj.move = setInterval(function() {
+                    obj.style.left = obj.offsetLeft + 1 + "px";
+                    if (obj.offsetLeft >= target) {
+                        clearInterval(obj.move);
+                    }
+                }, 5);
+            }
+            var div = document.querySelector("div");
+            animate(div, 600);
+            var span = document.querySelector("span");
+            var btn = document.querySelector("button");
+            btn.addEventListener("click", function() {
+                animate(span, 400);
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <button>点击下面的盒子才会走</button>
+    <div></div>
+    <span></span>
+</body>
+
+</html>

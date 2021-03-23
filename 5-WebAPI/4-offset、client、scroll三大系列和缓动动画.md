@@ -205,3 +205,90 @@
 2. `client`系列主要用于获取`元素大小`：`clientWidth`，`clientHeight`
 3. `scroll`系列主要用于获取`滚动距离`：`scrollTop`，`scrollLeft`
 4. 注意`页面滚动距离`通过`window.pageXOffset`和`window.pageYOffset`来获取
+
+# 5. 动画函数封装
+
+### 5.1 动画实现原理
+
+**核心原理**：通过定时器`setInterval()`不断移动盒子的位置
+
+实现步骤：
+
+1. 获取盒子当前位置
+2. 当前的位置加1个移动距离
+3. 通过定时器不断重复这个操作
+4. 结束定时器
+5. 此元素要添加定位，才能使用`element.style.left`
+
+### 5.2 动画函数简单封装
+
+注意函数需要传递2个参数，`动画对象`和`移动到的距离`。
+
+```javascript
+function animate(obj, target) {
+    // 保证只会有一个定时器
+    clearInterval(obj.move);
+    // 把定时器赋值给obj的属性，有什么好处？
+    // 1. 结构清晰
+    // 2. 避免了每调用一次定时器方法，就创建了一次move变量，节省了内存空间
+    obj.move = setInterval(function() {
+        obj.style.left = obj.offsetLeft + 1 + "px";
+        if (obj.offsetLeft >= target) {
+            clearInterval(obj.move);
+        }
+    }, 5);
+}
+```
+
+### 5.3 缓动效果原理
+
+缓动动画就是让动画的速度有所变化，最常见的就是让速度慢慢停慢下来
+
+思路：
+
+1. 让盒子每次移动的距离慢慢变小，速度就会慢慢落下来
+2. 核心算法：（`目标值` - `现在的位置`） / 10 作为每次移动的步长（步长值需要取整，如果距离是`正`值，就向上取整`Math.ceil`，如果距离是`负`值，就向下取整`Math.floor`）
+3. 停止条件：当前位置等于目标位置就停止
+
+### 5.4 缓动动画最终代码：
+
+```javascript
+function animate(obj, target) {
+    clearInterval(obj.move);
+    obj.move = setInterval(function() {
+        // 缓动动画核心算法：核心算法：（目标值 - 现在的位置） / 10 作为每次移动的步长
+        // 把步长改为整数，不要出现小数的问题
+        // 如果是正值，就往上取整，如果是负值，就往下取整
+        var step = (target - obj.offsetLeft) / 100;
+        step = step > 0 ? Math.ceil(step) : Math.floor(step);
+        obj.style.left = obj.offsetLeft + step + "px";
+        if (obj.offsetLeft == target) {
+            clearInterval(obj.move);
+        }
+    }, 15);
+}
+```
+
+### 5.5 动画函数添加回调函数
+
+**原理**：函数可以作为一个参数，将这个函数作为参数传到另一个函数里面，当那个函数执行完毕后，再执行这个传入的函数，这个过程称之为`回调函数`
+
+回调函数写在`定时器结束`的位置
+
+### 5.6 动画函数封装到单独的JS文件里面
+
+因为我们以后要频繁使用这个动画函数，可以将其放到单独的JS文件中，使用的时候直接引用这个JS文件就行
+
+# 6. 常见网页特效案例
+
+### 6.1 网页轮播图
+
+需求：
+
+1. 鼠标经过轮播图模块，左右按钮显示，反之隐藏
+2. 点击左侧，图片往左播放，点击右侧按钮，图片往右播放
+3. 图片播放的同时，下面的小圆圈模块也会一起变化
+4. 点击小圆圈，可以播放相应图片
+5. 鼠标不经过轮播图，轮播图也会自动播放
+6. 鼠标经过，轮播图自动播放停止
+

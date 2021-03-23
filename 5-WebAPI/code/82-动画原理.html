@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+            position: absolute;
+            left: 0;
+        }
+    </style>
+    <script>
+        window.addEventListener("load", function() {
+            // 动画原理
+            // 1. 获取盒子当前位置
+            // 2. 当前的位置加1个移动距离
+            // 3. 通过定时器不断重复这个操作
+            // 4. 结束定时器
+            // 5. 此元素要添加定位，才能使用element.style.left
+            var div = document.querySelector("div");
+            var move = setInterval(function() {
+                div.style.left = div.offsetLeft + 1 + "px";
+                if (div.offsetLeft >= 1000) {
+                    clearInterval(move);
+                }
+            }, 5);
+        });
+    </script>
+</head>
+
+<body>
+    <div></div>
+</body>
+
+</html>

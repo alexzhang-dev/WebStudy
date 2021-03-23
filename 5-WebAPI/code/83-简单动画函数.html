@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+            position: absolute;
+            left: 0;
+        }
+        
+        span {
+            display: block;
+            width: 150px;
+            height: 150px;
+            background-color: purple;
+            position: absolute;
+            left: 0;
+        }
+    </style>
+    <script>
+        window.addEventListener("load", function() {
+            // 注意函数需要传递2个参数，动画对象和移动的距离。
+            function animate(obj, target) {
+                var move = setInterval(function() {
+                    obj.style.left = obj.offsetLeft + 1 + "px";
+                    if (obj.offsetLeft >= target) {
+                        clearInterval(move);
+                    }
+                }, 5);
+            }
+            var div = document.querySelector("div");
+            animate(div, 600);
+            var span = document.querySelector("span");
+            animate(span, 300);
+        });
+    </script>
+</head>
+
+<body>
+    <div></div>
+    <span></span>
+</body>
+
+</html>
