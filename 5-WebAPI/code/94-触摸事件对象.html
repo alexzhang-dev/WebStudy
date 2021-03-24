@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: blue;
+        }
+    </style>
+    <script>
+        window.addEventListener("load", function() {
+            var div = document.querySelector("div");
+            div.addEventListener("touchstart", function(e) {
+                // touches：正在触摸屏幕的手指的列表
+                console.log(e.touches);
+                // targetTouches：触摸当前DOM元素的手指列表
+                console.log(e.targetTouches);
+                // 如果侦听的是DOM元素，touches和targetTouches这两个值是一样的
+                // changedTouches:更改的手指的状态
+                // 因为我们一般都是触摸元素，所以targetTouches最经常使用
+                // 如果想要得到第一根手指的相关信息，比如手机的坐标等等
+                console.log(e.targetTouches[0]);
+            });
+            // touchmove：移动元素触发事件
+            div.addEventListener("touchmove", function() {
+                console.log("在移动");
+            });
+            // touchend：不触摸元素触发事件
+            div.addEventListener("touchend", function() {
+                // 当手指离开元素的时候，touches和targetTouches就为空了
+                // 但是changedTouches是有值的，因为发生了变化
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div></div>
+</body>
+
+</html>

@@ -17,6 +17,8 @@ function animate(obj, target, callback) {
             //     // 调用函数
             //     callback();
             // }
+
+            // 短路运算，只有左边和右边都是true才会看右边，左边为false，就不看右边了
             callback && callback();
         }
         // 把每次加1 这个步长值改为一个慢慢变小的值  步长公式：(目标值 - 现在的位置) / 10

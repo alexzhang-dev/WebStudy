@@ -97,7 +97,7 @@ window.addEventListener("load", function() {
 
     });
 
-    // -----------6. 鼠标不进入focus，那么图片移动，反之图片不移动
+    // -----------6. 鼠标不进入focus，那么图片移动，反之图片不移动----------
     // 页面加载完成，先调用move函数
     var timer = setInterval(function() {
         // 自动调用事件
@@ -105,6 +105,7 @@ window.addEventListener("load", function() {
     }, 3000)
     focus.addEventListener("mouseenter", function() {
         clearInterval(timer);
+        timer = null;
     });
     focus.addEventListener("mouseleave", function() {
         timer = setInterval(function() {

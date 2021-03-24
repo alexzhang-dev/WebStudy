@@ -110,8 +110,8 @@
 ```javascript
 (function flexible(window, document) {
     // 获取 DOM 顶级元素： HTML
-    var docEl = document.documentElement
-        // dpr：物理像素比，如果能拿到，就用，拿不到就用1
+    var docEl = document.documentElement;
+    // dpr：物理像素比，如果能拿到，就用，拿不到就用1
     var dpr = window.devicePixelRatio || 1
 
     // adjust body font size   设置body的字体大小
@@ -292,3 +292,26 @@ function animate(obj, target) {
 5. 鼠标不经过轮播图，轮播图也会自动播放
 6. 鼠标经过，轮播图自动播放停止
 
+详细源码请查看：[文件夹](code/90-网页轮播图练习/)或者[JS文件](code/90-网页轮播图练习/js/slider.js)
+
+### 6.2 节流阀
+
+防止轮播图连续点击左右按钮导致`播放过快`
+
+节流阀目的：当上一个函数动画内容执行完毕之后，再去执行下一个函数动画，让事件无法被连续触发
+
+核心实现思路：利用回调函数，添加一个变量来控制，锁住函数和解锁函数
+
+### 6.3 返回顶部案例
+
+利用之前封装的`aniamte`函数，只不过这里的向上移动，所以所有的`left`需要改成`window.pageYOffset`。
+
+详见[原生JS返回顶部](code/91-动画返回顶部效果.html)
+
+### 6.4 筋头云案例
+
+鼠标经过某个li，筋斗云跟到当前li的位置
+
+鼠标离开，筋头云复原回原来的位置
+
+鼠标点击了某个li，筋头云就停在点击的这个li的位置上 

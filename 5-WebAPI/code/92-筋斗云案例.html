@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="animate.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        ul {
+            list-style: none;
+        }
+        
+        body {
+            background-color: black;
+        }
+        
+        .c-nav {
+            width: 900px;
+            height: 42px;
+            background: #fff url(images/rss.png) no-repeat right center;
+            margin: 100px auto;
+            border-radius: 5px;
+            position: relative;
+        }
+        
+        .c-nav ul {
+            position: absolute;
+        }
+        
+        .c-nav li {
+            float: left;
+            width: 83px;
+            text-align: center;
+            line-height: 42px;
+        }
+        
+        .c-nav li a {
+            color: #333;
+            text-decoration: none;
+            display: inline-block;
+            height: 42px;
+        }
+        
+        .c-nav li a:hover {
+            color: white;
+        }
+        
+        .cloud {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 83px;
+            height: 42px;
+            background: url(images/cloud.gif) no-repeat;
+        }
+        
+        .current a {
+            color: #16afbc !important;
+        }
+    </style>
+    <script>
+        window.addEventListener("load", function() {
+            // 获取cloud
+            var cloud = document.querySelector(".cloud");
+            // 每个li添加mousenter
+            var li_list = document.querySelector("#c_nav").querySelectorAll("li");
+            // 需要一个cloud_left变量来记录cloud的left值
+            var cloud_left = 0;
+            for (var i = 0; i < li_list.length; i++) {
+                li_list[i].addEventListener("mouseenter", function() {
+                    // 此时li距离div最左边的距离其实就是cloud移动的距离
+                    animate(cloud, this.offsetLeft);
+                });
+                // 如果鼠标离开mouseleave，那么cloud就复原回原来的位置
+                li_list[i].addEventListener("mouseleave", function() {
+                    // 此时li距离div最左边的距离其实就是cloud移动的距离
+                    animate(cloud, cloud_left);
+                });
+                // 点击某个li，此时cloud的left值就变成了这个li的offsetLeft
+                li_list[i].addEventListener("click", function() {
+                    // 先排他
+                    for (var j = 0; j < li_list.length; j++) {
+                        li_list[j].className = "";
+                    }
+                    this.className = "current";
+                    cloud.style.left = this.offsetLeft;
+                    cloud_left = this.offsetLeft;
+                });
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <div id="c_nav" class="c-nav">
+        <span class="cloud"></span>
+        <ul>
+            <li class="current"><a href="#">首页新闻</a></li>
+            <li><a href="#">师资力量</a></li>
+            <li><a href="#">活动策划</a></li>
+            <li><a href="#">企业文化</a></li>
+            <li><a href="#">招聘信息</a></li>
+            <li><a href="#">公司简介</a></li>
+        </ul>
+    </div>
+</body>
+
+</html>

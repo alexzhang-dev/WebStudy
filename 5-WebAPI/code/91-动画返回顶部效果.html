@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        header,
+        nav,
+        main,
+        footer,
+        .banner {
+            width: 80%;
+            margin: 0 auto;
+        }
+        
+        header {
+            height: 200px;
+            background-color: pink;
+        }
+        
+        nav {
+            height: 100px;
+            background-color: #ccc;
+        }
+        
+        .banner {
+            height: 300px;
+            background-color: rgb(185, 240, 185);
+        }
+        
+        main {
+            height: 1200px;
+            background-color: #8cc9fc;
+        }
+        
+        footer {
+            height: 300px;
+            background-color: #999;
+        }
+        
+        .right {
+            width: 50px;
+            height: 120px;
+            position: absolute;
+            right: 50px;
+            top: 500px;
+            background: pink;
+        }
+        
+        .backTop {
+            display: none;
+        }
+    </style>
+    <script>
+        window.addEventListener("load", function() {
+            var right = document.querySelector(".right");
+            var banner_top = document.querySelector(".banner").offsetTop;
+            var slider_top = right.offsetTop - banner_top;
+            // 回到头部按钮
+            var backTop = document.querySelector(".backTop");
+            window.addEventListener("scroll", function() {
+                // 页面被卷去的头部:window.pageYOffset
+                if (window.pageYOffset >= banner_top) {
+                    right.style.position = "fixed";
+                    right.style.top = slider_top + "px";
+                    // console.log(window.pageYOffset);
+                } else {
+                    right.style.position = "absolute";
+                    right.style.top = "500px";
+                }
+                if (window.pageYOffset >= 930) {
+                    backTop.style.display = "block";
+                } else {
+                    backTop.style.display = "none";
+                }
+            });
+
+            // -------- 1. 回到顶部点击事件
+            backTop.addEventListener("click", function() {
+                animate(window, 0);
+            });
+
+            function animate(obj, target, callback) {
+                // console.log(callback);  callback = function() {}  调用的时候 callback()
+
+                // 先清除以前的定时器，只保留当前的一个定时器执行
+                clearInterval(obj.timer);
+                obj.timer = setInterval(function() {
+                    // 步长值写到定时器的里面
+                    // 把我们步长值改为整数 不要出现小数的问题
+                    // var step = Math.ceil((target - obj.offsetLeft) / 10);
+                    var step = (target - window.pageYOffset) / 10;
+                    step = step > 0 ? Math.ceil(step) : Math.floor(step);
+                    if (window.pageYOffset == target) {
+                        // 停止动画 本质是停止定时器
+                        clearInterval(obj.timer);
+                        // 回调函数写到定时器结束里面
+                        // if (callback) {
+                        //     // 调用函数
+                        //     callback();
+                        // }
+                        callback && callback();
+                    }
+                    // 把每次加1 这个步长值改为一个慢慢变小的值  步长公式：(目标值 - 现在的位置) / 10
+                    // window.scroll就是窗口滚动方法
+                    window.scroll(0, window.pageYOffset + step);
+                }, 15);
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <header>头部</header>
+    <nav>导航栏</nav>
+    <div class="banner">banner</div>
+    <main>主体部分</main>
+    <footer>底部部分</footer>
+    <div class="right">
+        <button class="backTop">回到顶部</button>
+    </div>
+</body>
+
+</html>

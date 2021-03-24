@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: blue;
+        }
+    </style>
+    <script>
+        window.addEventListener("load", function() {
+            var div = document.querySelector("div");
+            // touchstart：触摸元素触发事件
+            div.addEventListener("touchstart", function() {
+                console.log("触摸元素");
+            });
+            // touchmove：移动元素触发事件
+            div.addEventListener("touchmove", function() {
+                console.log("在移动");
+            });
+            // touchend：不触摸元素触发事件
+            div.addEventListener("touchend", function() {
+                console.log("不触摸元素");
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div></div>
+</body>
+
+</html>

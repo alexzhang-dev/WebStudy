@@ -1,0 +1,89 @@
+.banner {
+    width: calc(1620px / 2);
+    height: calc(1080px / 2);
+    margin: 150px auto 0 auto;
+    position: relative;
+    /* 让多余的图片消失 */
+    overflow: hidden;
+}
+
+.banner ul {
+    width: 500%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.banner ul li {
+    float: left;
+}
+
+.banner ul li img {
+    width: calc(1620px / 2);
+    height: calc(1080px / 2);
+}
+
+
+/* 左右按钮 */
+
+.arrow_l,
+.arrow_r {
+    z-index: 2;
+    position: absolute;
+    color: #fff;
+    font-size: 24px;
+    display: block;
+    width: 20px;
+    height: 50px;
+    line-height: 50px;
+    background: rgba(0, 0, 0, .3);
+    top: 50%;
+    transform: translateY(-50%);
+    display: none;
+}
+
+.arrow_l {
+    left: 0;
+}
+
+.arrow_r {
+    right: 0;
+}
+
+.arrow_l:hover,
+.arrow_r:hover {
+    color: red;
+    cursor: pointer;
+}
+
+
+/* 下面的小方块部分 */
+
+.banner ol {
+    height: 30px;
+    position: absolute;
+    z-index: 2;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.banner ol li {
+    width: 30px;
+    height: 7px;
+    float: left;
+    background: rgba(0, 0, 0, .5);
+    margin-top: 10px;
+}
+
+.banner ol li:hover {
+    cursor: pointer;
+}
+
+.banner ol li:nth-child(n+2) {
+    margin-left: 10px;
+}
+
+.banner ol .current {
+    background: rgba(255, 255, 255, .5);
+}
