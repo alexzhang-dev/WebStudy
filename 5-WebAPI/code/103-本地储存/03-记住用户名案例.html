@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    用户名：<input type="text" />
+    <input type="checkbox" name="" id="check" />记住用户名<br />
+    <button>确定</button>
+    <script>
+        var username = document.querySelector("input");
+        var check = document.querySelector("#check");
+        var btn = document.querySelector("button");
+        // username发生变化事件
+        // 第一次点击，将username储存到用户名中，但是前提是username里面有值
+        btn.addEventListener("click", function() {
+            if (check.checked && username.value.length > 0) {
+                localStorage.setItem("username", username.value);
+            } else if (!check.checked) {
+                localStorage.removeItem("username");
+            }
+        });
+        // 如果检测到LocalStorage里面有username了,那么我们就显示username,并且check为选中状态
+        if (localStorage.getItem("username")) {
+            username.value = localStorage.getItem("username");
+            check.checked = true;
+        }
+    </script>
+</body>
+
+</html>

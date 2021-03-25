@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        body {
+            background: #000;
+            overflow: hidden;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .star {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            overflow: hidden;
+            text-align: center;
+            line-height: 100px;
+        }
+        
+        .star img {
+            animation: scaleToBig 3s;
+        }
+        
+        @keyframes scaleToBig {
+            from {
+                width: 1px;
+                height: 1px;
+            }
+            to {
+                width: 100px;
+                height: 100px;
+            }
+        }
+        
+        @keyframes scaleToSmall {
+            from {
+                width: 100px;
+                height: 100px;
+            }
+            to {
+                width: 1px;
+                height: 1px;
+            }
+        }
+    </style>
+    <script>
+        window.addEventListener("load", function() {
+            function randomInt(min, max) {
+                return Math.floor(Math.random() * (max - min)) + min;
+            }
+            // 动态生成星星;
+
+            function createStar() {
+                var div = document.createElement("div");
+                var img = document.createElement("img");
+                img.src = "images/xingxing.gif";
+                div.appendChild(img);
+                div.className = "star";
+                div.style.left = randomInt(1, 100) + "%";
+                div.style.top = randomInt(1, 100) + "%";
+                document.body.appendChild(div);
+                var stars = document.querySelectorAll(".star");
+                for (var i = 0; i < stars.length; i++) {
+                    stars[i].addEventListener("click", function() {
+                        this.children[0].style.animation = "scaleToSmall 3s";
+                        this.children[0].addEventListener(
+                            "webkitAnimationEnd",
+                            function() {
+                                if (this.parentNode) {
+                                    document.body.removeChild(this.parentNode);
+                                }
+                            }
+                        );
+                    });
+                }
+            }
+            setInterval(createStar, 1000);
+        });
+    </script>
+</head>
+
+<body>
+    <!-- <div class="star">
+        <img src="images/xingxing.gif" alt="" />
+    </div> -->
+</body>
+
+</html>
