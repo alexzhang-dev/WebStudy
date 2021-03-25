@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        .black {
+            background-color: #000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="one two"></div>
+    <button>开关灯</button>
+    <script>
+        // classList属性可以对元素的class进行添加、删除、切换等功能
+        var div = document.querySelector("div");
+        // classList返回的是一个数组，按照class的顺序将所有的类名放入到其中
+        console.log(div.classList[0]);
+        // 1. 添加类名，在后面追加类名，不会覆盖原来的类名
+        div.classList.add("three");
+        // 2. 移除类名
+        div.classList.remove("one");
+        // 3. 切换类
+        var btn = document.querySelector("button");
+        btn.addEventListener("click", function() {
+            document.body.classList.toggle("black");
+        });
+    </script>
+</body>
+
+</html>

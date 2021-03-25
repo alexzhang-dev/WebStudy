@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+        // 封装tap，解决延时问题
+        function tap(obj, callback) {
+            // 是否移动
+            var isMove = false;
+            // 记录触摸的时间
+            var startTime = 0;
+            obj.addEventListener("touchstart", function(e) {
+                // 记录触摸屏幕的毫秒数
+                startTime = +new Date();
+            });
+            obj.addEventListener("touchmove", function() {
+                // 如果移动屏幕了，isMove就变成true
+                isMove = true;
+            });
+            obj.addEventListener("touchend", function() {
+                // 如果没有滑动，并且停留的毫秒数小于150ms
+                if (!isMove && Date.now() - startTime < 150) {
+                    // 执行回调函数
+                    callback && callback();
+                }
+                // 重置变量
+                isMove = false;
+                startTime = 0;
+            });
+        }
+        // 调用
+        tap(obj, function() {
+            // 执行代码
+        });
+    </script>
+</head>
+
+<body></body>
+
+</html>
