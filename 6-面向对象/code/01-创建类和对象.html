@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+        // 使用class创建类
+        class Person {
+            // constructor 构造函数
+            constructor(uname, age) {
+                    this.uname = uname;
+                    this.age = age;
+                }
+                // 方法不需要加function
+            say() {
+                console.log(this.uname + ",sayHello");
+            }
+        }
+        // 使用new创建类的实例
+        var man = new Person("alex", 18);
+        var woman = new Person("alice", 19);
+        console.log(man);
+        console.log(woman);
+
+        // 方法
+        man.say();
+    </script>
+</head>
+
+<body></body>
+
+</html>

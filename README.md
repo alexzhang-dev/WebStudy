@@ -44,3 +44,7 @@
   * [0401.WebAPIs简介](5-WebAPI/0-WebAPIs简介.md)
   * [0402.DOM](5-WebAPI/1-DOM.md)
   * [0403.DOM事件高级](5-WebAPI/2-DOM事件高级.md)
+  * [0404.BOM](5-WebAPI/3-BOM.md)
+  * [0405.PC动效](5-WebAPI/4-PC动效.md)
+  * [0406.移动动效](5-WebAPI/5-移动端网页特效.md)
+  * [0407.本地储存](5-WebAPI/6-本地储存.md)
