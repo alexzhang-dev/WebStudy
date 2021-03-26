@@ -136,8 +136,8 @@ DOM事件流分3个阶段：
 1.  JS 代码中只能执行捕获或者冒泡其中一个阶段
 2. `onclick`和`attachEvent`只能到冒泡阶段
 3. `addEventListener(type, listener[, useCapture])`里面的第三个参数如果是`true`，那么表示在事件捕获阶段调用事件处理程序，如果是`false`，表示在事件冒泡阶段调用事件处理程序
-4. **实际开发中，我们更关心事件冒泡，很少使用事件捕获**
-5. 有些事件是没有冒泡的，例如`onblur`、`onfocus`、`onmouseover`、`onmouseleave`
+4.  **实际开发中，我们更关心事件冒泡，很少使用事件捕获**
+    5. 有些事件是没有冒泡的，例如`onblur`、`onfocus`、`onmouseover`、`onmouseleave`
 6. 事件冒泡有时会带来麻烦，有时又会帮助很巧妙的做一些事情
 
 # 4. 事件对象

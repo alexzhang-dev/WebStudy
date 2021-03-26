@@ -308,7 +308,7 @@ function animate(obj, target) {
 
 详见[原生JS返回顶部](code/91-动画返回顶部效果.html)
 
-### 6.4 筋头云案例
+### 6.4 筋斗云案例
 
 鼠标经过某个li，筋斗云跟到当前li的位置
 
