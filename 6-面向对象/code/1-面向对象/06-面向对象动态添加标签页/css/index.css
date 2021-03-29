@@ -1,0 +1,115 @@
+.title,
+.container {
+    width: 800px;
+    margin: 0 auto;
+}
+
+.title {
+    padding: 50px 0 50px 0;
+    font-weight: bold;
+    text-align: center;
+    font-size: 16px;
+}
+
+.container {
+    height: 500px;
+    border: 1px solid orange;
+}
+
+.tab-title {
+    width: 100%;
+    height: 50px;
+    border-bottom: 1px solid #ccc;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.tab-title input {
+    width: 73%;
+    height: 25px;
+}
+
+.tab-title ul {
+    width: 100%;
+}
+
+.tab-title ul li {
+    float: left;
+    width: 12%;
+    list-style: none;
+    text-align: center;
+    font-size: 16px;
+    border-right: 1px solid #ccc;
+    box-sizing: border-box;
+    position: relative;
+    cursor: pointer;
+}
+
+.title-content {
+    line-height: 50px;
+}
+
+.current-title {
+    background-color: #fff;
+    border-bottom: none;
+}
+
+.close-tab {
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #fff;
+    background-color: #000;
+    line-height: 12px;
+    border-bottom-left-radius: 100%;
+    padding-left: 4px;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.add-tab {
+    width: 20px;
+    height: 100%;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    top: 0;
+    right: 10px;
+}
+
+.add-tab span {
+    width: 100%;
+    height: 20px;
+    text-align: center;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    line-height: 17px;
+    cursor: pointer;
+}
+
+.tab-content {
+    width: 100%;
+    height: calc(100% - 50px);
+}
+
+.tab-content section {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    font-size: 16px;
+    display: none;
+}
+
+.tab-content section input {
+    width: 100%;
+    height: 200px;
+}
+
+.current-content {
+    display: block!important;
+}

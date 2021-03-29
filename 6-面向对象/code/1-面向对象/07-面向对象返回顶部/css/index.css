@@ -1,0 +1,20 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 100%;
+}
+
+.container img {
+    width: 100%;
+}
+
+.backTop {
+    position: absolute;
+    top: 800px;
+    right: 40px;
+    display: none;
+    cursor: pointer;
+}
