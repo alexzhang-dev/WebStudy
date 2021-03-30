@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function Person(uname, age) {
+            this.uname = uname;
+            this.age = age;
+        }
+        var that;
+        Person.prototype.say = function() {
+            that = this;
+            console.log("hello!");
+        };
+        var p = new Person("alex", 18);
+        // 1. 在构造函数中，this指向创建的对象实例
+        // 2. 原型对象中的this指向对象实例
+        p.say();
+        console.log(that === p);
+    </script>
+</body>
+
+</html>

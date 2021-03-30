@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function Person(uname, age) {
+            this.uname = uname;
+            this.age = age;
+        }
+        Person.prototype.say = function() {
+            console.log("hello!" + this.uname);
+        };
+        var p = new Person("alex", 18);
+        var p2 = new Person("tom", 19);
+        console.log(p); // 对象身上系统自动添加__proto__这个对象，指向构造函数的prototype原型对象
+        // __proto__对象原型和原型对象prototype是等价的
+        console.log(p.__proto__ === Person.prototype);
+        // 方法的查找规则
+        // 1. 看p有没有say这个这个方法，如果有就对象上的say执行
+        // 2. 如果没有，去__proto__也就是构造函数的prototype去找，如果有就构造函数原型对象的say执行
+    </script>
+</body>
+
+</html>

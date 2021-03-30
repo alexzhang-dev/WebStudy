@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        .title {
+            width: 600px;
+            margin: 20px auto 0 auto;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+        }
+        
+        .title input {
+            width: 50px;
+            box-sizing: border-box;
+            height: 20px;
+        }
+        
+        .content {
+            width: 400px;
+            margin: 30px auto 0 auto;
+        }
+        
+        .content table {
+            width: 100%;
+        }
+        
+        .content table tr {
+            display: flex;
+        }
+        
+        .content table thead th:first-child,
+        .content table tbody tr td:first-child {
+            flex: 1;
+        }
+        
+        .content table thead th:nth-child(2),
+        .content table tbody tr td:nth-child(2) {
+            flex: 4;
+        }
+        
+        .content table thead th:nth-child(3),
+        .content table tbody tr td:nth-child(3) {
+            flex: 2;
+        }
+        
+        .content table tbody td {
+            text-align: center;
+        }
+    </style>
+    <script>
+        window.addEventListener("load", function() {
+            var datas = [{
+                id: 1,
+                p_name: "小米",
+                p_price: 3999,
+            }, {
+                id: 2,
+                p_name: "oppo",
+                p_price: 999,
+            }, {
+                id: 3,
+                p_name: "荣耀",
+                p_price: 1299,
+            }, {
+                id: 4,
+                p_name: "华为",
+                p_price: 1999,
+            }, ];
+            // 1. forEach渲染数据
+            var tbody = document.querySelector(".content tbody");
+
+            function setData(datas) {
+                tbody.innerHTML = "";
+                datas.forEach(function(value) {
+                    // 1. 每一行创建一个tr
+                    var tr = document.createElement("tr");
+                    tr.innerHTML =
+                        "<td>" +
+                        value.id +
+                        "</td><td>" +
+                        value.p_name +
+                        "</td><td>" +
+                        value.p_price +
+                        "</td>";
+                    tbody.appendChild(tr);
+                });
+            }
+            setData(datas);
+            // 2. 按照价格区间查询
+            var priceBtn = document.querySelector("#priceBtn");
+            var result_list = [];
+            priceBtn.addEventListener("click", function() {
+                var minPrice = document.querySelector("#min_price");
+                var maxPrice = document.querySelector("#max_price");
+                result_list = datas.filter(function(value) {
+                    return (
+                        value.p_price >= minPrice.value && value.p_price <= maxPrice.value
+                    );
+                });
+                minPrice.value = "";
+                maxPrice.value = "";
+                // 渲染数据
+                setData(result_list);
+            });
+            // 3. 按照商品名称查询
+            var nameBtn = document.querySelector("#nameBtn");
+            nameBtn.addEventListener("click", function() {
+                result_list = [];
+                var pName = document.querySelector("#pName");
+                // 因为是查找唯一值，所以使用some更加合适,效率更高
+                var flag = datas.some(function(value) {
+                    if (value.p_name == pName.value) {
+                        result_list.push(value);
+                        return true;
+                    }
+                });
+                if (flag) {
+                    setData(result_list);
+                } else {
+                    alert("没有符合的数据！");
+                    pName.value = "";
+                    setData(datas);
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="title">
+        按照价格查询：<input type="text" id="min_price" /> -
+        <input type="text" id="max_price" />
+        <input type="button" value="搜索" id="priceBtn" /> 按照商品名称查询：
+        <input type="text" id="pName" />
+        <input type="button" value="查询" id="nameBtn" />
+    </div>
+    <div class="content">
+        <table border="1" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>商品名称</th>
+                    <th>价格</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- <tr>
+                    <td>1</td>
+                    <td>小米</td>
+                    <td>3999</td>
+                </tr> -->
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

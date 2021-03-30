@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var arr = ["red", "green", "blue"];
+        // 1. forEach
+        arr.forEach(function(value) {
+            if (value == "green") {
+                console.log("找到了green");
+                return true; // forEach无法中断循环
+            }
+        });
+        // 1. some
+        arr.some(function(value) {
+            if (value == "green") {
+                console.log("找到了green");
+                return true; // some可以中断循环
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 构造函数的问题
+        function Person(uname, age) {
+            this.uname = uname;
+            this.age = age;
+            // this.say = function() {
+            //     console.log("hello!" + this.uname);
+            // };
+        }
+        // 1. 在构造函数的prototype对象里面添加方法
+        Person.prototype.say = function() {
+            console.log("hello!" + this.uname);
+        };
+        var p = new Person("alex", 18);
+        var p2 = new Person("tom", 19);
+        // 两个实例对象开辟了两个不同的内存空间，但是里面储存的都是相同的函数
+        // console.log(p.say === p2.say);
+        // console.log(Person.prototype);
+        p.say();
+        p2.say();
+        console.log(p.say === p2.say); // 这两个函数是共享的
+
+        // 2. 一般情况下，公共属性放在构造函数里面。公共方法放在prototype原型对象上
+    </script>
+</body>
+
+</html>

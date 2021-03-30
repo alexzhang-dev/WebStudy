@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function Person(uname, age) {
+            this.uname = uname;
+            this.age = age;
+        }
+        Person.prototype.say = function() {
+            console.log("hello!" + this.uname);
+        };
+        var p = new Person("alex", 18);
+        // 1. 只要是对象就有__proto__，指向原型对象
+        console.log(Person.prototype);
+        // 2. 构造函数中的原型对象的__proto__指向的是Object的原型对象
+        console.log(Person.prototype.__proto__ === Object.prototype);
+        // 3. Object的原型对象的__proto__是null
+        console.log(Object.prototype.__proto__);
+    </script>
+</body>
+
+</html>

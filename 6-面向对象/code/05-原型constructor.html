@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function Person(uname, age) {
+            this.uname = uname;
+            this.age = age;
+        }
+        // 很多情况下我们需要手动利用constructor属性，指回原来的构造函数
+        // Person.prototype.say = function() {
+        //     console.log("hello!" + this.uname);
+        // };
+        // Person.prototype.walk = function() {
+        //     console.log("I can walk");
+        // };
+        Person.prototype = {
+            // 如果我们修改了原来的原型对象，给原型对象赋值了一个新的对象
+            // 这个时候需要手动添加一个constructor属性指向原来的构造函数
+            constructor: Person,
+            say: function() {
+                console.log("hello!" + this.uname);
+            },
+            walk: function() {
+                console.log("I can walk");
+            },
+        };
+        var p = new Person("alex", 18);
+        var p2 = new Person("tom", 19);
+        // 原型对象和对象原型都有constructor属性，指向构造函数本身
+        console.log(Person.prototype.constructor);
+        console.log(p.__proto__.constructor);
+    </script>
+</body>
+
+</html>

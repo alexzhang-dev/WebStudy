@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function Father(uname, age) {
+            this.uname = uname;
+            this.age = age;
+        }
+        // 添加方法
+        Father.prototype.run = function() {
+            console.log("I can run!!!");
+        };
+
+        function Son(uname, age) {
+            Father.call(this, uname, age);
+        }
+        // 1. 这样直接赋值会有问题，如果修改了子原型对象，父原型对象也会跟着改变
+        Son.prototype = Father.prototype;
+
+        // 2. 需要用这种方式
+        // Son.prototype = new Father();
+        // 但是用这种方式，Son的prototype.construtor指向的是Father，需要重新指向一下
+        // Son.prototype.constructor = Son;
+        // 子构造函数独有的
+        Son.prototype.exam = function() {
+            console.log("孩子要考试");
+        };
+        var son = new Son("alex", 18);
+        console.log(Father.prototype === Son.prototype); // 此时son里面有自己的exam方法，也有父亲的run方法
+    </script>
+</body>
+
+</html>
