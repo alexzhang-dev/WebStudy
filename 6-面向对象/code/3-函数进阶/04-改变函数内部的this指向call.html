@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // js提供了3个方式改变this的指向。call()  bind()  apply()
+        // 1. call()
+        var obj = {
+            age: 18,
+        };
+
+        function fn2(a, b) {
+            console.log("这里的this变成了：" + this);
+            console.log(a + b);
+        }
+        fn2.call(obj, 1, 2);
+
+        // call的第一个作用可以改变this指向，第二个作用可以实现继承
+        function Father(age) {
+            this.age = age;
+        }
+
+        function Son(age) {
+            Father.call(this, age);
+        }
+        Son.prototype = new Father();
+        var son = new Son(18);
+        console.log(son);
+    </script>
+</body>
+
+</html>

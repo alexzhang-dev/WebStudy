@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 函数的调用方式
+
+        // 1. 普通函数
+        function fn() {
+            console.log("hello");
+        }
+        // fn()   fn.call()
+
+        // 2. 对象的方法
+        var obj = {
+            hello: function() {
+                console.log("hello");
+            },
+        };
+        // obj.hello()
+
+        // 3. 构造函数
+        function Person(age) {
+            this.age = age;
+        }
+        // new Person()
+
+        // 4. 绑定事件函数
+        btn.onclick = function() {
+            console.log("hello");
+        };
+        // 点击按钮即可调用
+
+        // 5. 定时器函数
+        setTimeout(function() {
+            console.log("hello");
+        }, 1000);
+        // 定时器自动调用
+
+        // 6. 立即执行函数
+        (function() {
+            console.log("hello");
+        })();
+        // 不需要调用，自己即可执行
+    </script>
+</body>
+
+</html>

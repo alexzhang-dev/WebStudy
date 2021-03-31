@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var obj = {
+            id: 1,
+            p_name: "小米",
+            p_price: 3999,
+        };
+        // 1. 以前的对象添加和修改属性的方式
+        // obj.num = 2000;
+        // console.log(obj);
+        // 2. Object.defineProperty()
+        Object.defineProperty(obj, "num", {
+            value: 2000,
+            enumerable: true,
+        });
+        Object.defineProperty(obj, "p_price", {
+            value: 5999,
+        });
+        Object.defineProperty(obj, "id", {
+            // writable不可被修改
+            writable: false,
+        });
+        Object.defineProperty(obj, "address", {
+            value: "北京市朝阳区xxx小区xxx单元",
+            // 值为false不可被修改
+            writable: false,
+            // 值为false不可被枚举（不可被遍历）
+            enumerable: false,
+            // 值为false不可被删除，不可重新修改特性
+            configurable: false,
+        });
+        Object.defineProperty(obj, "address", {
+            value: "北京市朝阳区xxx小区xxx单元11",
+        });
+        obj.id = 222;
+        delete obj.address;
+        console.log(obj);
+        console.log(Object.keys(obj));
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 1. 为整个脚本开启严格模式，需要在所有语句前加上
+        "use strict";
+    </script>
+    <script>
+        // 在立即函数中添加严格模式，可以避免污染其他的JS文件
+        (function() {
+            "use strict";
+
+        })();
+    </script>
+    <script>
+        // 2. 给某个函数添加严格模式
+        function fn() {
+            // 里面的按照普通模式执行
+        }
+
+        function fn2() {
+            "use strict";
+            // 下面的代码按照严格模式执行
+        }
+    </script>
+</body>
+
+</html>

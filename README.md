@@ -16,6 +16,8 @@
 
 在阅读`.md`文件时，一定要搭配`code`里的`.html`文件阅读
 
+`markdown`文件推荐使用`Typeora`阅读，主题推荐`Blubook`
+
 # 目录：
 
 * [01.H5C3](1-HTML5)

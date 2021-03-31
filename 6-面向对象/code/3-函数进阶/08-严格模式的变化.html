@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        "use strict";
+        // 1. 变量名必须先声明，再使用
+        // num = 10;
+        // console.log(num);
+
+        // 2. 严格模式下不能删除已经声明好的变量
+        // var num = 10;
+        // console.log(num);
+        // delete num;
+
+        // 3. 严格模式下全局作用域中普通函数的this指向undefined
+        // function fn() {
+        //     console.log(this);
+        // }
+        // fn();
+
+        // 4. 严格模式下构造函数不能直接调用
+        // function Person(age) {
+        //     this.age = 18;
+        // }
+        // Person();
+
+        // 5. 严格模式下定时器的this仍然指向window
+        // setTimeout(function() {
+        //     console.log(this);
+        // }, 2);
+
+        // 6. 严格模式下函数里面的参数不可以有重名
+        function fn(a, a) {
+            console.log(a + a);
+        }
+
+        fn(1, 2);
+    </script>
+</body>
+
+</html>

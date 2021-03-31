@@ -382,3 +382,59 @@ console.log(flag);
 * 而`forEach`就不会中断循环，也无法使用`break`
 * 所以如果只想找到一个值，那么`some`是效率最高的选择
 
+### 3.3 字符串方法
+
+`trim()`方法会从一个字符串的两端删除空白字符。
+
+```javascript
+str.trim()
+```
+
+`trim()`方法不会修改字符串本身，他返回的是一个`新的字符串`
+
+### 3.4 对象方法
+
+##### 1. Object.keys() 
+
+获取对象自身的所有属性
+
+```javascript
+Object.keys(obj)
+```
+
+* 效果类似于`for...in`
+* 返回一个由属性名组成的数组
+
+##### 2. Object.defineProperty()
+
+定义新属性或者修改原有的属性
+
+```javascript
+Object.defineProperty(obj, prop, descriptor)
+```
+
+* `obj`：必需。目标对象
+* `prop`：必需。需定义或修改的属性的名字
+* `descriptor`：必需。目标属性所拥有的的特性
+
+> descriptor属性的描述，以对象{ }书写
+
+* `value`：设置属性的`值`，默认为undefined
+* `writable`：值是否可以`重写`。true|false  默认为false
+* `enumerable`：目标属性是否可以`被枚举(被遍历)`。true|false  默认为false
+* `configurable`：目标属性是否可以`被删除或再次修改特性`。true|false  默认为false
+
+> 代码：
+
+```javascript
+Object.defineProperty(obj, "address", {
+    value: "北京市朝阳区xxx小区xxx单元",
+    // 值为false不可被修改
+    writable: false,
+    // 值为false不可被枚举（不可被遍历）
+    enumerable: false,
+    // 值为false不可被删除，不可重新修改特性
+    configurable: false,
+});
+```
+

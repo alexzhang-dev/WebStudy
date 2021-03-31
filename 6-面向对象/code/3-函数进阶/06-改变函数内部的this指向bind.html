@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <button>点击</button>
+    <script>
+        // js提供了3个方式改变this的指向。call()  bind()  apply()
+        // 3. bind
+        var obj = {
+            age: 18,
+        };
+
+        function fn2(a, b) {
+            console.log("这里的this变成了：" + this);
+            console.log(a + b);
+        }
+        // bind 不会执行函数，会返回一个函数拷贝
+        var newFn2 = fn2.bind(obj, 1, 2);
+
+        fn2(); // 原函数没接到参数，也没改变this指向
+        newFn2(); // 但是新函数改变了
+
+        // 如果有的函数我们不需要立即调用，但是又想改变这个函数内部的this指向，此时使用bind方法最合适
+        // 需求：我们有一个按钮，点击后可禁用，3秒后再开启
+        var btn = document.querySelector("button");
+        btn.addEventListener("click", function() {
+            this.disabled = true;
+            setTimeout(
+                function() {
+                    // 但是由于我们的定时器的this指向的是window，所以需要我们手动更改一下
+                    this.disabled = false;
+                }.bind(this), // 所以我们要手动更改
+                3000
+            );
+        });
+    </script>
+</body>
+
+</html>
