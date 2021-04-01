@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 用递归求斐波那契数列  1 1 2 3 5 8 13 ...
+        // 前两个数的和是第三个数
+        // 我们只需要知道用户输入的前两个数(n-1 n-2)，就能得到第三项
+        function fibonacci(n) {
+            if (n === 1 || n === 2) {
+                return 1;
+            }
+            return fibonacci(n - 1) + fibonacci(n - 2);
+        }
+        console.log(fibonacci(18));
+    </script>
+</body>
+
+</html>

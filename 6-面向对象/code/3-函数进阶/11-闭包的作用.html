@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function outer() {
+            var num = 10;
+
+            function inner() {
+                console.log(num);
+            }
+            return inner;
+        }
+        var f = outer(); // 因为我们的outer函数返回的是inner这个对象，所以此时变量f其实就是inner函数
+        console.log(f); // 这里打印的就是inner()这个函数体
+
+        f(); // 这里我们就能得到10了
+
+        // 由上面的函数得知，我们可以使用简洁的写法
+        function outer2() {
+            var num = 11;
+            return function() {
+                console.log(num);
+            };
+        }
+        outer2()(); // 得到num的值：11
+
+        // 闭包的主要作用：延伸了变量的作用范围
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 计算打车价格
+        // 打车起步价13（3公里内），之后每多1公里增加5元，用户输入公里数即可计算打车价格
+        // 如果有拥堵情况，总价格多收10元拥堵费
+        var car = (function() {
+            var start = 13; // 起步价
+            var total = 0; // 总价
+            // 返回了一个对象
+            return {
+                price: function(miles) {
+                    if (miles <= 3) {
+                        total = start;
+                    } else {
+                        total = start + (miles - 3) * 5;
+                    }
+                    return total;
+                },
+                yd: function(flag) {
+                    return flag ? total + 10 : total;
+                },
+            };
+        })();
+        console.log(car.price(5)); // 23 正确
+        console.log(car.yd(true)); // 33 正确
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 浅拷贝：只是拷贝一层，更深层次对象级别的只拷贝引用。
+        // 深拷贝：拷贝多层，每一级别的数据都会拷贝
+        var obj = {
+            id: 1,
+            name: "andy",
+            msg: {
+                age: 18,
+            },
+        };
+        var o = {};
+        // for (var key in obj) {
+        //     o[key] = obj[key];
+        // }
+        Object.assign(o, obj);
+        console.log(o);
+
+        // 深拷贝
+        var obj = {
+            id: 1,
+            name: "andy",
+            msg: {
+                age: 18,
+            },
+            color: ["pink", "red"],
+        };
+        var o = {};
+        // 封装函数
+        function deepCopy(target, source) {
+            for (var key in source) {
+                // 判断属性值是哪种类型
+                // 1. 获取属性值
+                var item = source[key];
+                // 2. 判断这个值是否是数组
+                if (item instanceof Array) {
+                    // 先创建一个空数组
+                    target[key] = [];
+                    // 递归，拷贝原对象的数组
+                    deepCopy(target[key], source[key]);
+                } else if (item instanceof Object) {
+                    // 3. 判断这个值是否是对象
+                    // 先创建一个空对象
+                    target[key] = {};
+                    deepCopy(target[key], source[key]);
+                } else {
+                    // 4. 值是简单数据类型
+                    target[key] = item;
+                }
+            }
+        }
+        deepCopy(o, obj);
+        obj.color[0] = "111222333";
+        console.log(obj);
+        console.log(o);
+    </script>
+</body>
+
+</html>

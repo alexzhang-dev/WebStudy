@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 递归函数：在函数内部调用自身
+        var num = 1;
+
+        function fn() {
+            console.log("我是第" + num + "句话");
+            if (num == 6) {
+                return;
+            }
+            num++;
+            fn();
+        }
+        fn();
+    </script>
+</body>
+
+</html>

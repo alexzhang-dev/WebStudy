@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 1. 思考题1
+        var name = "The Window";
+        var obj = {
+            name: "My Object",
+            getNameFunc: function() {
+                return function() {
+                    return this.name;
+                };
+            },
+        };
+        console.log(obj.getNameFunc()());
+
+        // obj.getNameFunc()() 相当于
+        var f = obj.getNameFunc();
+        f(); // window.f();
+
+        // 2. 思考题2
+        var name = "The Window";
+        var obj = {
+            name: "My Object",
+            getNameFunc: function() {
+                var that = this;
+                return function() {
+                    return that.name;
+                };
+            },
+        };
+        console.log(obj.getNameFunc()());
+    </script>
+</body>
+
+</html>

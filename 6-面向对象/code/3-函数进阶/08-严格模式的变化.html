@@ -38,11 +38,25 @@
         // }, 2);
 
         // 6. 严格模式下函数里面的参数不可以有重名
-        function fn(a, a) {
-            console.log(a + a);
+        // function fn(a, a) {
+        //     console.log(a + a);
+        // }
+
+        // fn(1, 2);
+
+        // 7. 严格模式下函数声明不可在块级作用域内
+        var a = 10;
+        if (a != 0) {
+            function fn() {} // 语法错误
         }
 
-        fn(1, 2);
+        for (var i = 0; i < a.length; i++) {
+            function fn() {} // 语法错误
+        }
+
+        function fn1() {
+            function fn2() {} // 合法
+        }
     </script>
 </body>
 
