@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 字符类：[] 表示有一系列字符选择，只需要匹配任意一项就行
+        var reg = /[abc]/; // abc匹配任意一个就行
+        console.log(reg.test("andy")); // true 匹配到了a
+        console.log(reg.test("boby")); // true 匹配到了b
+        console.log(reg.test("docs")); // true 匹配到了c
+        console.log(reg.test("hero")); // false 一个都没有匹配到
+        var reg2 = /^[abc]$/; // 只有 a b c 这三个字符才会返回true
+        var reg3 = /^[a-z]$/; // 26个英文字母返回true
+        // 字符组合
+        var reg3 = /^[a-zA-Z0-9_-]$/; // 包括26个英文字母+数字+下划线+短横线
+        var reg4 = /^[^a-z]$/; // 除26个小写英文字母外都为true
+    </script>
+</body>
+
+</html>

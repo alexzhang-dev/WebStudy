@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 边界符 ^ 以谁开始
+        var reg = /abc/;
+        // /abc/只要包含abc这个字符串的返回的都是true
+        console.log(reg.test("aaabc"));
+        console.log("-----------------------------");
+        var reg2 = /^abc/;
+        console.log(reg2.test("abc")); // true
+        console.log(reg2.test("abcd")); // true
+        console.log(reg2.test("aabc")); // false
+        console.log("-----------------------------");
+        var reg3 = /^abc$/; //精确匹配，要求必须是abc字符串才符合
+        console.log(reg3.test("abc")); // true
+        console.log(reg3.test("abcd")); // false
+        console.log(reg3.test("aabc")); // false
+    </script>
+</body>
+
+</html>

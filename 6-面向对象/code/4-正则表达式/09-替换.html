@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <textarea name="" id="#text" cols="30" rows="10"></textarea>
+    <button>点击</button>
+    <script>
+        // 替换
+        var str = "andy和red";
+        // var newStr = str.replace("andy", "baby");
+        var newStr = str.replace(/andy/, "baby"); // 正则
+        console.log(newStr);
+        var textarea = document.querySelector("textarea");
+        document.querySelector("button").onclick = function() {
+            textarea.value = textarea.value.replace(/色情/, "**");
+        };
+    </script>
+</body>
+
+</html>

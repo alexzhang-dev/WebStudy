@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // JS中有两种创建正则的方式
+        // 1. 利用 RegExp 对象创建
+        var reg = new RegExp(/123/);
+        console.log(reg);
+        var reg2 = /123/;
+        // 3. test方法检测字符串是否符合正则表达式
+        console.log(reg2.test("123"));
+    </script>
+</body>
+
+</html>

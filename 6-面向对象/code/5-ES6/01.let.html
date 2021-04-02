@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 1. let声明的变量只在当前的块级作用域有效
+        if (true) {
+            let a = 10;
+        }
+        // console.log(a); // error: a is not defined
+
+        // 2. let声明的变量可以防止循环变量变成全局变量
+        for (var i = 0; i < 10; i++) {
+            let num = 0;
+            console.log(i);
+            num++;
+        }
+        // 3. 循环中的i变量我们想要它循环后直接销毁
+        console.log("这是i：" + i); // 但是这里还能访问
+        // console.log("这是num：" + num); // 使用let的就不会
+
+        // 4. let声明的变量具有暂时性死区
+        var temp = 20;
+        if (true) {
+            // 如果块级出现了let，那么整个块级就会和let绑定
+            // 所以这里输出的temp指向的其实是下面的let temp
+            // 因为未声明就使用，所以会报错
+            console.log(temp);
+            let temp = 10;
+        }
+    </script>
+</body>
+
+</html>

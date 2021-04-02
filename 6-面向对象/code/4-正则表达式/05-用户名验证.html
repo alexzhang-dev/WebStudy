@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        .error {
+            color: red;
+        }
+        
+        .right {
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" />
+    <button>提交</button>
+    <span id="message"></span>
+    <script>
+        // 量词设定某个模式出现的次数
+        var reg = /^[a-zA-Z0-9_-]{6,16}$/;
+        var text = document.querySelector("input");
+        var btn = document.querySelector("button");
+        var span = document.querySelector("#message");
+        var flag = false;
+        // 检测键盘按下事件
+        text.onkeyup = function() {
+            var a = reg.test(text.value);
+            console.log(a);
+            if (a) {
+                span.className = "right";
+                span.innerHTML = "用户名合法";
+                flag = true;
+            } else {
+                span.className = "error";
+                span.innerHTML = "用户名不符合规范";
+                flag = false;
+            }
+        };
+        btn.onclick = function() {
+            if (flag) {
+                alert("提交成功！");
+            } else {
+                alert("不符合要求！");
+            }
+        };
+    </script>
+</body>
+
+</html>
