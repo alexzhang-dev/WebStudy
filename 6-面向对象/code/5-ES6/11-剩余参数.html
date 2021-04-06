@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=3, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 1. 剩余参数语法允许我们将一个不定数量的参数表示为一个数组。
+        const sum = (...args) => {
+            // 在箭头函数中无法使用arguments
+            // ...args是一个数组，用于接收所以的
+            console.log(args);
+        };
+        sum(1, 2, 3, 4, 5); // [1, 2, 3, 4, 5]
+    </script>
+</body>
+
+</html>

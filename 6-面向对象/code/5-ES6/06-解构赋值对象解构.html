@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 1. 对象解构允许我们用变量名匹配属性名，匹配成功就将属性值赋给变量
+        let Person = {
+            uname: "alex",
+            age: 18,
+        };
+        let {
+            uname,
+            age
+        } = Person;
+        console.log(uname); // alex
+        console.log(age); // 18
+
+        // 2. 接下来我们看另一种写法，这种写法支持变量名和属性名不同
+        let Dog = {
+            Dname: "wangcai",
+            Dage: 3,
+        };
+        let {
+            // 属性名: 变量名
+            Dname: dog_name,
+            Dage: dog_age,
+        } = Dog;
+        console.log(dog_name); // wangcai
+        console.log(dog_age); // 3
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // find()方法用于找出第一个符合条件的数组成员，如果找不到返回undefined
+        let arr = [{
+            id: 1,
+            uname: "张三",
+        }, {
+            id: 2,
+            uname: "李四",
+        }, ];
+        let result = arr.find((item, index) => item.id == 2);
+        console.log(result); // {id: 2, uname: "李四"}
+    </script>
+</body>
+
+</html>

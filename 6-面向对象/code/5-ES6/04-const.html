@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 1. const 用于声明常量，就是值（内存地址）不可改变的变量
+        // 2. const具有块级作用域
+        if (true) {
+            const a = 10;
+            if (true) {
+                const a = 20;
+                console.log(a); // 20
+            }
+            console.log(a); // 10
+        }
+        // console.log(a); // a is not defined
+
+        // 3. 使用const声明的常量必须有值
+        // const PI; // Missing initializer in const declaration
+
+        // 4. 使用const声明的常量一旦赋值不可更改
+
+        // (1). 基本数据类型
+        const PI = 3.14;
+        // PI = 3.1415; // Assignment to constant variable.
+        // (2). 复杂数据类型
+        const DATA = [1, 2];
+        DATA[0] = 3;
+        DATA[1] = 4;
+        console.log(DATA); // [3, 4]
+        DATA = [5, 6]; // Assignment to constant variable.
+    </script>
+</body>
+
+</html>

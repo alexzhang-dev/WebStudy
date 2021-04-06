@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        ul {
+            list-style: none;
+        }
+        
+        .nav {
+            width: 300px;
+            margin: 200px auto 0 auto;
+        }
+        
+        ul li {
+            width: calc(300px / 3);
+            text-align: center;
+            background-color: rgb(194, 188, 188);
+            height: 30px;
+            line-height: 30px;
+            cursor: pointer;
+        }
+        
+        .nav>li {
+            float: left;
+        }
+    </style>
+    <script>
+        window.addEventListener("load", function() {
+            const navTitles = ["前端", "Python", "JavaEE"];
+            const navUl = document.getElementsByClassName("nav")[0];
+            // 生成数据
+            navTitles.forEach((navTitle) => {
+                let li = document.createElement("li");
+                li.innerHTML = `${navTitle}<ul class="sub-nav" style="display:none">
+                    <li>就业班</li>
+                    <li>精品微课</li>
+                    <li>学院福利</li>
+                </ul>`;
+                navUl.appendChild(li);
+            });
+            // 让其他的消失，只让第一个出现
+            var subNavs = document.getElementsByClassName("sub-nav");
+            subNavs[0].style.display = "block";
+            const navs = [...navUl.getElementsByTagName("li")];
+            navs.forEach((nav) => {
+                nav.addEventListener("click", function() {
+                    [...subNavs].forEach((subNav) => {
+                        subNav.style.display = "none";
+                    });
+                    this.children[0].style.display = "block";
+                });
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <ul class="nav"></ul>
+</body>
+
+</html>

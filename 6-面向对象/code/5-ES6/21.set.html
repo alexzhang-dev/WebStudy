@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // ES6提供了新的数据结构Set，它类似于数组，但是成员的值都是唯一的，没有重复的值。
+        // Set本身是一个构造函数，用于生成Set数据结构。
+        // 1. 创建set结构
+        const s = new Set();
+        // 2. size属性用于获取当前Set的数据的长度
+        const s2 = new Set([1, 2]);
+        console.log(s2.size);
+
+        const s3 = new Set(["a", "b", "a", "b"]);
+        console.log(s3.size); // 2
+        const arr = [...s3];
+        console.log(arr); // ["a", "b"]
+    </script>
+</body>
+
+</html>

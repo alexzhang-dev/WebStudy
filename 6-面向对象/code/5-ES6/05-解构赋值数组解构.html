@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // ES6中允许从数组中提取值，按照对应位置，对变量进行赋值。对象也可实现解构
+        // 1. 数组解构允许我们按照一一对应的关系对数组中的值进行提取并赋值给变量
+        let [a, b, c] = [1, 2, 3];
+        console.log(a); // 1
+        console.log(b); // 2
+        console.log(c); // 3
+        // 2. 如果解构不成功，变量的值为undefined
+        // let [foo] = [];
+        let [bar, foo] = [1];
+        console.log(bar);
+        console.log(foo); // undefined
+    </script>
+</body>
+
+</html>

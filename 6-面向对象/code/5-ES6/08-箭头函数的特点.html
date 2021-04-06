@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 1. 在箭头函数中，如果函数体只有一行代码，并且就是该代码的执行结果返回值，那么就可以忽略大括号
+        const fn = (a, b) => a + b;
+        console.log(fn(100, 99));
+
+        // 2. 如果形参只有一个可以省略小括号
+        const fn2 = (n1) => n1 + 5;
+        const result = fn2(100);
+        console.log(result); // 105
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 在传统的函数中，谁调用函数，函数内部的this就指向谁
+        // 箭头函数不绑定this，箭头函数中的this，指向的是函数定义位置的上下文this
+        // 也就是说，箭头函数定义在哪里，箭头函数的this就指向哪里。
+        const obj = {
+            uname: "张三",
+        };
+
+        function fn() {
+            console.log(this); // obj
+            return () => {
+                console.log(this); // obj
+            };
+        }
+        const resFn = fn.call(obj); // 将fn函数的this指向了obj
+        resFn();
+    </script>
+</body>
+
+</html>

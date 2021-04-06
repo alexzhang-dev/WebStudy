@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // ES6新增的创建字符串的方式，使用反引号定义
+        let uname = `这是一个模板字符串`;
+        console.log(uname);
+
+        // 特点1： 可以解析变量
+        let age = 18;
+        console.log(`我今年${age}岁了`); // 我今年18岁了
+
+        // 特点2： 可以换行
+        let obj = {
+            sex: "男",
+            address: "北京",
+        };
+        let html = `<div>
+        <span>${obj.sex}</span>
+        <span>${obj.address}</span>
+        </div>`;
+        console.log(html);
+
+        // 特点3：可以调用函数
+        const sayHello = () => "hello world!";
+        console.log(`${sayHello()}123`); // hello world!123
+    </script>
+</body>
+
+</html>

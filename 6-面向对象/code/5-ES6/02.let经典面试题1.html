@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 1. 获取运行的结果
+        var arr = [];
+        for (let i = 0; i < 2; i++) {
+            arr[i] = function() {
+                console.log(i);
+            };
+        }
+        arr[0]();
+        arr[1]();
+        // 由于这里的i是var声明的，所以是全局变量，函数运行时循环已经结束
+        // 所以i是循环跳出的条件，所以i是2，输出结果是2
+    </script>
+</body>
+
+</html>
