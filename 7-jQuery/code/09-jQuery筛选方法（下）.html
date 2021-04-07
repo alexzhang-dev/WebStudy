@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>
+        $(() => {
+            // 1. 兄弟节点
+            $(".header div:first").siblings("div").css("color", "red");
+            // 2. nextAll() 获取当前元素之后的所有兄弟元素  prevAll() 获取当前元素之前的所有兄弟元素
+
+            // 3. 选择第n个元素
+            $(".nav li").eq(2).css("color", "green");
+
+            // 4. 判断是否有某个类  有返回true
+            console.log($("span").hasClass("current"));
+        });
+    </script>
+</head>
+
+<body>
+    <div class="header">
+        <div>我是兄弟1</div>
+        <div>我是兄弟2</div>
+        <div>我是兄弟3</div>
+        <div>我是兄弟4</div>
+        <div>我是兄弟5</div>
+    </div>
+    <ul class="nav">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+    <span class="current">我有current类</span>
+    <span>我没current类</span>
+</body>
+
+</html>

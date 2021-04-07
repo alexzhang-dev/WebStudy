@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="js/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <video src="media/房间.mp4" muted></video>
+    <script>
+        // 1. DOM元素转换为jQuery元素
+        // (1). 直接获取为jQuery对象
+        $("video");
+        // (2). DOM对象转换为jQuery对象
+        const myDiv = document.querySelector("video");
+        // myDiv.play();
+        $(myDiv); // 此时myDiv转换为了jQuery对象
+        console.dir($(myDiv));
+        // 2. jQuery转换为DOM元素
+        $("video")[0].play();
+        $("video").get(0);
+    </script>
+</body>
+
+</html>

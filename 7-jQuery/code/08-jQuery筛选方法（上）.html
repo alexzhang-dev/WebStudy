@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>
+        $(() => {
+            // 下面都是方法，记得带括号
+            // 1. 父 parent() 返回最近一级的父级元素
+            console.log($(".son").parent());
+            // 2. 子，只选亲儿子 children()  后代选择器find()
+            console.log($(".nav").children("span"));
+            console.log($(".nav").find("span"));
+        });
+    </script>
+</head>
+
+<body>
+    <div class="grandfather">
+        我是grandFather
+        <div class="father">
+            我是Father
+            <div class="son">我是Son</div>
+        </div>
+    </div>
+
+    <div class="nav">
+        <span>我是nav的子级元素</span>
+        <div>
+            <span> 我是nav的孙级元素 </span>
+        </div>
+    </div>
+</body>
+
+</html>

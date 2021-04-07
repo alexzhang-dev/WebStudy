@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>
+        $(() => {
+            // 1. 获取4个div
+            console.log($("div"));
+            // 2. 给4个div设置背景为粉色 jquery对象无法使用style=...
+            $("div").css("background-color", "pink");
+            // 3. 隐式迭代就是把匹配的元素内部进行遍历循环，给每一个元素css
+        });
+    </script>
+</head>
+
+<body>
+    <div>hello</div>
+    <div>hello</div>
+    <div>hello</div>
+    <div>hello</div>
+</body>
+
+</html>

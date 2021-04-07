@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>
+        $(() => {
+            // 点击哪个按钮哪个按钮的字就变成红色
+            $("button").click(function() {
+                // $(this).siblings().css("color", "");
+                // $(this).css("color", "red");
+                // 链式编程简化
+                $(this).css("color", "red").siblings().css("color", "");
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <button>按钮1</button>
+    <button>按钮2</button>
+    <button>按钮3</button>
+    <button>按钮4</button>
+    <button>按钮5</button>
+</body>
+
+</html>

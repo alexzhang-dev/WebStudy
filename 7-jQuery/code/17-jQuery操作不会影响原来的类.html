@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+        }
+        
+        .current {
+            background-color: blue;
+        }
+    </style>
+    <script>
+        $(() => {
+            // 1. 原生js 会覆盖原来的类名
+            const myDiv = document.getElementsByClassName("abc")[0];
+            myDiv.className = "current";
+            // 2. jQuery 不会覆盖原来的类名
+            $(".bcd").addClass("current");
+        });
+    </script>
+</head>
+
+<body>
+    <div class="abc"></div>
+    <div class="bcd"></div>
+</body>
+
+</html>

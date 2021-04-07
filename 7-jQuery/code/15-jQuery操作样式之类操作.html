@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+        }
+        
+        .current {
+            background-color: blue;
+        }
+    </style>
+    <script>
+        $(() => {
+            // 1. 添加类 addClass()
+            // $("div").click(function() {
+            //     $(this).addClass("current");
+            // });
+            // 2. 删除类 removeClass()
+            // $("div").dblclick(function() {
+            //     $(this).removeClass("current");
+            // });
+            // 3. 切换类 toggleClass()
+            $("div").click(function() {
+                $(this).toggleClass("current");
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div></div>
+</body>
+
+</html>

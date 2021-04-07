@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        a {
+            text-decoration: none;
+        }
+        
+        .tab {
+            width: 800px;
+            height: auto;
+            margin: 0 auto;
+        }
+        
+        .tab_list {
+            width: 100%;
+        }
+        
+        .tab_list ul {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .tab_list li {
+            float: left;
+            list-style: none;
+            cursor: pointer;
+            width: 200px;
+            height: 40px;
+            display: block;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f7f7f7;
+            color: rgb(146, 145, 145);
+        }
+        
+        .tab_list li:hover {
+            color: red;
+        }
+        
+        .tab_list li[class="current_tab"] {
+            color: #fff;
+            background-color: rgb(201, 77, 77);
+        }
+        
+        .tab_content .item {
+            display: none;
+        }
+    </style>
+    <script>
+        $(() => {
+            // 1. 默认第一个显示
+            $(".tab_list li:first").addClass("current_tab");
+            $(".item:first").show();
+            // 2. 点击哪个哪个显示
+            $(".tab_list li").click(function() {
+                // 点击之后添加class，下面的也会显示
+                // 使用链式编程做排他
+                $(this).addClass("current_tab").siblings().removeClass("current_tab");
+                $(".item").eq($(this).index()).show().siblings().hide();
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="tab">
+        <div class="tab_list">
+            <ul>
+                <li>商品介绍</li>
+                <li>规格与包装</li>
+                <li>售后保障</li>
+                <li>商品评价（50000）</li>
+            </ul>
+        </div>
+        <div class="tab_content">
+            <div class="item">商品介绍内容</div>
+            <div class="item">规格与包装内容</div>
+            <div class="item">售后保障内容</div>
+            <div class="item">商品评价内容</div>
+        </div>
+    </div>
+</body>
+
+</html>

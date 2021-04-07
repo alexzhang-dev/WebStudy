@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <div></div>
+    <script>
+        // 1. DOM对象：用原生JS获取的对象叫做DOM对象
+        const myDiv = document.querySelector("div");
+        console.dir(myDiv);
+        // 2. jQuery对象： 用jQuery方式获取的对象。本质：通过$把DOM元素进行包装
+        $("div"); // $("div");是jQuery对象
+        console.dir($("div"));
+        // 3. jQuery对象只能使用jQuery方法和属性，不能使用DOM元素对象
+        // myDiv.style.display = "none";
+        // $("div").style.display = "none"; // 报错
+    </script>
+</body>
+
+</html>

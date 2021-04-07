@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>
+        $(() => {
+            // 获取第一个div元素
+            $("div:first").css("background", "blue");
+            // 获取最后一个div元素
+            $("div:last").css("background", "brown");
+            // 获取第3个div元素
+            $("div:eq(2)").css("background", "red");
+            // 获取偶数的li
+            $("ul li:even").css("background", "#ccc");
+            // 获取奇数的li
+            $("ul li:odd").css("background", "#999");
+        });
+    </script>
+</head>
+
+<body>
+    <div>hello</div>
+    <div>hello</div>
+    <div>hello</div>
+    <div>hello</div>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</body>
+
+</html>
