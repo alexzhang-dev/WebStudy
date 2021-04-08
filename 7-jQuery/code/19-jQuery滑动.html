@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>
+        $(() => {
+            // 1. 下拉
+            $("button")
+                .eq(0)
+                .click(() => {
+                    // 3个参数
+                    $("div").slideDown();
+                });
+            // 2. 上拉
+            $("button")
+                .eq(1)
+                .click(() => {
+                    // 3个参数
+                    $("div").slideUp();
+                });
+            // 3. 切换
+            $("button")
+                .eq(2)
+                .click(() => {
+                    // 3个参数
+                    $("div").slideToggle(1000, "linear");
+                });
+
+            // 4. 一般情况下，我们不使用参数
+        });
+    </script>
+    <style>
+        div {
+            width: 100px;
+            height: 500px;
+            background-color: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <button>下拉</button>
+    <button>上拉</button>
+    <button>切换（下拉/上拉）</button><br />
+    <div></div>
+</body>
+
+</html>

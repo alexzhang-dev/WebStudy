@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>
+        $(() => {
+            // 1. 显示
+            $("button")
+                .eq(0)
+                .click(() => {
+                    // 3个参数
+                    $("img").show(1000, () => {
+                        alert("显示完毕！");
+                    });
+                });
+            // 2. 隐藏
+            $("button")
+                .eq(1)
+                .click(() => {
+                    // 3个参数
+                    $("img").hide(1000, () => {
+                        alert("隐藏完毕！");
+                    });
+                });
+            // 3. 切换
+            $("button")
+                .eq(2)
+                .click(() => {
+                    // 3个参数
+                    $("img").toggle(1000, () => {
+                        alert("切换完毕");
+                    });
+                });
+
+            // 4. 一般情况下，我们不使用参数
+        });
+    </script>
+</head>
+
+<body>
+    <button>显示</button>
+    <button>隐藏</button>
+    <button>切换（显示/隐藏）</button><br />
+    <img src="media/dog.jpg" alt="" />
+</body>
+
+</html>

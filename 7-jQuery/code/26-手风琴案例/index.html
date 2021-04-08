@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        ul {
+            list-style: none;
+        }
+        
+        .main {
+            width: calc(200px * 7);
+            margin: 100px auto 0;
+            height: 337.5px;
+            overflow: hidden;
+        }
+        
+        .main ul {
+            width: 100%;
+        }
+        
+        .main ul li {
+            width: 200px;
+            overflow: hidden;
+            float: left;
+            position: relative;
+        }
+        
+        .main .current a::before {
+            content: "";
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            background: none;
+        }
+        
+        .main ul li a::before {
+            content: "";
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            position: absolute;
+        }
+        
+        .main a {
+            display: block;
+        }
+        
+        .main img {
+            width: 600px;
+            height: 337.5px;
+        }
+    </style>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>
+        $(() => {
+            $(".main ul li").hover(
+                function() {
+                    $(this)
+                        .stop()
+                        .animate({
+                            width: 600,
+                        })
+                        .siblings()
+                        .stop()
+                        .animate({
+                            width: 120,
+                        });
+                    $(this).addClass("current").siblings().removeClass("current");
+                },
+                function() {
+                    $(".main ul li").stop().animate({
+                        width: 200,
+                    });
+                }
+            );
+        });
+    </script>
+</head>
+
+<body>
+    <div class="main">
+        <ul>
+            <li>
+                <a href="javascript:;">
+                    <img src="images/1.jpg" alt="" />
+                </a>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <img src="images/2.jpg" alt="" />
+                </a>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <img src="images/3.jpg" alt="" />
+                </a>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <img src="images/4.jpg" alt="" />
+                </a>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <img src="images/5.jpg" alt="" />
+                </a>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <img src="images/6.jpg" alt="" />
+                </a>
+            </li>
+        </ul>
+    </div>
+</body>
+
+</html>

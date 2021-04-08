@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>
+        $(() => {
+            // 1. 淡入 fadeIn()
+            $("button")
+                .eq(0)
+                .click(() => {
+                    $("img").fadeIn(1000);
+                });
+            // 2. 淡出 fadeOut()
+            $("button")
+                .eq(1)
+                .click(() => {
+                    $("img").fadeOut(1000);
+                });
+            // 3. 切换 fadeToggle()
+            $("button")
+                .eq(2)
+                .click(() => {
+                    $("img").fadeToggle(1000);
+                });
+            // 4. 调整不透明度
+            $("button")
+                .eq(3)
+                .click(() => {
+                    $("img").fadeTo(1000, 0.8);
+                });
+        });
+    </script>
+</head>
+
+<body>
+    <button>淡入</button>
+    <button>淡出</button>
+    <button>切换（淡入/淡出）</button>
+    <button>切换透明度</button><br />
+    <img src="media/dog.jpg" alt="" />
+</body>
+
+</html>

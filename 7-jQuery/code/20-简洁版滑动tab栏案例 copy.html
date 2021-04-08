@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <style>
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+        
+        a {
+            text-decoration: none;
+        }
+        
+        .nav {
+            width: 200px;
+            height: 100px;
+            margin: 0 auto;
+        }
+        
+        .nav li {
+            float: left;
+            width: 80px;
+            height: 40px;
+        }
+        
+        .nav li a {
+            display: block;
+            color: #7e7b7b;
+            font-size: 12px;
+            line-height: 40px;
+            padding-left: 15px;
+        }
+        
+        .nav li a:hover {
+            color: #ff8400;
+            background-color: #edeef0;
+        }
+        
+        .current-nav a {
+            background-color: #edeef0;
+        }
+        
+        .nav-son {
+            display: none;
+        }
+        
+        .nav-son li {
+            height: 26px;
+            border-left: 1px solid #ff8400;
+            border-right: 1px solid #ff8400;
+            border-bottom: 1px solid #ff8400;
+            box-sizing: border-box;
+            box-shadow: 3px 3px 3px #c4c3c3;
+        }
+        
+        .nav-son li a {
+            background: #fff;
+            line-height: 25px;
+            color: #000000;
+        }
+        
+        .nav-son li a:hover {
+            color: #e67902;
+            background: #fff5da;
+        }
+    </style>
+    <script>
+        $(() => {
+            // $(".nav>li").mouseover(function() {
+            //     // $(this) jQuery里面的当前元素
+            //     $(this).children("ul").slideDown(200);
+            // });
+            // $(".nav>li").mouseout(function() {
+            //     // $(this) jQuery里面的当前元素
+            //     $(this).children("ul").slideUp(200);
+            // });
+            // 1. 事件切换  hover([over,]out) 第一个参数，鼠标移动到元素触发函数  第二个参数，鼠标离开元素触发函数
+            // $(".nav>li").hover(
+            //     function() {
+            //         $(this).children("ul").slideDown(200);
+            //     },
+            //     function() {
+            //         $(this).children("ul").slideUp(200);
+            //     }
+            // );
+            // 2. 如果里面只写一个函数，那么鼠标经过和离开都会触发这个函数
+            $(".nav>li").hover(function() {
+                $(this).children("ul").slideToggle(200);
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <ul class="nav">
+        <li>
+            <a href="javascript:;">微博</a>
+            <ul class="nav-son">
+                <li><a href="javascript:;">私信</a></li>
+                <li><a href="javascript:;">评论</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;">微博</a>
+            <ul class="nav-son">
+                <li><a href="javascript:;">私信2</a></li>
+                <li><a href="javascript:;">评论2</a></li>
+            </ul>
+        </li>
+    </ul>
+</body>
+
+</html>
