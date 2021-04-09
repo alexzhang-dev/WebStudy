@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="js/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <a href="https://www.baidu.com/" title="百度一下，你就知道">百度</a>
+    <input type="checkbox" name="" id="" />
+    <div data-index="1">我是div</div>
+    <span>123</span>
+    <script>
+        // 1. prop()获取元素固有属性
+        console.log($("a").prop("href"));
+        $("a").prop("title", "我就不百度了");
+        $("input").change(function() {
+            console.log($(this).prop("checked"));
+        });
+        // 2. attr()获取元素自定义属性
+        console.log($("div").attr("data-index"));
+        // 3. data()数据缓存。里面的数据存放在元素的缓存中
+        $("span").data("uname", "alex");
+        console.log($("span").data("uname"));
+        // 该方法获取H5自定义属性的是偶，不需要写data-开头的，而且返回值是数字型。
+        console.log($("div").data("index"));
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="js/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+    <script>
+        // 隐式迭代只能让同一类元素完成同一类操作，如果想要不同操作就需要迭代
+        // $("div").css("color", "red");
+        const arr = ["red", "yellow", "blue"];
+        // 1. each() 遍历元素
+        $("div").each((index, domEle) => {
+            // index: 索引号    domEle: 每一个DOM对象
+            $(domEle).css("background", arr[index]);
+        });
+    </script>
+</body>
+
+</html>

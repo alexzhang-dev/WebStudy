@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="js/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <div>
+        我是内容
+        <span>我也是内容</span>
+    </div>
+    <input type="text" value="请输入内容" />
+
+    <script>
+        // 1. html() 获取元素内容
+        // html() 获取内容
+        console.log($("div").html());
+        // html("内容") 设置内容
+        $("span").html("我是修改后的内容");
+        // 2. text() 获取元素文本内容
+        // text() 获取文本内容
+        console.log($("div").text());
+        // // html("内容") 设置内容
+        $("span").text("我是修改后的内容2");
+        // 3. val() 获取表单值
+        // text() 获取文本内容
+        console.log($("input").val());
+        // // html("内容") 设置内容
+        $("input").val("我是修改后的内容2");
+    </script>
+</body>
+
+</html>
