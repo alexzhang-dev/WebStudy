@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="js/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <ul>
+        <li>我是原来的li</li>
+    </ul>
+    <div class="text">我是原来的div</div>
+    <script>
+        $(() => {
+            // 1. 创建元素
+            const li = $("<li>我是动态创建的li</li>");
+            // 2. 添加元素
+            //    (1)内部添加
+            $("ul").append(li); // 把内容放入匹配元素的最后面
+            $("ul").prepend(li); // 把内容放入匹配元素的前后面
+            //    (2)外部添加
+            $(".text").after("<div>我是动态创建的div</div>"); // 内容放在后面
+            $(".text").before("<div>我是动态创建的div</div>"); // 内容放在前面
+            // 3. 删除
+            // $("ul").remove(); // 删除元素本身
+            // $("ul").empty(); // 删除元素所有子节点
+            $("ul").html(""); // 清空元素的内容
+        });
+    </script>
+</body>
+
+</html>

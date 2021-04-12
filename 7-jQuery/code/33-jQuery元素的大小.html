@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            border: 10px solid pink;
+            margin: 100px;
+            background-color: blue;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div></div>
+    <script>
+        const div = $("div");
+        // 1. width()/height() 只获取宽或高
+        console.log(div.width());
+        console.log(div.height());
+        // 2. innerWidth()/innerHeight() 获取宽或高，包括padding
+        console.log(div.innerWidth());
+        console.log(div.innerHeight());
+        // 3. outerWidth()/outerHeight() 获取宽或高，包括padding+border
+        console.log(div.outerWidth());
+        console.log(div.outerHeight());
+        // 4. outerWidth(true)/outerHeight(true) 获取宽或高，包括padding+border+margin
+        console.log(div.outerWidth(true));
+        console.log(div.outerHeight(true));
+    </script>
+</body>
+
+</html>

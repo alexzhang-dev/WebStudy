@@ -170,8 +170,8 @@ jQuery给我们封装了很多`动画效果`，最为常见的如下：
 
 | 效果       | 方法                                              |
 | ---------- | ------------------------------------------------- |
-| 显示隐藏   | `show`、`hide()`、`toggle`                        |
-| 滑动       | `slideDown()`、`slideUp()`、`slideToggle`         |
+| 显示隐藏   | `show()`、`hide()`、`toggle()`                    |
+| 滑动       | `slideDown()`、`slideUp()`、`slideToggle()`       |
 | 淡入淡出   | `fadeIn()`、`fadeOut()`、`fadeToggle`、`fadeTo()` |
 | 自定义动画 | `animate()`                                       |
 
@@ -471,4 +471,106 @@ $("div").each(function(index, domEle){ xxx; })
 * `each()`方法遍历匹配的每一个元素，主要用于DOM处理
 * 回调函数有2个参数，`index`：每个元素的索引。`domEle`：迭代的每个元素，这是`DOM对象`，`不是jQuery对象`
 * 如果想要变成jQuery对象需要`$(domEle)`
+
+##### 语法2
+
+```javascript
+$.each(object, function(index, element){ xxx; })
+```
+
+* `$.each()`方法可用于遍历任何对象，主要用于数据处理。
+* 里面的参数有2个，`index`是索引号，`element`是遍历内容
+
+### 6.2 创建元素
+
+##### 语法：
+
+```javascript
+$("<li></li>")
+```
+
+以上代码动态创建了一个`<li>`
+
+### 6.3 添加元素
+
+##### 1. 内部添加
+
+```javascript
+element.append("内容")
+```
+
+把内容放入匹配元素内部的`最后面`，类似于原生的`appendChild`
+
+```javascript
+element.prepend("内容")
+```
+
+把内容放入匹配元素内部的`最前面`，类似于原生的`insertBefore`
+
+**注意**：若两者添加的内容相同，`append`和`prepend`不能同时存在，只会生效一个！
+
+##### 2. 外部添加
+
+```javascript
+element.after("内容")
+```
+
+把内容放在匹配元素外部的`后面`
+
+```javascript
+element.before("内容")
+```
+
+把内容放在匹配元素外部的`前面`
+
+### 6.4 删除元素
+
+```javascript
+element.remove()
+```
+
+删除匹配的元素`本身`
+
+```javascript
+element.empty()
+```
+
+删除匹配的元素集合中的`所有子节点`
+
+```javascript
+element.html("")
+```
+
+`清空`元素的内容
+
+# 7. jQuery尺寸、位置操作
+
+### 7.1 jQuery尺寸
+
+| 语法                                   | 用法                                              |
+| -------------------------------------- | ------------------------------------------------- |
+| `width()`/`height()`                   | 获取匹配元素的宽或高，只算width/height            |
+| `innerWidth()`/`innerHeight()`         | 获取匹配元素的宽或高，包括padding                 |
+| `outerWidth()`/`outerHeight`           | 获取匹配元素的宽或高，包括padding、border         |
+| `outerWidth(true)`/`outerHeight(true)` | 获取匹配元素的宽或高，包括padding、border、margin |
+
+### 7.2 jQuery位置
+
+位置主要有3个，`offset()`、`position()`、`scrollTop()`/`scrollLeft()`
+
+##### 1. offset() 设置获取元素偏移
+
+* `offset()`方法设置或返回被选元素相对于`文档`的偏移坐标，和父级没关系
+* 该方法有两个属性`top`和`left`。`offset().left`获取左侧的偏移，`offset().top`获取上侧的偏移
+* 如果需要修改，参数需要传入一个对象，里面有`top`和`left`
+
+##### 2. position() 获取元素偏移
+
+* `position()`方法用于返回被选元素相对于`带有定位的父级`的偏移坐标，如果父级都没有定位，则以文档为准。
+* 该方法只能获取，无法设置
+
+##### 3.scrollTop()/scrollLeft() 获取被卷去的头部/左侧
+
+* `scrollTop()`和`scrollLeft()`分别获取被卷去的头部和左侧
+* 可传入参数设置
 

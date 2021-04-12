@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .father {
+            width: 600px;
+            height: 600px;
+            margin: 100px 0 0 100px;
+            background-color: pink;
+            position: relative;
+        }
+        
+        .son {
+            width: 200px;
+            height: 200px;
+            background-color: blue;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="father">
+        <div class="son"></div>
+    </div>
+    <script>
+        // 1. offset() 获取元素相对于文档的偏移量，和父级无关
+        console.log($(".son").offset()); // 返回对象，包含offsetLeft和offsetTop
+        console.log($(".son").offset().top); // 获取offsetTop
+        // $(".son").offset({
+        //     top: 300,
+        //     left: 500,
+        // }); // 修改位置
+
+        // 2. position()方法用于返回被选元素相对于带有定位的父级的偏移坐标，如果父级都没有定位，则以文档为准。
+        // 这个方法只能获取，不能设置
+        console.log($(".son").position());
+    </script>
+</body>
+
+</html>

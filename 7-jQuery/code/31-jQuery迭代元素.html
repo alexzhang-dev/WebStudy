@@ -22,6 +22,25 @@
             // index: 索引号    domEle: 每一个DOM对象
             $(domEle).css("background", arr[index]);
         });
+
+        // 2. $.each()
+        $.each($("div"), (index, element) => {
+            console.log(element);
+        });
+        // 这个主要用于处理数据，比如数组等等
+        $.each(arr, (index, element) => {
+            console.log(element);
+        });
+
+        $.each({
+                name: "andy",
+                age: 18,
+            },
+            (index, element) => {
+                console.log(index); // index：属性名
+                console.log(element); // element：属性值
+            }
+        );
     </script>
 </body>
 

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <div></div>
+    <button>点击我</button>
+    <ul>
+        <li>你好</li>
+        <li>你好</li>
+        <li>你好</li>
+        <li>你好</li>
+        <li>你好</li>
+    </ul>
+    <ol></ol>
+    <script>
+        // 1. 单个事件注册
+        // $("div").click(function() {
+        //     $(this).css("backgroundColor", "purple");
+        // });
+        // $("div").mouseover(function() {
+        //     $(this).css("backgroundColor", "skyblue");
+        // });
+        // 2. 多个事件注册on
+        $("div").on({
+            click: function() {
+                $(this).css("backgroundColor", "purple");
+            },
+            mouseover: function() {
+                $(this).css("backgroundColor", "skyblue");
+            },
+        });
+        $("button").on("mouseenter mouseleave", function() {
+            alert("111");
+        });
+        // 3. 可以事件委派
+        //   之前的操作
+        // $("ul li").click();
+        $("ul").on("click", "li", function() {
+            alert("hello world");
+        });
+        // 4. 可以给动态创建的元素添加时间
+        // $("ol li").click(() => {
+        //     console.log(111);
+        // });
+        // const li = $("<li>我是动态创建的</li>");
+        // $("ol").append(li);
+        $("ol").on("click", "li", function() {
+            console.log("1111");
+        });
+        const li = $("<li>我是动态创建的</li>");
+        $("ol").append(li);
+    </script>
+</body>
+
+</html>

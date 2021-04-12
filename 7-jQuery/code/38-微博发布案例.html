@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        .container {
+            width: 600px;
+            height: 180px;
+            border: 1px solid #000;
+            margin: 100px auto 0 auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        
+        .title {
+            height: 200px;
+            float: left;
+        }
+        
+        textarea {
+            float: left;
+        }
+        
+        .text {
+            width: 80%;
+            float: left;
+            margin: auto;
+        }
+        
+        ul {
+            list-style-type: none;
+        }
+        
+        .text li {
+            padding: 2px;
+            border-bottom: 1px dashed #ccc;
+            height: 26px;
+            line-height: 26px;
+        }
+        
+        .text li a {
+            float: right;
+        }
+    </style>
+    <script>
+        $(() => {
+            // 1. 输入内容，点击发布
+            $("button").on("click", function() {
+                let value = $("textarea").val();
+                if (value != null && value.length != 0) {
+                    const li = `<li>${value}<a href="javascript:;">删除</a></li>`;
+                    $(".text ul").append(li);
+                }
+                $(".container").animate({
+                    height: $(".container").outerHeight() + $(".text li").outerHeight(),
+                });
+            });
+            $(".text ul").on("click", "li a", function() {
+                $(".container").animate({
+                    height: $(".container").outerHeight() - $(".text li").outerHeight(),
+                });
+                $(this).parent().remove();
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="title">微博发布</div>
+        <textarea name="" id="" cols="60" rows="10"></textarea>
+        <button>发布</button>
+        <div class="text">
+            <ul></ul>
+        </div>
+    </div>
+</body>
+
+</html>

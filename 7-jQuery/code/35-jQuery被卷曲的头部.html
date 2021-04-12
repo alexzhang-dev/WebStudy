@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            width: 80%;
+            height: 3000px;
+            background-color: skyblue;
+            margin: 500px auto 0 auto;
+        }
+        
+        .back {
+            position: fixed;
+            right: 10px;
+            bottom: 200px;
+            width: 40px;
+            height: 40px;
+            background-color: pink;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="back">返回顶部</div>
+    <div class="container"></div>
+    <script>
+        $(() => {
+            $(document).scrollTop(200);
+            // 1. scrollTop()被卷去的头部/scrollLeft()被卷去的左侧
+            $(window).scroll(function() {
+                if ($(window).scrollTop() >= $(".container").offset().top) {
+                    $(".back").fadeIn();
+                } else {
+                    $(".back").fadeOut();
+                }
+            });
+            $(".back").click(function() {
+                $("body,html").stop().animate({
+                    scrollTop: 0,
+                });
+                // $(document).stop().animate({
+                //     scrollTop: 0,
+                // }); 不能是文档，只能是元素来做动画
+            });
+        });
+    </script>
+</body>
+
+</html>
