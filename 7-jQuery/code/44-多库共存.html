@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>
+        $(() => {
+            // 1. 如果$冲突，那么就使用jQuery
+            function $(ele) {
+                return document.querySelector(ele);
+            }
+            console.log($("div"));
+            // 2. 如果jQuery也冲突，那么就使用noConflict()让jQuery释放控制权
+            const suibian = jQuery.noConflict();
+            console.log(suibian("div"));
+        });
+    </script>
+</head>
+
+<body>
+    <div></div>
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+        }
+    </style>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>
+        $(() => {
+            $("div").on({
+                click: function() {
+                    console.log("我点击了");
+                },
+                mouseenter: () => {
+                    console.log("我经过了");
+                },
+            });
+            // 1. off() 解绑事件
+            $("div").off(); // 如果无参数，那么就是解绑所有事件
+            $("div").off("click");
+            // 2. 清除委派事件
+            $("ul").on("click", "li", () => {
+                console.log("li");
+            });
+            $("ul").off("click", "li");
+        });
+    </script>
+</head>
+
+<body>
+    <div></div>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+</body>
+
+</html>
+
+</html>

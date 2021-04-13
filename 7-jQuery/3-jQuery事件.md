@@ -84,3 +84,45 @@ const li = $("<li>我是动态创建的</li>");
 $("ol").append(li);
 ```
 
+### 2.2 事件处理`off()`解绑事件
+
+```javascript
+$("div").off(); // 无参数移除所有事件
+$("div").off("click"); // 移除click事件
+$("ul").off("click", "li"); // 移除委派给li的click事件
+```
+
+### 2.3 只触发一次事件`one()`
+
+`one()`绑定事件和`on()`用法基本相同
+
+```javascript
+$("p").one("click", () => {
+    alert(111);
+});
+```
+
+### 2.4 自动触发事件`trigger()`
+
+有些事件希望自动触发，比如轮播图的自动播放跟点击右侧按钮功能一致，可以利用定时器自动触发按钮点击事件，不需要鼠标点击触发。
+
+```javascript
+element.click(); // 第一种方式
+element.trigger("click"); // 第二种方式
+element.triggerHandler("click"); // 第三种方式
+```
+
+`triggerHandler()`不会触发事件的默认行为
+
+# 3. jQuery事件对象
+
+事件被触发，就会有事件对象的产生。
+
+```javascript
+element.on(events, [selector], function(event){});
+```
+
+阻止默认行为：`event.preventDefault()`或`return false`
+
+阻止冒泡：`event.stopPropagation()`
+

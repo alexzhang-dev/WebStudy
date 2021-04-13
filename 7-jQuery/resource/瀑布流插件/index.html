@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>带排序功能的js masonry瀑布流插件|DEMO_jQuery之家-自由分享jQuery、html5、css3的插件库</title>
+	<link rel="stylesheet" type="text/css" href="css/htmleaf-demo.css"><!--演示页面样式，使用时可以不引用-->
+	<link rel="stylesheet" href="./css/main.css">
+  <link href="https://fonts.googleapis.com/css?family=Hind:400,600|Open+Sans:300,600" rel="stylesheet">
+  <link rel="stylesheet" href="./dist/sortable.min.css">
+  <script type="text/javascript" src="./dist/sortable.min.js"></script>
+</head>
+<body>
+	<div class="htmleaf-container">
+		<header class="htmleaf-header">
+			<h1>带排序功能的js masonry瀑布流插件 <span>A javascript plugin to filter elements from a "masonry" grid</span></h1>
+			<div class="htmleaf-links">
+				<a class="htmleaf-icon icon-htmleaf-home-outline" href="http://www.htmleaf.com/" title="jQuery之家" target="_blank"><span> jQuery之家</span></a>
+				<a class="htmleaf-icon icon-htmleaf-arrow-forward-outline" href="http://www.htmleaf.com/jQuery/pubuliuchajian/201808015256.html" title="返回下载页" target="_blank"><span> 返回下载页</span></a>
+			</div>
+		</header>
+		  <main class="sortable">
+		    <div class="container">
+		      <div class="wrapper">
+		        <ul class="sortable__nav nav">
+		          <li>
+		            <a data-sjslink="all" class="nav__link">
+		              All
+		            </a>
+		          </li>
+		          <li>
+		            <a data-sjslink="flatty" class="nav__link">
+		              Flatty
+		            </a>
+		          </li>
+		          <li>
+		            <a data-sjslink="funny" class="nav__link">
+		              Funny
+		            </a>
+		          </li>
+		        </ul>
+		        <div id="sortable" class="sjs-default">
+		          <div data-sjsel="flatty">
+		            <div class="card">
+		              <img class="card__picture" src="./images/item-1.jpg" alt="">
+		              <div class="card-infos">
+		                <h2 class="card__title">Example 1</h2>
+		                <p class="card__text">
+		                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet, eius, asperiores. Incidunt sapiente est quae iure...
+		                </p>
+		              </div>
+		            </div>
+		          </div>
+		          <div data-sjsel="flatty">
+		            <div class="card">
+		              <img class="card__picture" src="./images/item-2.jpg" alt="">
+		              <div class="card-infos">
+		                <h2 class="card__title">Example 2</h2>
+		                <p class="card__text">
+		                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum vitae necessitatibus, dolorem similique vero explicabo...
+		                </p>
+		              </div>
+		            </div>
+		          </div>
+		          <div data-sjsel="funny">
+		            <div class="card">
+		              <img class="card__picture" src="./images/item-3.jpg" alt="">
+		              <div class="card-infos">
+		                <h2 class="card__title">Example 3</h2>
+		                <p class="card__text">
+		                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo, placeat voluptate, fuga tenetur eos ducimus animi porro...
+		                </p>
+		              </div>
+		            </div>
+		          </div>
+		          <div data-sjsel="flatty">
+		            <div class="card">
+		              <img class="card__picture" src="./images/item-4.jpg" alt="">
+		              <div class="card-infos">
+		                <h2 class="card__title">Example 4</h2>
+		                <p class="card__text">
+		                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit doloremque quisquam, obcaecati unde nam est quos...
+		                </p>
+		              </div>
+		            </div>
+		          </div>
+		          <div data-sjsel="flatty">
+		            <div class="card">
+		              <img class="card__picture" src="./images/item-5.jpg" alt="">
+		              <div class="card-infos">
+		                <h2 class="card__title">Example 5</h2>
+		                <p class="card__text">
+		                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse corporis hic minima nisi reprehenderit...
+		                </p>
+		              </div>
+		            </div>
+		          </div>
+		          <div data-sjsel="funny">
+		            <div class="card">
+		              <img class="card__picture" src="./images/item-6.jpg" alt="">
+		              <div class="card-infos">
+		                <h2 class="card__title">Example 6</h2>
+		                <p class="card__text">
+		                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel voluptatibus, id, deserunt inventore...
+		                </p>
+		              </div>
+		            </div>
+		          </div>
+		          <div data-sjsel="flatty">
+		            <div class="card">
+		              <img class="card__picture" src="./images/item-7.jpg" alt="">
+		              <div class="card-infos">
+		                <h2 class="card__title">Example 7</h2>
+		                <p class="card__text">
+		                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum enim beatae vero culpa, fuga, magni sunt dolores nam...
+		                </p>
+		              </div>
+		            </div>
+		          </div>
+		          <div data-sjsel="flatty">
+		            <div class="card">
+		              <img class="card__picture" src="./images/item-8.jpg" alt="">
+		              <div class="card-infos">
+		                <h2 class="card__title">Example 8</h2>
+		                <p class="card__text">
+		                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae numquam, blanditiis necessitatibus...
+		                </p>
+		              </div>
+		            </div>
+		          </div>
+		          <div data-sjsel="funny">
+		            <div class="card">
+		              <img class="card__picture" src="./images/item-9.jpg" alt="">
+		              <div class="card-infos">
+		                <h2 class="card__title">Example 9</h2>
+		                <p class="card__text">
+		                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur adipisci voluptatum laborum officiis...
+		                </p>
+		              </div>
+		            </div>
+		          </div>
+		        </div>
+		      </div>
+		    </div>
+		  </main>
+		  
+		<div class="related">
+		    <h3>如果你喜欢这个插件，那么你可能也喜欢:</h3>
+		    <a href="http://www.htmleaf.com/jQuery/pubuliuchajian/201704124451.html">
+			  <img src="related/1.jpg" width="300" alt="基于Masonry的网格瀑布流加载动画特效"/>
+			  <h3>基于Masonry的网格瀑布流加载动画特效</h3>
+			</a>
+			<a href="http://www.htmleaf.com/jQuery/pubuliuchajian/201704104447.html">
+			  <img src="related/2.jpg" width="300" alt="基于Bootstrap仿Pinterest的网格瀑布流插件"/>
+			  <h3>基于Bootstrap仿Pinterest的网格瀑布流插件</h3>
+			</a>
+		</div>
+	</div>
+	
+	<script type="text/javascript">
+	    document.querySelector('#sortable').sortablejs()
+	  </script>
+</body>
+</html>
