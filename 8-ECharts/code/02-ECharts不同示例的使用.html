@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- 1. 引入ECharts文件 -->
+    <script src="js/echarts.min.js"></script>
+</head>
+
+<body>
+    <!-- 2. 创建一个具有大小的容器 -->
+    <div class="main" style="width: 400px; height: 400px"></div>
+    <script>
+        // 3. 创建echarts实例
+        const myChart = echarts.init(document.querySelector(".main"));
+        // 4. 从官网上复制option
+        const option = {
+            title: {
+                text: "某站点用户访问来源",
+                subtext: "纯属虚构",
+                left: "center",
+            },
+            tooltip: {
+                trigger: "item",
+            },
+            legend: {
+                orient: "vertical",
+                left: "left",
+            },
+            series: [{
+                name: "访问来源",
+                type: "pie",
+                radius: "50%",
+                data: [{
+                    value: 1048,
+                    name: "搜索引擎",
+                }, {
+                    value: 735,
+                    name: "直接访问",
+                }, {
+                    value: 580,
+                    name: "邮件营销",
+                }, {
+                    value: 484,
+                    name: "联盟广告",
+                }, {
+                    value: 300,
+                    name: "视频广告",
+                }, ],
+                emphasis: {
+                    itemStyle: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: "rgba(0, 0, 0, 0.5)",
+                    },
+                },
+            }, ],
+        };
+        // 5. 将配置赋给实例
+        myChart.setOption(option);
+    </script>
+</body>
+
+</html>
