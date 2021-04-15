@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            border: 10px solid pink;
+            border-image-source: url(images/border.png);
+            border-image-slice: 30;
+            /* border-image-slice: 30 30 30 30; */
+            /* 这个是图片的宽度，不会挤压文字 */
+            border-image-width: 35px;
+            border-image-repeat: round;
+            float: left;
+            margin-right: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        div:nth-child(1) {
+            border-image-repeat: repeat;
+        }
+        
+        div:nth-child(2) {
+            border-image-repeat: round;
+        }
+        
+        div:nth-child(3) {
+            border-image-repeat: stretch;
+        }
+    </style>
+</head>
+
+<body>
+    <div>平铺repeat</div>
+    <div>环绕round</div>
+    <div>默认拉伸stretch</div>
+</body>
+
+</html>

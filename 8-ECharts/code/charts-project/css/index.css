@@ -1,0 +1,238 @@
+body {
+    background: url(../images/bg.jpg) no-repeat 0 0 / cover;
+    /* background-size: cover; */
+}
+
+.viewport {
+    min-width: 1024px;
+    max-width: 1920px;
+    margin: 0 auto;
+    background: url(../images/logo.png) no-repeat 0 0 / contain;
+    min-height: 780px;
+    display: flex;
+    padding: .7rem .25rem 0;
+}
+
+.viewport .column {
+    flex: 3;
+    margin: .4rem .25rem 0;
+}
+
+.viewport .column:nth-child(2) {
+    flex: 4;
+}
+
+
+/* 公共面板样式 */
+
+.panel {
+    position: relative;
+    border: 15px solid transparent;
+    border-width: .6375rem .475rem .25rem 1.65rem;
+    border-image-source: url(../images/border.png);
+    border-image-slice: 51 38 20 132;
+    box-sizing: border-box;
+    margin-bottom: .25rem;
+}
+
+.panel .inner {
+    position: absolute;
+    top: -.6375rem;
+    right: -.475rem;
+    bottom: -.25rem;
+    left: -1.65rem;
+    padding: .2rem .45rem
+}
+
+.panel h3 {
+    font-size: .25rem;
+    color: #fff;
+    font-weight: 400;
+}
+
+
+/* 概览模块制作 */
+
+.overview {
+    height: 1.375rem;
+}
+
+.overview ul {
+    display: flex;
+    justify-content: space-between;
+}
+
+.overview h4 {
+    font-size: .35rem;
+    color: #fff;
+    margin: 0 0 .04rem .06rem;
+    font-weight: normal;
+}
+
+.overview span {
+    color: #4c9bfd;
+    font-size: .2rem;
+}
+
+
+/* 监控模块制作 */
+
+
+/* 监控区域 */
+
+.monitor {
+    height: 6rem;
+}
+
+.monitor .inner {
+    padding: .3rem 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.monitor .tabs {
+    padding: 0 .45rem;
+    margin-bottom: 0.225rem;
+    display: flex;
+}
+
+.monitor .tabs a {
+    color: #1950c4;
+    font-size: 0.225rem;
+    padding: 0 .3375rem;
+}
+
+.monitor .tabs a:first-child {
+    padding-left: 0;
+    border-right: 0.025rem solid #00f2f1;
+}
+
+.monitor .tabs a.active {
+    color: #fff;
+}
+
+.monitor .content {
+    flex: 1;
+    position: relative;
+    display: none;
+}
+
+.monitor .head {
+    display: flex;
+    justify-content: space-between;
+    line-height: 1.05;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 0.15rem 0.45rem;
+    color: #68d8fe;
+    font-size: 0.175rem;
+}
+
+.monitor .marquee-view {
+    position: absolute;
+    top: 0.5rem;
+    bottom: 0;
+    width: 100%;
+    overflow: hidden;
+}
+
+.monitor .row {
+    display: flex;
+    justify-content: space-between;
+    line-height: 1.05;
+    font-size: 0.15rem;
+    color: #61a8ff;
+    padding: 0.15rem 0.45rem;
+}
+
+.monitor .row .icon-dot {
+    position: absolute;
+    left: 0.2rem;
+    opacity: 0;
+}
+
+.monitor .row:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #68d8fe;
+}
+
+.monitor .row:hover .icon-dot {
+    opacity: 1;
+}
+
+.monitor .col:first-child {
+    width: 1rem;
+}
+
+.monitor .col:nth-child(2) {
+    width: 2.5rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.monitor .col:nth-child(3) {
+    width: 1rem;
+}
+
+
+/* 通过CSS3动画滚动marquee */
+
+.marquee-view .marquee {
+    animation: move 15s linear infinite;
+}
+
+@keyframes move {
+    0% {}
+    100% {
+        transform: translateY(-50%);
+    }
+}
+
+
+/* 鼠标经过marquee 就停止动画 */
+
+.marquee-view .marquee:hover {
+    animation-play-state: paused;
+}
+
+
+/* 点位 */
+
+.point {
+    height: 4.25rem;
+}
+
+.point .chart {
+    display: flex;
+    margin-top: 0.3rem;
+    justify-content: space-between;
+}
+
+.point .pie {
+    width: 3.9rem;
+    height: 3rem;
+    margin-left: -0.125rem;
+}
+
+.point .data {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 2.1rem;
+    padding: .45rem .375rem;
+    box-sizing: border-box;
+    background-image: url(../images/rect.png);
+    background-size: cover;
+}
+
+.point h4 {
+    margin-bottom: 0.15rem;
+    font-size: .35rem;
+    color: #fff;
+}
+
+.point span {
+    display: block;
+    color: #4c9bfd;
+    font-size: .2rem;
+}
