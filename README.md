@@ -61,4 +61,7 @@
   * [0602.jQuery常用API](7-jQuery/2-jQuery常用API.md)
   * [0603.jQuery事件](7-jQuery/3-jQuery事件.md)
   * [0604.jQuery其他方法](7-jQuery/4-jQuery其他方法.md)
+* [07.ECharts](8-ECharts)
+  * [0701.ECharts介绍和配置](8-ECharts/1-ECharts介绍和配置.md)
+  * [0702.数据可视化项目实战](8-ECharts/2-数据可视化项目.md)
 

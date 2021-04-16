@@ -529,3 +529,151 @@ body {
     color: #4c9bfd;
     font-size: 0.175rem;
 }
+
+
+/* 排行榜 */
+
+.top {
+    height: 3.5rem;
+}
+
+.top .inner {
+    display: flex;
+}
+
+.top .all {
+    display: flex;
+    flex-direction: column;
+    width: 2.1rem;
+    color: #4c9bfd;
+    font-size: 0.175rem;
+    vertical-align: middle;
+}
+
+.top .all ul {
+    padding-left: 0.15rem;
+    margin-top: 0.15rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.top .all li {
+    overflow: hidden;
+}
+
+.top .all [class^="icon-"] {
+    font-size: 0.45rem;
+    vertical-align: middle;
+    margin-right: 0.15rem;
+}
+
+.top .province {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+}
+
+.top .province i {
+    padding: 0 0.15rem;
+    margin-top: 0.0625rem;
+    float: right;
+    font-style: normal;
+    font-size: 0.175rem;
+    color: #0bace6;
+}
+
+.top .province s {
+    display: inline-block;
+    transform: scale(0.8);
+    text-decoration: none;
+}
+
+.top .province .icon-up {
+    color: #dc3c33;
+}
+
+.top .province .icon-down {
+    color: #36be90;
+}
+
+.top .province .data {
+    flex: 1;
+    display: flex;
+    margin-top: 0.175rem;
+}
+
+.top .province ul {
+    flex: 1;
+    line-height: 1;
+    margin-bottom: 0.175rem;
+}
+
+.top .province ul li {
+    display: flex;
+    justify-content: space-between;
+}
+
+.top .province ul span {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.top .province ul.sup {
+    font-size: 0.175rem;
+}
+
+.top .province ul.sup li {
+    color: #4995f4;
+    padding: 0.15rem;
+}
+
+.top .province ul.sup li.active {
+    color: #a3c6f2;
+    background-color: rgba(10, 67, 188, 0.2);
+}
+
+.top .province ul.sub {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    font-size: 0.15rem;
+    background-color: rgba(10, 67, 188, 0.2);
+}
+
+.top .province ul.sub li {
+    color: #52ffff;
+    padding: 0.125rem 0.175rem;
+}
+
+.clock {
+    position: absolute;
+    top: -0.45rem;
+    right: 0.5rem;
+    font-size: 0.25rem;
+    color: #0bace6;
+}
+
+.clock i {
+    margin-right: 5px;
+    font-size: 0.25rem;
+}
+
+@media screen and (max-width: 1600px) {
+    .top span {
+        transform: scale(0.9);
+    }
+    .top .province ul.sup li {
+        padding: 0.125rem 0.15rem;
+    }
+    .top .province ul.sub li {
+        padding: 0.0625rem 0.15rem;
+    }
+    .quarter span {
+        transform: scale(0.9);
+    }
+}

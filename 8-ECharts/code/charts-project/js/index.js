@@ -354,79 +354,264 @@ $(() => {
     // 销售渠道模块雷达图
     (function() {
         const myChart = echarts.init(document.querySelector(".radar"));
-        // Schema:
-        // date,AQIindex,PM2.5,PM10,CO,NO2,SO2
-        const dataBJ = [
-            [55, 9, 56, 0.46, 18, 6, 1],
-
-        ];
-
-        const lineStyle = {
-            normal: {
-                width: 1,
-                opacity: 0.5
-            }
-        };
-
         const option = {
-            backgroundColor: '#161627',
-            // visualMap: {
-            //     show: true,
-            //     min: 0,
-            //     max: 20,
-            //     dimension: 6,
-            //     inRange: {
-            //         colorLightness: [0.5, 0.8]
-            //     }
-            // },
+            tooltip: {
+                show: false,
+                // 控制提示框组件的显示位置
+                position: ['60%', '10%'],
+            },
             radar: {
+                center: ['50%', '50%'],
+                // 外半径占据容器大小
+                radius: '65%',
+                // 雷达图的指示器 内部填充数据
                 indicator: [
-                    { name: 'AQI', max: 300 },
-                    { name: 'PM2.5', max: 250 },
-                    { name: 'PM10', max: 300 },
-                    { name: 'CO', max: 5 },
-                    { name: 'NO2', max: 200 },
-                    { name: 'SO2', max: 100 }
+                    { name: '机场', max: 100 },
+                    { name: '商场', max: 100 },
+                    { name: '火车站', max: 100 },
+                    { name: '汽车站', max: 100 },
+                    { name: '地铁', max: 100 }
                 ],
                 shape: 'circle',
-                splitNumber: 5,
+                // 指示器轴的分割段数
+                splitNumber: 4,
                 name: {
+                    // 修饰雷达图文本颜色
                     textStyle: {
-                        color: 'rgb(238, 197, 102)'
+                        color: '#4c9bfd'
                     }
                 },
+                // 坐标轴在 grid 区域中的分隔线（圆圈）
                 splitLine: {
                     lineStyle: {
-                        color: [
-                            'rgba(238, 197, 102, 0.1)', 'rgba(238, 197, 102, 0.2)',
-                            'rgba(238, 197, 102, 0.4)', 'rgba(238, 197, 102, 0.6)',
-                            'rgba(238, 197, 102, 0.8)', 'rgba(238, 197, 102, 1)'
-                        ].reverse()
+                        color: 'rgba(255, 255, 255, 0.5)',
+                        // width: 2,
+                        // type: 'dashed'
                     }
                 },
                 splitArea: {
                     show: false
                 },
+                // 坐标轴轴线相关设置(竖线)axisLine
                 axisLine: {
+                    show: true,
                     lineStyle: {
-                        color: 'rgba(238, 197, 102, 0.5)'
+                        color: 'rgba(255, 255, 255, 0.5)'
+                            // width: 1,
+                            // type: 'solid'
                     }
-                }
+                },
             },
             series: [{
-                name: '北京',
+                name: '',
                 type: 'radar',
-                lineStyle: lineStyle,
-                data: dataBJ,
-                symbol: 'none',
+                // 区域线条颜色
+                lineStyle: {
+                    normal: {
+                        color: '#fff',
+                        width: 1
+                    }
+                },
+                data: [
+                    [55, 19, 56, 11, 34]
+                ],
                 itemStyle: {
                     color: '#F9713C'
                 },
+                // 区域背景颜色
                 areaStyle: {
-                    opacity: 0.1
-                }
+                    color: 'rgba(238, 197, 102, 0.6)',
+                },
+                symbol: 'circle',
+                // 拐点的大小  
+                symbolSize: 8,
+                // 小圆点（拐点）设置为白色
+                itemStyle: {
+                    color: '#fff'
+                },
+                // 在圆点上显示相关数据
+                label: {
+                    show: true,
+                    color: '#fff',
+                    fontSize: 12
+                },
             }, ]
         };
         myChart.setOption(option)
+    })();
+
+    // 进度模块
+    (function() {
+        const myChart = echarts.init(document.querySelector(".quarter .gauge"));
+        const option = {
+            series: [{
+                type: 'pie',
+                // 放大图形
+                radius: ['130%', '150%'],
+                // 移动下位置  套住50%文字
+                center: ['48%', '80%'],
+                label: {
+                    normal: {
+                        show: false
+                    }
+                },
+                // 起始角度，支持范围[0, 360]
+                startAngle: 180,
+                // 鼠标经过不变大
+                hoverOffset: 0,
+                data: [{
+                        value: 100,
+                        itemStyle: {
+                            // 颜色渐变#00c9e0->#005fc1
+                            color: new echarts.graphic.LinearGradient(
+                                // (x1,y2) 点到点 (x2,y2) 之间进行渐变
+                                0,
+                                0,
+                                0,
+                                1, [
+                                    { offset: 0, color: "#00c9e0" }, // 0 起始颜色
+                                    { offset: 1, color: "#005fc1" } // 1 结束颜色
+                                ]
+                            )
+                        }
+                    },
+                    { value: 100, itemStyle: { color: '#12274d' } },
+                    { value: 200, itemStyle: { color: 'transparent' } } // 透明隐藏第三块区域
+                ],
+
+            }]
+        };
+        myChart.setOption(option);
+    })();
+
+    // 全国热榜
+    (function() {
+        // 1. 通过ajax获取后台的数据，这里仅作模拟
+        const hotData = [{
+                city: '北京', // 城市
+                sales: '25, 179', // 销售额
+                flag: true, //  上升还是下降
+                brands: [ //  品牌种类数据
+                    { name: '可爱多', num: '9,086', flag: true },
+                    { name: '娃哈哈', num: '8,341', flag: true },
+                    { name: '喜之郎', num: '7,407', flag: false },
+                    { name: '八喜', num: '6,080', flag: false },
+                    { name: '小洋人', num: '6,724', flag: false },
+                    { name: '好多鱼', num: '2,170', flag: true },
+                ]
+            },
+            {
+                city: '河北',
+                sales: '23,252',
+                flag: false,
+                brands: [
+                    { name: '可爱多', num: '3,457', flag: false },
+                    { name: '娃哈哈', num: '2,124', flag: true },
+                    { name: '喜之郎', num: '8,907', flag: false },
+                    { name: '八喜', num: '6,080', flag: true },
+                    { name: '小洋人', num: '1,724', flag: false },
+                    { name: '好多鱼', num: '1,170', flag: false },
+                ]
+            },
+            {
+                city: '上海',
+                sales: '20,760',
+                flag: true,
+                brands: [
+                    { name: '可爱多', num: '2,345', flag: true },
+                    { name: '娃哈哈', num: '7,109', flag: true },
+                    { name: '喜之郎', num: '3,701', flag: false },
+                    { name: '八喜', num: '6,080', flag: false },
+                    { name: '小洋人', num: '2,724', flag: false },
+                    { name: '好多鱼', num: '2,998', flag: true },
+                ]
+            },
+            {
+                city: '江苏',
+                sales: '23,252',
+                flag: false,
+                brands: [
+                    { name: '可爱多', num: '2,156', flag: false },
+                    { name: '娃哈哈', num: '2,456', flag: true },
+                    { name: '喜之郎', num: '9,737', flag: true },
+                    { name: '八喜', num: '2,080', flag: true },
+                    { name: '小洋人', num: '8,724', flag: true },
+                    { name: '好多鱼', num: '1,770', flag: false },
+                ]
+            },
+            {
+                city: '山东',
+                sales: '20,760',
+                flag: true,
+                brands: [
+                    { name: '可爱多', num: '9,567', flag: true },
+                    { name: '娃哈哈', num: '2,345', flag: false },
+                    { name: '喜之郎', num: '9,037', flag: false },
+                    { name: '八喜', num: '1,080', flag: true },
+                    { name: '小洋人', num: '4,724', flag: false },
+                    { name: '好多鱼', num: '9,999', flag: true },
+                ]
+            }
+        ];
+        $.each(hotData, (index, element) => {
+            // 2. 动态渲染上方sup模块
+            const supHTML = `<li>
+                            <span>${element.city}</span>
+                            <span>${element.sales}<s class="icon-up"></s></span>
+                        </li>`
+            $(".top .sup").append(supHTML);
+        });
+        // 默认只渲染第一组也就是北京的数据
+        $(".top .sup li").eq(0).addClass("active");
+        // 使用函数式变成提高效率和可读性
+        function loadSubData(subData) {
+            $.each(subData, (index, element) => {
+                let upOrDown = `<s class="icon-down"></s>`;
+                if (element.flag) {
+                    upOrDown = `<s class="icon-up"></s>`
+                }
+                const subHTML = `<li><span>${element.name}</span><span> ${upOrDown}</span></li>`;
+                $(".top .sub").append(subHTML);
+            });
+        }
+        loadSubData(hotData[0].brands);
+
+        function clearSubData() {
+            $(".top .sub").html("");
+        }
+        let auto_num = 0;
+        // 3. 点击不同的城市渲染不同的数据
+        $(".top .sup").on("click", "li", function() {
+            $(this).addClass("active").siblings("li").removeClass("active");
+            clearSubData();
+            loadSubData(hotData[$(this).index()].brands);
+            auto_num = $(this).index();
+        });
+        // 4. 如果移入这个区域，就停止自动播放，反之自动播放
+        let flag = true;
+
+        function autoplay() {
+            if (flag) {
+                if (auto_num >= $(".top .sup li").length) {
+                    auto_num = 0;
+                }
+                $(".top .sup li").eq(auto_num).addClass("active").siblings("li").removeClass("active");
+                clearSubData();
+                loadSubData(hotData[auto_num].brands);
+                auto_num++;
+            }
+        }
+
+        $(".top").on({
+            mouseenter: () => {
+                flag = false;
+            },
+            mouseleave: () => {
+                flag = true;
+            }
+        });
+        setInterval(() => {
+            autoplay();
+        }, 1000)
     })();
 })
