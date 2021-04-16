@@ -6,7 +6,7 @@
 
 # 简介：
 
-素材大部分来自网络，推荐使用 [VSCode](https://code.visualstudio.com/) 作为编辑器，内容涵盖 H5、C3、JS、JQuery（待补充.....）
+素材大部分来自网络，推荐使用 [VSCode](https://code.visualstudio.com/) 作为编辑器，内容涵盖 H5、C3、JS、JQuery、ECharts（待补充.....）
 
 由于涉及到侵权风险，目前基于本教程的所有修订、改变不做任何正式授权。
 
