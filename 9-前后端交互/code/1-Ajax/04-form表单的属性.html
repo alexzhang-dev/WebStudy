@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 1. 不指定form表单的action值时，默认是当前页面 -->
+    <!-- 2. target默认_self，常用的有_self和_blank -->
+    <!-- 3. method:get/post 如果是大量数据（或出现上传）使用post -->
+    <form action="/login" target="_blank" method="post">
+        <input type="text" name="username" placeholder="请输入用户名" />
+        <input type="password" name="password" placeholder="请输入密码" />
+        <button type="submit">提交</button>
+    </form>
+</body>
+
+</html>

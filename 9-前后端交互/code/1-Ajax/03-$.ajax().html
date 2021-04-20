@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="js/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <script>
+        // $.ajax() 允许我们对ajax请求进行详细的配置
+        /**
+                                    * $.ajax({
+                                              type: "", // 请求的方式，例如 GET 或 POST
+                                              url: "", // 请求的 URL 地址
+                                              data: {}, // 请求携带的数据
+                                              success: function(resp) {}, // 请求成功后的回调函数
+                                    });*/
+        // 1. 发送 GET 请求
+        $.ajax({
+            type: "GET",
+            url: "http://39.105.38.10:8081/book/top250",
+            data: {
+                page: 0,
+            },
+            success: () => {
+                console.log("GET请求成功！");
+            },
+        });
+        // 2. 发送 POST 请求  由于目前没有POST地址，故缺省
+        // $.ajax({
+        //     type: "POST",
+        //     url: "xxx",
+        //     data: {
+        //         username: "alex",
+        //     },
+        //     success: () => {
+        //         console.log("POST请求成功");
+        //     },
+        // });
+    </script>
+</body>
+
+</html>

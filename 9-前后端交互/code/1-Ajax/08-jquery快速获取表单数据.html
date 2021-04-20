@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="js/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <form id="form">
+        <input type="text" name="username" placeholder="请输入用户名" />
+        <input type="password" name="password" placeholder="请输入密码" />
+        <button type="submit">提交</button>
+    </form>
+    <script>
+        $(() => {
+            $("#form").on("submit", function(e) {
+                const dataObj = {};
+                e.preventDefault();
+                // serialize() 快速获取表单的数据，中文会编码
+                const data = $(this).serialize().split("&");
+                data.forEach((d) => {
+                    const d_l = d.split("=");
+                    dataObj[d_l[0]] = d_l[1];
+                });
+                console.log(dataObj);
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="js/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <button id="getRequest">发送GET请求不带参数</button>
+    <button id="getRequestAndParam">发送GET请求带参数</button>
+    <script>
+        $(() => {
+            // 地址：豆瓣图书API
+            // 1. 使用$.get()不带参数的请求
+            $("#getRequest").on("click", () => {
+                $.get("http://39.105.38.10:8081/book/top250", function(resp) {
+                    console.log(resp);
+                });
+            });
+            // 2. 使用$.get()带参数的请求
+            $("#getRequestAndParam").on("click", () => {
+                $.get(
+                    "http://39.105.38.10:8081/book/top250", {
+                        page: 0,
+                    },
+                    function(resp) {
+                        console.log(resp);
+                    }
+                );
+            });
+        });
+    </script>
+</body>
+
+</html>
