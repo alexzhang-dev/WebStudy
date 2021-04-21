@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 1. 新建表单实例
+        const fd = new FormData();
+        // 2. 为实例添加数据
+        fd.append("uname", "zs");
+        fd.append("upwd", "123");
+        // 3. 创建XHR实例
+        const xhr = new XMLHttpRequest();
+        // 4. 调用open函数
+        xhr.open("POST", "http://liulongbin.top:3006/api/formdata");
+        // 5. 直接提交formData实例，结果和之前是一样的
+        xhr.send(fd);
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                console.log(xhr.responseText);
+            }
+        };
+    </script>
+</body>
+
+</html>

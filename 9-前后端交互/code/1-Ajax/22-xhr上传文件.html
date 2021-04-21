@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 1. 定义UI结构 -->
+
+    <!--  文件选择框 -->
+    <input type="file" id="file1" />
+    <!-- 上传按钮 -->
+    <button id="btnUpload">上传文件</button>     <br />
+    <!-- 显示上传到服务器上的图片 -->
+    <img src="" alt="" id="img" width="800" />
+
+    <script>
+        // 2. 获取文件上传按钮
+        const btnUpload = document.querySelector("#btnUpload");
+        // 3. 添加click事件
+        btnUpload.addEventListener("click", () => {
+            // 4. 获取选择文件的列表
+            const files = document.querySelector("#file1").files;
+            console.log(files);
+            if (files.length <= 0) {
+                alert("还未选择文件！");
+            } else {
+                // 5. 向formdata中追加文件
+                const fd = new FormData();
+                fd.append("avater", files[0]);
+                // 6. 使用xhr上传文件
+                const xhr = new XMLHttpRequest();
+                xhr.open("POST", "http://www.liulongbin.top:3006/api/upload/avatar");
+                xhr.send(fd);
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        const data = JSON.parse(xhr.responseText);
+                        if (data.status === 200) {
+                            // 上传文件成功
+                            // 将服务器返回的图片地址，设置为 <img> 标签的 src 属性
+                            document.querySelector("#img").src =
+                                "http://liulongbin.top:3006" + data.url;
+                        } else {
+                            // 上传文件失败
+                            console.log(data.message);
+                        }
+                    }
+                };
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 1. replace()函数用于在字符串中用一些字符替换另一些字符，语法格式如下：
+        let str = "abcdef";
+        console.log(str.replace("abc", "123")); // 123def
+
+        // 2. 由此我们可以得到
+        let str2 = "<div>我是{{name}}</div>";
+        let pattern = /{{([a-zA-Z]+)}}/;
+
+        let patternResult = pattern.exec(str2);
+        str2 = str2.replace(patternResult[0], patternResult[1]); // replace 函数返回值为替换后的新字符串
+        // 输出的内容是：<div>我是name</div>
+        console.log(str2);
+
+        // 3. 多次replace
+        let str3 = "<div>{{name}}今年{{age}}岁了</div>";
+        let patternResult2 = pattern.exec(str3);
+        str3 = str3.replace(patternResult2[0], patternResult2[1]);
+        patternResult2 = pattern.exec(str3);
+        str3 = str3.replace(patternResult2[0], patternResult2[1]); // <div>name今年age岁了</div>
+        console.log(str3);
+        patternResult2 = pattern.exec(str3);
+        console.log(patternResult2); // null
+
+        // 4. 由此我们可以将上述优化一下，使用while循环
+        let str4 =
+            "<div>{{name}}今年{{age}}岁了,他住在{{city}},每天早上吃{{breakfast}}</div>";
+        let pattern4 = /{{([a-zA-Z]+)}}/;
+        let patternResult4 = null;
+        while ((patternResult4 = pattern4.exec(str4))) {
+            str4 = str4.replace(patternResult4[0], patternResult4[1]);
+        }
+        console.log(str4);
+
+        // 5. 我们还可以直接替换为真值
+        const data = {
+            name: "张三",
+            age: 20,
+            city: "北京",
+            breakfast: "鸡蛋",
+        };
+        let str5 =
+            "<div>{{name}}今年{{age}}岁了,他住在{{city}},每天早上吃{{breakfast}}</div>";
+        let pattern5 = /{{\s*([a-zA-Z]+)\s*}}/;
+
+        let patternResult5 = null;
+        while ((patternResult5 = pattern5.exec(str5))) {
+            str5 = str5.replace(patternResult5[0], data[patternResult5[1]]);
+        }
+        console.log(str5);
+    </script>
+</body>
+
+</html>

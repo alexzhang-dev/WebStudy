@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let str = "hello";
+        let pattern = /o/;
+        console.log(pattern.exec(str));
+        // 我们可以使用exec中的分组来获取想要的内容
+        let str2 = "<div>{{name}}</div>";
+        let pattern2 = /{{([a-zA-Z0-9]+)}}/;
+        console.log(pattern2.exec(str2));
+    </script>
+</body>
+
+</html>

@@ -6,9 +6,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <!-- 1. 引入art-template相关文件 -->
     <script src="js/template-web.js"></script>
+    <script src="js/jquery-3.6.0.min.js"></script>
 </head>
 
-<body></body>
+<body>
+    <div class="container"></div>
+    <!-- 3. 定义模板，必须定义在script里,script里面的type改为text/html -->
+    <script type="text/html" id="tpl-user">
+        <h1>{{name}}</h1>
+    </script>
+    <script>
+        // 2. 定义数据
+        const data = {
+            name: "alex",
+        };
+
+        // 4. 调用参数
+        let html = template("tpl-user", data);
+        console.log(html);
+
+        // 5. 渲染HTML结构
+        $(".container").append(html);
+    </script>
+</body>
 
 </html>

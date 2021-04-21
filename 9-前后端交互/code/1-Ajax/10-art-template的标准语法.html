@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="js/template-web.js"></script>
+    <script src="js/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <div class="container"></div>
+    <script type="text/html" id="tpl">
+        <!-- 1. 原文输出 HTML标签会被渲染 -->
+        <p>1. 原文输出，HTML标签会被渲染：{{@ includeHTML }}</p>
+        <!-- 2. 条件输出 -->
+        <p>
+            {{if flag === 1}} flag的值是1 {{else if flag === 0}} flag的值是0 {{else}} flag的值不是1也不是0 {{/if}}
+        </p>
+        <!-- 3. 循环输出 -->
+        <ul>
+            {{ each arr }}
+            <li>索引：{{$index}}---值：{{$value}}</li>
+            {{/each}}
+        </ul>
+        <!-- 循环输出中也可以作为值 -->
+        <ol>
+            {{ each arr as v }}
+            <li>{{ v }}</li>
+            {{ /each }}
+        </ol>
+        <!-- 4. 过滤器 -->
+        <p>{{nums | filterTest}}</p>
+        <!-- 写一个处理时间的过滤器例子 -->
+        <p>{{regTime | dateFormat}}</p>
+    </script>
+    <script>
+        const data = {
+            includeHTML: "<a href='http://www.baidu.com'>test</a>",
+            flag: 3,
+            arr: ["小明", "小白", "小花"],
+            nums: [1, 2, 3, 4, 5, 6],
+            regTime: new Date(),
+        };
+        // 定义一个过滤器
+        template.defaults.imports.filterTest = (nums) => {
+            const newArr = [];
+            nums.forEach((num) => {
+                num >= 3 ? newArr.push(num) : null;
+            });
+            // 过滤器一定要记得有return
+            return newArr;
+        };
+        template.defaults.imports.dateFormat = (regTime) => {
+            let y = regTime.getFullYear();
+            let m = regTime.getMonth() + 1;
+            let d = regTime.getDate();
+            return y + "-" + m + "-" + d;
+        };
+        const html = template("tpl", data);
+        $(".container").append(html);
+    </script>
+</body>
+
+</html>

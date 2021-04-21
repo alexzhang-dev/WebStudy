@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 1. 创建xhr对象
+        const xhr = new XMLHttpRequest();
+        // 2. 调用xhr.open()函数
+        xhr.open("GET", "http://www.liulongbin.top:3006/api/getbooks");
+        // 3. 调用xhr.send()函数，发起Ajax请求
+        xhr.send();
+        // 4. 监听xhr.onreadystatechange事件
+        xhr.addEventListener("readystatechange", (resp) => {
+            // 4.1 监听xhr的请求状态 readyState，与服务器响应状态 status
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // 4.2 打印服务器响应的内容
+                console.log(xhr.responseText);
+            }
+        });
+    </script>
+</body>
+
+</html>

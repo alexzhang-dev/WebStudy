@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./assets/news.css" />
+    <script src="./lib/jquery.js"></script>
+    <script src="./lib/template-web.js"></script>
+    <script src="js/index.js"></script>
+</head>
+
+<body>
+    <div id="news-list"></div>
+    <script id="tpl" type="text/html">
+        {{each data as news}}
+        <div class="news-item">
+            <img class="thumb" src="{{'http://www.liulongbin.top:3006' + news.img}}" alt="" />
+            <div class="right-box">
+                <h1 class="title">{{news.title}}</h1>
+                <div class="tags">
+                    <!-- 由字符串改为数组 -->
+                    {{each news.tags.split(",")}}
+                    <span>{{$value}}</span> {{/each}}
+                </div>
+                <div class="footer">
+                    <div>
+                        <span>{{news.source}}</span>&nbsp;&nbsp;
+                        <span>{{news.time | dateFormat}}</span>
+                    </div>
+                    <span>评论数：{{news.cmtcount}}</span>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </script>
+</body>
+
+</html>

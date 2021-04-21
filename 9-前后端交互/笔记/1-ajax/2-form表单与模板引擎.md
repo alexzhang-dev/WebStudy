@@ -206,7 +206,7 @@ art-template 是一个简约、超快的模板引擎。
 4. 调用`template`函数
 5. 渲染HTML页面
 
-#### 4.4 标准语法
+### 4.4 标准语法
 
 ##### 1. 什么是标准语法
 
@@ -228,10 +228,10 @@ art-template 提供了`{{ }}`这种语法格式，在`{{ }}`内可以进行**变
 ##### 3. 标准语法 - 原文输出
 
 ```js
-{{ @ value }}
+{{@ value }}
 ```
 
-如果要输出的 value 值中，**包含了 HTML 标签结构**，则需要使用原文输出语法，才能保证 HTML 标签被正常渲染。 
+如果要输出的 value 值中，**包含了 HTML 标签结构**，则需要使用原文输出语法，才能保证 HTML 标签被正常渲染。 <span style="color:red">@前面不要加空格！</span>
 
 ##### 4. 标准语法 - 条件输出
 
@@ -254,4 +254,196 @@ art-template 提供了`{{ }}`这种语法格式，在`{{ }}`内可以进行**变
     {{$index}} {{$value}}
 {{/each}}
 ```
+
+另一种写法，直接指定循环项
+
+```js
+{{each arr as v}}
+值：{{v}}
+{{/each}}
+```
+
+##### 6. 标准语法 - 过滤器
+
+需处理的值（以参数的形式） --> 过滤器函数 --> 返回新值
+
+**过滤器的本质**，就是一个`function`处理函数。
+
+```js
+{{value | filterName}}
+```
+
+过滤器语法类似**管道操作符**，它的上一个输出作为下一个输入。
+
+定义过滤器的基本语法如下：
+
+```js
+template.defaults.imports.filterName = function(value){/*return处理的结果*/}
+```
+
+**举个例子：**
+
+```html
+<div>注册时间：{{regTime | dateFormat}}</div>
+```
+
+定义一个格式化时间的过滤器`dateFormat`如下：
+
+```js
+template.defaults.imports.dateFormat = function(date) {
+    var y = date.getFullYear()
+    var m = date.getMonth() + 1
+    var d = date.getDate()
+    return y + '-' + m + '-' + d // 注意，过滤器最后一定要 return 一个值
+}
+```
+
+### 4.5 案例 - 新闻列表
+
+##### 1. 实现步骤
+
+* 获取新闻数据
+* 定义template模板
+* 编译模板
+* 定义时间过滤器
+* 定义补零函数
+
+# 5. 模板引擎的实现原理
+
+### 5.1 正则与字符串操作
+
+##### 1. 基本语法
+
+`exec()`函数用于**检索字符串**中的正则表达式的匹配
+
+如果字符串中有匹配的值，**则返回该匹配值**，否则返回**null**。
+
+```js
+RegExpObject.exec(string)
+```
+
+示例代码如下：
+
+```js
+var str = 'hello'
+var pattern = /o/
+// 输出的结果["o", index: 4, input: "hello", groups: undefined]
+console.log(pattern.exec(str)) 
+```
+
+##### 2. 分组
+
+正则表达式中` ( )`包起来的内容表示**一个分组**，可以通过分组来提取自己想要的内容，示例代码如下：
+
+```js
+ var str = '<div>我是{{name}}</div>'
+ var pattern = /{{([a-zA-Z]+)}}/
+
+ var patternResult = pattern.exec(str)
+ console.log(patternResult)
+ // 得到 name 相关的分组信息
+ // ["{{name}}", "name", index: 7, input: "<div>我是{{name}}</div>", groups: undefined]
+```
+
+##### 3. 字符串的replace函数
+
+`replace()`函数用于在字符串中用一些字符替换另一些字符，语法格式如下：
+
+```js
+var result = '123456'.replace('123', 'abc') 
+// 得到的 result 的值为字符串 'abc456'
+```
+
+```js
+var str = '<div>我是{{name}}</div>'
+var pattern = /{{([a-zA-Z]+)}}/
+
+var patternResult = pattern.exec(str)
+str = str.replace(patternResult[0], patternResult[1]) // replace 函数返回值为替换后的新字符串
+// 输出的内容是：<div>我是name</div>
+console.log(str)
+```
+
+##### 4. 多次replace
+
+```js
+var str = '<div>{{name}}今年{{ age }}岁了</div>'
+var pattern = /{{\s*([a-zA-Z]+)\s*}}/
+
+var patternResult = pattern.exec(str)
+str = str.replace(patternResult[0], patternResult[1])
+console.log(str) // 输出 <div>name今年{{ age }}岁了</div>
+
+patternResult = pattern.exec(str)
+str = str.replace(patternResult[0], patternResult[1])
+console.log(str) // 输出 <div>name今年age岁了</div>
+
+patternResult = pattern.exec(str)
+console.log(patternResult) // 输出 null
+```
+
+##### 5. 用while多次循环
+
+```js
+var str = '<div>{{name}}今年{{ age }}岁了</div>'
+var pattern = /{{\s*([a-zA-Z]+)\s*}}/
+
+var patternResult = null
+while(patternResult = pattern.exec(str)) {
+   str = str.replace(patternResult[0], patternResult[1])
+}
+console.log(str) // 输出 <div>name今年age岁了</div>
+```
+
+##### 6. replace替换为真值
+
+```js
+const data = {
+    name: "张三",
+    age: 20,
+    city: "北京",
+    breakfast: "鸡蛋",
+};
+let str5 =
+    "<div>{{name}}今年{{age}}岁了,他住在{{city}},每天早上吃{{breakfast}}</div>";
+let pattern5 = /{{\s*([a-zA-Z]+)\s*}}/;
+
+let patternResult5 = null;
+while ((patternResult5 = pattern5.exec(str5))) {
+    str5 = str5.replace(patternResult5[0], data[patternResult5[1]]);
+}
+console.log(str5);
+// 输出：张三今年20岁了，他住在北京，每天早上吃鸡蛋
+```
+
+### 5.2 实现简易版的模板引擎
+
+##### 1. 实现步骤
+
+* 定义模板结构
+* 预调用模板引擎
+* 封装template函数
+* 导入并使用自定义的模板引擎
+
+##### 2. 核心代码
+
+```js
+function template(selector, data) {
+    let HTMLStr = document.querySelector(`#${selector}`).innerHTML;
+    const pattern = /{{\s*([a-zA-Z]+)\s*}}/;
+    let patternResult = null;
+    while (patternResult = pattern.exec(HTMLStr)) {
+        HTMLStr = HTMLStr.replace(patternResult[0], data[patternResult[1]]);
+    }
+    return HTMLStr;
+}
+```
+
+原理就是遍历模板内容，如果出现`{{}}`就把里面的内容替换为值，不断往复，直到没有`{{}}`为止。
+
+##### 3. 效果
+
+[自定义模板引擎](../../code/1-Ajax/13-使用自己写的模板引擎.html)
+
+
 
