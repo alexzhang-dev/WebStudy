@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function success(data) {
+            console.log(data);
+        }
+    </script>
+    <!-- JSONP的实现原理：将调用函数放在一个单独的script文件里 -->
+    <!-- 因为script的src可以引用跨域的JS文件，所以就可以利用这一特点 -->
+    <script src="js/jsonp.js?callback=success"></script>
+</body>
+
+</html>

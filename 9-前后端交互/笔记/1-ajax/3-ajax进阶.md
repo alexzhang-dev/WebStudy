@@ -138,7 +138,7 @@ URL编码原则的通俗理解：***使用英文字符去表示非英文字符�
 
 ```js
 // 1. 创建 xhr 对象
-var xhr = new XMLHttpRequest();
+let xhr = new XMLHttpRequest();
 // 2. 调用 open()
 xhr.open("POST", "POST地址");
 // 3. 设置 Content-Type 属性（固定写法）
@@ -265,10 +265,10 @@ JSON 是 JS 对象的字符串表示法，它使用文本表示一个 JS 对象�
 
 ```js
 //这是一个对象
-var obj = {a: 'Hello', b: 'World'}
+let obj = {a: 'Hello', b: 'World'}
 
 //这是一个 JSON 字符串，本质是一个字符串
-var json = '{"a": "Hello", "b": "World"}' 
+let json = '{"a": "Hello", "b": "World"}' 
 ```
 
 ##### 5. JSON和JS对象的互转
@@ -276,14 +276,14 @@ var json = '{"a": "Hello", "b": "World"}'
 要实现从 JSON 字符串转换为 JS 对象，使用`JSON.parse()`方法：
 
 ```js
-var obj = JSON.parse('{"a": "Hello", "b": "World"}')
+let obj = JSON.parse('{"a": "Hello", "b": "World"}')
 //结果是 {a: 'Hello', b: 'World'}
 ```
 
 要实现从 JS 对象转换为 JSON 字符串，使用`JSON.stringify()`方法：
 
 ```javascript
-var json = JSON.stringify({a: 'Hello', b: 'World'})
+let json = JSON.stringify({a: 'Hello', b: 'World'})
 //结果是 '{"a": "Hello", "b": "World"}'
 ```
 
@@ -402,12 +402,12 @@ Ajax 操作往往用来提交表单数据。为了方便表单处理，**HTML5**
 
 ```js
 // 1. 新建 FormData 对象
-var fd = new FormData()
+let fd = new FormData()
 // 2. 为 FormData 添加表单项
 fd.append('uname', 'zs')
 fd.append('upwd', '123456')
 // 3. 创建 XHR 对象
-var xhr = new XMLHttpRequest()
+let xhr = new XMLHttpRequest()
 // 4. 指定请求类型与URL地址
 xhr.open('POST', 'POST地址')
 // 5. 直接提交 FormData 对象，这与提交网页表单的效果，完全一样
@@ -418,13 +418,13 @@ FormData对象也可以用来**获取网页表单的值**，示例代码如下�
 
 ```js
  // 获取表单元素
- var form = document.querySelector('#form1')
+ let form = document.querySelector('#form1')
  // 监听表单元素的 submit 事件
  form.addEventListener('submit', function(e) {
     e.preventDefault()
      // 根据 form 表单创建 FormData 对象，会自动将表单数据填充到 FormData 对象中
-     var fd = new FormData(form)
-     var xhr = new XMLHttpRequest()
+     let fd = new FormData(form)
+     let xhr = new XMLHttpRequest()
 	 xhr.open('POST', 'POST地址')
      xhr.send(fd)
      xhr.onreadystatechange = function() {}
@@ -459,11 +459,11 @@ FormData对象也可以用来**获取网页表单的值**，示例代码如下�
 
 ```js
 // 1. 获取上传文件的按钮
-var btnUpload = document.querySelector('#btnUpload')
+let btnUpload = document.querySelector('#btnUpload')
 // 2. 为按钮添加 click 事件监听
 btnUpload.addEventListener('click', function() {
     // 3. 获取到选择的文件列表
-    var files = document.querySelector('#file1').files
+    let files = document.querySelector('#file1').files
     if (files.length <= 0) {
         return alert('请选择要上传的文件！')
     }
@@ -475,7 +475,7 @@ btnUpload.addEventListener('click', function() {
 
 ```js
 // 1. 创建 FormData 对象
-var fd = new FormData()
+let fd = new FormData()
 // 2. 向 FormData 中追加文件
 fd.append('avatar', files[0])
 ```
@@ -484,7 +484,7 @@ fd.append('avatar', files[0])
 
 ```js
 // 1. 创建 xhr 对象
-var xhr = new XMLHttpRequest()
+let xhr = new XMLHttpRequest()
 // 2. 调用 open 函数，指定请求类型与URL地址。其中，请求类型必须为 POST
 xhr.open('POST', 'http://www.liulongbin.top:3006/api/upload/avatar')
 // 3. 发起请求
@@ -496,7 +496,7 @@ xhr.send(fd);
 ```js
 xhr.onreadystatechange = function() {
     if (xhr.readyState === 4 && xhr.status === 200) {
-        var data = JSON.parse(xhr.responseText)
+        let data = JSON.parse(xhr.responseText)
         if (data.status === 200) { // 上传文件成功
             // 将服务器返回的图片地址，设置为 <img> 标签的 src 属性
          	document.querySelector('#img').src = 'POST地址' + data.url
@@ -525,5 +525,154 @@ xhr.upload.onprogress = function(e) {
 }
 ```
 
+### 4.6 基于bootstrap绘制上传进度条
 
+##### 1. 导入需要的库
+
+```html
+<link rel="stylesheet" href="css/bootstrap.css" />
+<script src="js/jquery.js"></script>
+```
+
+##### 2. 进入官方示例复制想要的进度条效果
+
+```html
+<div class="progress" style="max-width: 15em">
+    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em">
+        0%
+    </div>
+</div>
+```
+
+##### 3. 默认让进度条隐藏
+
+```js
+$(".progressMsg").hide();
+$(".progress").hide();
+```
+
+##### 4. 在监听上传进度时出现
+
+```js
+xhr.upload.addEventListener("progress", (e) => {
+    if (e.lengthComputable) {
+        let procent = Math.ceil((e.loaded / e.total) * 100);
+        // 这里打开并显示
+        $(".progressMsg").show();
+        $(".progress").show().html(`
+<div class="progress-bar" role="progressbar" aria-valuenow="${procent}" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em;width:${procent}%">
+${procent}%
+</div>
+`);
+    }
+});
+```
+
+# 5. 使用jQuery的Ajax方法上传文件
+
+##### 1. 上传文件
+
+```js
+$.ajax({
+    method: 'POST',
+    url: 'http://www.liulongbin.top:3006/api/upload/avatar',
+    data: fd,
+    // 不修改 Content-Type 属性，使用 FormData 默认的 Content-Type 值
+    contentType: false,
+    // 不对 FormData 中的数据进行 url 编码，而是将 FormData 数据原样发送到服务器
+    processData: false,
+    success: function(res) {
+        console.log(res)
+    }
+})
+```
+
+##### 2. 实现进度条
+
+Ajax 请求开始时，执行`ajaxStart`函数。可以在 ajaxStart 的 callback 中显示 loading 效果，示例代码如下：
+
+```js
+// 自 jQuery 版本 1.8 起，该方法只能被附加到文档 document
+$(document).ajaxStart(function() {
+    $('#loading').show()
+})
+```
+
+**注意**： `$(document).ajaxStart()`函数会监听当前文档内***所有的 Ajax 请求***。
+
+Ajax 请求结束时，执行`ajaxStop`函数。可以在 ajaxStop 的 callback 中隐藏 loading 效果，示例代码如下：
+
+```js
+// 自 jQuery 版本 1.8 起，该方法只能被附加到文档
+$(document).ajaxStop(function() {
+    $('#loading').hide()
+})
+```
+
+# 6. axios
+
+### 6.1 什么是axios
+
+Axios 是专注于**网络数据请求**的库。
+相比于原生的 XMLHttpRequest 对象，**axios 简单易用**。
+相比于 jQuery，axios 更加**轻量化**，只专注于网络数据请求。
+
+### 6.2 axios发起GET请求
+
+axios 发起 get 请求的语法：
+
+```js
+axios.get('url', { params: { /*参数*/ } }).then(callback)
+```
+
+具体的请求示例如下：
+
+```js
+// 请求的 URL 地址
+let url = 'GET地址'
+// 请求的参数对象
+let paramsObj = { name: 'zs', age: 20 }
+// 调用 axios.get() 发起 GET 请求
+axios.get(url, { params: paramsObj }).then(function(res) {
+    // res.data 是服务器返回的数据
+    let result = res.data
+    console.log(res)
+});
+```
+
+### 6.3 axios发起POST请求
+
+axios 发起 post 请求的语法：
+
+```js
+axios.post('url', { /*参数*/ }).then(callback)
+```
+
+具体的请求示例如下：
+
+```js
+// 请求的 URL 地址
+let url = 'POST地址'
+// 要提交到服务器的数据
+let dataObj = { location: '北京', address: '顺义' }
+// 调用 axios.post() 发起 POST 请求
+axios.post(url, dataObj).then(function(res) {
+    // res.data 是服务器返回的数据
+    let result = res.data
+    console.log(result)
+})
+```
+
+### 6.4 直接使用axios发起请求
+
+axios 也提供了类似于 jQuery 中 $.ajax() 的函数，语法如下：
+
+```js
+ axios({
+     method: '请求类型',
+     url: '请求的URL地址',
+     data: { /* POST数据 */ },
+     params: { /* GET参数 */ }
+ }) .then(callback)
+```
 

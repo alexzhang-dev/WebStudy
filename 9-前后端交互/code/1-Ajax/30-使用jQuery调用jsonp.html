@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="js/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <script>
+        function success(data) {
+            console.log(data);
+        }
+        // 1. $.ajax()不仅可以ajax请求，还可以jsonp
+        $.ajax({
+            url: "jsonp接口地址",
+            // 这里dataType一定要是jsonp
+            dataType: "jsonp",
+            jsonpCallback: "success",
+            success: (resp) => {
+                console.log(resp);
+            },
+        });
+    </script>
+</body>
+
+</html>

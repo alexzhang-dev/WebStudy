@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="js/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <input type="file" name="" id="file1" />
+    <button id="fileSubmit">提交</button>
+    <br />
+    <img src="" alt="" />
+    <script>
+        $("#fileSubmit").on("click", function() {
+            const files = $("#file1")[0].files;
+            if (files.length > 0) {
+                const fd = new FormData();
+                fd.append("avatar", files[0]);
+                // 1. 监听文件上传进度
+                const xhr = new XMLHttpRequest();
+                xhr.upload.addEventListener("progress", (e) => {
+                    // 2. e.lengthComputable; true/false 代表当前上传的文件是否具有可计算的长度
+                    if (e.lengthComputable) {
+                        // e.loaded 已传输的文件大小，字节
+                        // e.total 文件的总大小，字节
+                        let procent = Math.ceil((e.loaded / e.total) * 100);
+                        console.log(procent);
+                    }
+                });
+                xhr.open("POST", "http://www.liulongbin.top:3006/api/upload/avatar");
+                xhr.send(fd);
+                xhr.addEventListener("readystatechange", () => {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        console.log(xhr.responseText);
+                        const data = JSON.parse(xhr.responseText);
+                        $("img").attr("src", "http://liulongbin.top:3006" + data.url);
+                    }
+                });
+            } else {
+                alert("请提交文件！");
+            }
+        });
+    </script>
+</body>
+
+</html>
