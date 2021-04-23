@@ -6,7 +6,7 @@
 
 # 简介：
 
-素材大部分来自网络，推荐使用 [VSCode](https://code.visualstudio.com/) 作为编辑器，内容涵盖 H5、C3、JS、JQuery、ECharts（待补充.....）
+素材大部分来自网络，推荐使用 [VSCode](https://code.visualstudio.com/) 作为编辑器，内容涵盖 H5、C3、JS、JQuery、ECharts、Ajax（待补充.....）
 
 由于涉及到侵权风险，目前基于本教程的所有修订、改变不做任何正式授权。
 
@@ -65,3 +65,11 @@
   * [0701.ECharts介绍和配置](8-ECharts/1-ECharts介绍和配置.md)
   * [0702.数据可视化项目实战](8-ECharts/2-数据可视化项目.md)
 
+* [08.前后端交互](9-前后端交互)
+  * [0801.Ajax](9-前后端交互/笔记/1-ajax)
+    * [1-初识服务器与Ajax](9-前后端交互/笔记/1-ajax/1-初识服务器与ajax.md)
+    * [2-form表单与模板引擎](9-前后端交互/笔记/1-ajax/2-form表单与模板引擎.md)
+    * [3-Ajax进阶](9-前后端交互/笔记/1-ajax/3-Ajax进阶.md)
+    * [4-跨域与jsonp](9-前后端交互/笔记/1-ajax/4-跨域与jsonp.md)
+    * [5.HTTP协议](9-前后端交互/笔记/1-ajax/5-http协议.md)
+  * 
