@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        
+        #angel {
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <img src="images/angel.gif" alt="" id="angel" />
+
+    <script>
+        $(() => {
+            // 节流阀
+            let timer = null;
+            $(document).on("mousemove", function(e) {
+                if (timer) {
+                    return;
+                }
+                // 16毫秒内无法被再次触发
+                timer = setTimeout(() => {
+                    $("#angel")
+                        .css("left", e.pageX + "px")
+                        .css("top", e.pageY + "px");
+                    timer = null;
+                    console.log("ok");
+                }, 16);
+            });
+        });
+    </script>
+</body>
+
+</html>

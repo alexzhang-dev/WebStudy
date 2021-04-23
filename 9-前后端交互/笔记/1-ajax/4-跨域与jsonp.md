@@ -130,3 +130,152 @@ jQuery 中的 JSONP，也是通过`<script>`标签的 src 属性实现跨域数�
 ### 3.2 接口地址
 
 https://suggest.taobao.com/sug?q=
+
+### 3.3 输入框防抖
+
+**问题**：发现在输入中文未输入完毕之前，就已经将值传递给后端了。需要等待输入完毕之后（停留一定时间）才会把值传递给后台。
+
+##### 1. 什么是防抖
+
+防抖策略（debounce）是当事件被触发后，**延迟n秒**后再**执行回调**，***如果在这n秒内事件又被触发，则重新计时***。
+
+![防抖策略](../../resource/防抖策略.png)
+
+##### 2. 防抖的应用场景
+
+用户在输入框中连续输入一串字符时，可以通过防抖策略，只在输入完后，才执行查询的请求，这样可以有效减少请求次数，节约请求资源。
+
+##### 3. 实现输入框的防抖
+
+**核心原理**：创建一个计时器Timeout，如果触发了keyup事件，就清空定时器，重新调用debouseSearch函数，重新计时。如果500ms内计时器一直存在，那么就会调用Ajax请求。（这里说明了为什么使用Timeout，如果是Interval的话，就会500ms一次的循环请求。）
+
+```js
+var timer = null                    // 1. 防抖动的 timer
+
+function debounceSearch(keywords) { // 2. 定义防抖的函数
+    timer = setTimeout(function() {
+        // 发起 JSONP 请求
+        getSuggestList(keywords)
+    }, 500)
+}
+
+$('#ipt').on('keyup', function() {  // 3. 在触发 keyup 事件时，立即清空 timer
+    clearTimeout(timer)
+    // ...省略其他代码
+    debounceSearch(keywords)
+})
+```
+
+### 3.4 缓存建议列表
+
+**问题**：用户搜索了一个词过了一会有重新搜索了这个词，这个时候Ajax两次请求，却获取到了同样的数据。我们需要优化一下，让同样的搜索关键字选择本地数据。
+
+##### 1. 定义全局缓存对象
+
+```js
+// 缓存对象
+const cacheObj = {};
+```
+
+##### 2. 将搜索的内容保存到缓存对象中
+
+```js
+...... // 渲染页面代码
+// 在渲染列表的时候，把关键字作为键，响应数据作为值储存在缓存对象中
+cacheObj[search_kw] = resp.result;
+```
+
+##### 3. 优先使用缓存数据
+
+```js
+// 实现缓存
+if (cacheObj[search_kw]) {
+    return rendarSuggestList(search_kw, cacheObj[search_kw]);
+}
+// 没有缓存，再请求后端
+clearTimeout(timer);
+debounceSearch(search_kw);
+```
+
+### 3.3 代码
+
+[案例 - 淘宝搜索](../../code/1-Ajax/案例 - 淘宝搜索)
+
+# 4. 防抖和节流
+
+### 4.1 防抖
+
+查看 3.3 
+
+### 4.2 什么是节流
+
+节流策略（throttle），顾名思义，可以减少一段时间内事件的触发频率。
+
+![节流策略](../../resource/节流策略.png)
+
+### 4.3 节流的应用场景
+
+* 鼠标连续不断的触发某事件（如点击），只在单位时间内触发一次。
+* 懒加载时要监听计算滚动条的位置，但不必每次滚动都监听，可以降低计算的频率，而不必浪费CPU的资源
+
+### 4.4 节流案例 - 鼠标跟随效果
+
+##### 1. 渲染UI结构并美化样式
+
+```html
+<style>
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+
+    #angel {
+        position: absolute;
+    }
+</style>
+<img src="./angel.gif" alt="" id="angel" />
+```
+
+##### 2. 不使用节流实现鼠标跟随效果
+
+```js
+$(() => {
+    $(document).on("mousemove", function(e) {
+        $("#angel")
+            .css("left", e.pageX + "px")
+            .css("top", e.pageY + "px");
+    });
+});
+```
+
+##### 3. 节流阀的概念
+
+节流阀用于控制需要节流的代码是否需要执行，**如果处在于单位时间内，那么节流阀就设置为拒绝的值**，那么在单位时间内再判断就不会执行函数。**等待单位时间内结束后，再将节流阀设置为允许的值**，这样开始新的循环。
+
+##### 4. 使用节流阀的鼠标跟随
+
+```js
+$(() => {
+    // 节流阀
+    let timer = null;
+    $(document).on("mousemove", function(e) {
+        if (timer) {
+            return;
+        }
+        // 16毫秒内无法被再次触发
+        timer = setTimeout(() => {
+            $("#angel")
+                .css("left", e.pageX + "px")
+                .css("top", e.pageY + "px");
+            timer = null;
+        }, 16);
+    });
+});
+```
+
+### 4.5 防抖和节流的区别
+
+* 防抖：如果事件被频繁触发，***防抖能保证只有最后一次触发生效***！前面N多次触发都不会生效。
+* 节流：如果事件被频繁触发，节流能够***减少事件触发的频率***，因此，节流是有选择性的执行一部分事件。
