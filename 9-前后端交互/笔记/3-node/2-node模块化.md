@@ -264,11 +264,11 @@ npm 规定，在**项目根目录**中，必须提供一个叫做`package.json`�
 npm 包管理工具提供了一个**快捷命令**，可以在执行命令时所处的目录中，**快速创建 package.json** 这个包管理配置文件：
 
 ```bash
-# 快速创建page.json
+# 快速创建package.json
 npm init -y
 ```
 
-* 上述命令只能在英文的目录下成功运行！所以，项目文件夹的名称一定要使用英文命名，不要使用中文，不能出现空格。
+* 上述命令只能在**英文的目录下**成功运行。所以，项目文件夹的名称一定要使用英文命名，不要使用中文，不能出现空格。
 * 运行`npm install`命令安装包的时候，npm 包管理工具会自动把包的名称和版本号，记录到 package.json 中。
 
 #### 4. dependencies 节点
@@ -317,5 +317,290 @@ npm i 包名 -D
 npm install 包名 --save-dev
 ```
 
+### 3.4 解决下包速度慢的问题
 
+#### 1. 为什么下包速度慢
+
+在使用 npm 下包的时候，默认从国外的 https://registry.npmjs.org/ 服务器进行下载，此时，网络数据的传输需要经过漫长的海底光缆，因此下包速度会很慢。
+
+#### 2. 淘宝 NPM 镜像服务器
+
+淘宝在国内搭建了一个服务器，专门把国外官方服务器上的包**同步到国内的服务器**，然后在国内提供下包的服务。从而极大的提高了下包的速度。
+
+**扩展**：
+
+镜像（Mirroring）是一种文件存储形式，一个磁盘上的数据在另一个磁盘上存在一个完全相同的副本即为镜像。
+
+#### 3. 切换 npm 的下包镜像源
+
+下包的镜像源，指的就是下包的服务器地址。
+
+```bash
+# 查看当前的下包镜像源
+npm config get registry
+# 将下包的镜像源切换为淘宝镜像源
+npm config set registry=https://registry.npm.taobao.org/
+# 检查镜像源是否下载成功
+npm config get registry
+```
+
+#### 4. nrm
+
+为了更方便的切换下包的镜像源，我们可以**安装 nrm 这个小工具**，利用 nrm 提供的终端命令，可以**快速查看和切换下包的镜像源**。
+
+```bash
+# 通过 npm 包管理器，将 nrm 安装为全局可用的工具
+npm i nrm -g
+# 查看所有可用的镜像源
+nrm ls
+# 将下包的镜像源切换为 taobao 镜像
+nrm use taobao
+```
+
+### 3.5 包的分类
+
+使用 npm 包管理工具下载的包，共分为两大类，分别是：
+
+* 项目包
+* 全局包
+
+#### 1. 项目包
+
+那些被安装到**项目的** node_modules 目录中的包，都是项目包。
+
+项目包又分为两类，分别是：
+
+* 开发依赖包（被记录到 **devDependencies** 节点中的包，只在开发期间会用到）
+* 核心依赖包（被记录到 **dependencies** 节点中的包，在开发期间和项目上线之后都会用到）
+
+```bash
+npm i 包名 -D  # 开发依赖包（会被记录在 devDependencies 节点下）
+npm i 包名     # 核心依赖包（会被记录 dependencies 节点下）
+```
+
+#### 2. 全局包
+
+在执行 npm install 命令时，如果提供了 **-g** 参数，则会把包安装为**全局包**。
+
+全局包会被安装到 **C:\Users\用户目录\AppData\Roaming\npm\node_modules** 目录下
+
+```bash
+npm i 包名 -g          # 下载全局使用的包
+npm uninstall 包名 -g  # 卸载全局使用的包
+```
+
+* 只有**工具性质的包**，才有全局安装的必要性。因为它们提供了好用的终端命令
+* 判断某个包是否需要全局安装后才能使用，可以参考**官方提供的使用说明**即可
+
+#### 3. i5ting_toc
+
+i5ting_toc 是一个可以把 md 文档转为 html 页面的小工具，使用步骤如下：
+
+```bash
+# 将 i5ting_toc 安装为全局包
+npm i -g i5ting_toc
+# 调用 i5ting_toc,实现 md 转 html
+i5ting_toc -f 要转换的md文件的路径 -o
+```
+
+### 3.6 规范的包结构
+
+在清楚了包的概念、以及如何下载和使用包之后，接下来，我们深入了解一下**包的内部结构**。
+
+一个规范的包，它的组成结构，必须符合以下 3 点要求：
+
+* 包必须以**单独的目录**而存在
+* 包的顶级目录下要必须包含 **package.json** 这个包管理配置文件
+* package.json 中必须包含 **name**，**version**，**main** 这三个属性，分别代表**包的名字**、**版本号**、**包的入口**。
+
+### 3.7 开发属于自己的包
+
+#### 1. 需要实现的功能
+
+* 格式化日期
+* 转义 HTML 中的特殊字符
+* 还原 HTML 中的特殊字符
+
+#### 2. 初始化包的基本结构
+
+* 新建一个文件夹，作为**包的根目录**
+* 在包的根目录下，新建如下3个文件：
+  * `package.json`（包管理配置文件）
+  * `index.js`（包的入口文件）
+  * `README.md`（包的说明文档）
+
+#### 3. 初始化 package.json
+
+```bash
+# 使用如下指令初始化package.json
+npm init -y
+```
+
+可以在`package.json`中书写自己想要的内容
+
+#### 4. 在 src 路径下写核心代码
+
+创建文件夹`src`，创建文件`dateFormat.js`和`htmlEscape.js`，分别存放处理时间和字符串的核心代码，并将成员暴露出去。
+
+[dateFormat.js](../../code/2-Node.js/alexzhang-test-utils/src/dateFormat.js)
+
+```js
+const dateFormat = (date) => {
+    const YYYY = date.getFullYear();
+    const MM = padZero(date.getMonth() + 1);
+    const DD = padZero(date.getDate());
+    const HH = padZero(date.getHours());
+    const mm = padZero(date.getMinutes());
+    const ss = padZero(date.getSeconds());
+    return `${YYYY}-${MM}-${DD} ${HH}:${mm}:${ss}`;
+}
+
+const padZero = (n) => {
+    return n < 10 ? '0' + n : n;
+}
+
+module.exports = {
+    dateFormat
+}
+```
+
+[htmlEscape.js](../../code/2-Node.js/alexzhang-test-utils/src/htmlEscape.js)
+
+```js
+const htmlEscape = (htmlStr) => {
+    return htmlStr.replace(/<|>|""|&/g, (match) => {
+        switch (match) {
+            case '<':
+                return '&lt;';
+            case '>':
+                return '&gt;';
+            case '""':
+                return '&quot;';
+            case '&':
+                return '&amp;';
+        }
+    });
+}
+
+const htmlUnEscape = (str) => {
+    return str.replace(/&lt;|&gt;|&quot;|&amp;/g, (match) => {
+        switch (match) {
+            case '&lt;':
+                return '<';
+            case '&gt;':
+                return '>';
+            case '&quot;':
+                return '""';
+            case '&amp;':
+                return '&';
+        }
+    });
+}
+
+module.exports = {
+    htmlEscape,
+    htmlUnEscape
+}
+```
+
+#### 5. 在 index.js 暴露成员
+
+[index.js](../../code/2-Node.js/alexzhang-test-utils/index.js)
+
+```js
+// 这是包的入口文件
+const dateFormat = require('./src/dateFormat');
+const htmlEscape = require('./src/htmlEscape');
+module.exports = {
+    "dateFormat": dateFormat.dateFormat,
+    "htmlEscape": htmlEscape.htmlEscape,
+    "htmlUnEscape": htmlEscape.htmlUnEscape
+}
+```
+
+#### 6. 编写包的说明文档
+
+包根目录中的 README.md 文件，是包的**使用说明文档**。通过它，我们可以事先把包的使用说明，以 markdown 的格式写出来，方便用户参考。
+
+README 文件中具体写什么内容，没有强制性的要求；只要能够清晰地把包的**作用**、**用法**、**注意事项**等描述清楚即可。
+
+### 3.8 发布包
+
+#### 1. 注册 npm 账号
+
+* 访问 https://www.npmjs.com/ 网站，点击 sign up 按钮，进入注册用户界面
+* 填写账号相关的信息：Full Name、Public Email、Username、Password
+* 点击 Create an Account 按钮，注册账号
+* 登录邮箱，点击验证链接，进行账号的验证
+
+#### 2. 登录 npm 账号
+
+npm 账号注册完成后，可以在终端中执行 npm login 命令，依次输入用户名、密码、邮箱后，即可登录成功。
+
+**注意**：在运行 npm login 命令之前，**必须先把下包的服务器地址切换为 npm 的官方服务器**。否则会导致发布包失败！
+
+#### 3. 把包发布到 npm 上
+
+终端切换到包的根路径，输入以下指令
+
+```bash
+npm publish
+```
+
+#### 4. 删除已发布的包
+
+```bash
+npm unpublish 包名 --force
+```
+
+* 该指令只能删除**72小时内**发布的包
+* 删除的包**24小时内**无法重新发布
+* 发布包的时候要慎重，**尽量不要往 npm 上发布没有意义的包**
+
+# 4. 模块的加载机制
+
+### 4.1 优先从缓存中加载
+
+**模块在第一次加载后会被缓存**。这也意味着多次调用`require()`不会导致模块的代码被执行多次。
+
+注意：不论是**内置模块**、**用户自定义模块**、还是**第三方模块**，它们都会**优先从缓存中加载**，从而提高模块的加载效率。
+
+### 4.2 内置模块的加载机制
+
+内置模块是由 Node.js 官方提供的模块，**内置模块的加载优先级最高**。
+
+例如，`require('fs')`始终返回**内置的 fs 模块**，即使在 node_modules 目录下有名字相同的包也叫做 fs。
+
+### 4.3 自定义模块的加载机制
+
+使用`require()`加载自定义模块时，**必须指定以 ./ 或 ../ 开头的路径标识符**。在加载自定义模块时，**如果没有指定 ./ 或 ../ 这样的路径标识符，则 node 会把它当作内置模块或第三方模块进行加载**。
+
+同时，在使用`require()`导入自定义模块时，如果**省略了文件的扩展名**，则 Node.js 会按顺序分别尝试加载以下的文件：
+
+* 按照`确切的文件名`进行加载
+* 补全`.js`扩展名进行加载
+* 补全`.json`扩展名进行加载
+* 补全`.node`扩展名进行加载
+* 加载失败，终端报错
+
+### 4.4 第三方模块的加载机制
+
+如果传递给`require()`的模块标识符不是一个内置模块，也没有以 ./ 或 ../ 开头，则 Node.js 会从当前模块的父目录开始，尝试从 /node_modules 文件夹中加载第三方模块。
+
+如果没有找到对应的第三方模块，则移动到再上一层父目录中，进行加载，**直到文件系统的根目录**。
+
+例如，假设在`C:\Users\alex\project\foo.js'`文件里调用了`require('tools')`，则 Node.js 会按以下顺序查找：
+
+* `C:\Users\alex\project\node_modules\tools`
+* `C:\Users\alex\node_modules\tools`
+* `C:\Users\node_modules\tools`
+* `C:\node_modules\tools`
+
+### 4.5 目录作为模块
+
+当把目录作为模块标识符，传递给`require()`进行加载的时候，有三种加载方式：
+
+* 在被加载的目录下查找一个叫做`package.json`的文件，并寻找`main`属性，作为 require() 加载的入口
+* 如果目录里没有 package.json 文件，或者 main 入口不存在或无法解析，则 Node.js 将会试图加载目录下的`index.js`文件
+* 如果以上两步都失败了，则 Node.js 会在终端打印错误消息，报告模块的缺失：`Error: Cannot find module 'xxx'`
 
