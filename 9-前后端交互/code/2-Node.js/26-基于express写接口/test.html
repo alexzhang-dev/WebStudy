@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./lib/axios.min.js"></script>
+    <script src="./lib/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <button id="get">测试GET请求</button>
+    <button id="post">测试POST请求</button>
+    <script>
+        // 测试我们写的接口是否有效果
+        const getBtn = document.querySelector("#get");
+        const postBtn = document.querySelector("#post");
+        getBtn.addEventListener("click", () => {
+            axios
+                .get("http://127.0.0.1/api", {
+                    params: {
+                        name: "zs",
+                        age: 18,
+                    },
+                })
+                .then((res) => {
+                    console.log(res);
+                })
+                .catch((err) => {
+                    console.error(err);
+                });
+        });
+        postBtn.addEventListener("click", () => {
+            $.post(
+                "http://127.0.0.1/api", {
+                    name: "alex",
+                    age: "你好",
+                },
+                (res) => {
+                    console.log(res);
+                }
+            );
+        });
+    </script>
+</body>
+
+</html>

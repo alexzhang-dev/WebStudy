@@ -642,3 +642,216 @@ req.on('end', () => {
 ##### 7. 将自定义中间件封装为模块
 
 为了优化代码的结构，我们可以把自定义的中间件函数，**封装为独立的模块**。
+
+# 4. 使用 Express 写接口
+
+### 4.1 创建基本的服务器
+
+```js
+// 加载 express 模块
+const express = require('express');
+// 创建 express 实例
+const app = express();
+
+// write code here ...
+
+// 调用 app.listen(), 启动服务器
+app.listen(80, () => {
+    console.log('Express server is running at 127.0.0.1...')
+});
+```
+
+### 4.2 创建 API 路由模块
+
+```js
+// apiRouter.js 【路由模块】
+const express = require('express');
+const apiRouter = express.Router();
+
+// bind router here ...
+
+module.exports = apiRouter;
+
+// --------------------------
+// 在主函数上绑定 apiRouter
+const apiRouter = require('./router/apiRouter');
+app.use('/api', apiRouter);
+```
+
+#### 4.3 编写 GET 接口
+
+```js
+apiRouter.get('/', (req, res) => {
+    // 获取请求的查询字符串
+    const query = req.query;
+    // 响应数据
+    res.send({
+        status: 0,
+        message: "GET请求成功",
+        data: query
+    })
+});
+```
+
+#### 4.4 编写 POST 接口
+
+```js
+// 配置中间件
+// 获取到 urlencoded 格式的数据
+apiRouter.use(express.urlencoded({
+    extended: false
+}));
+
+// POST 请求
+apiRouter.post('/', (req, res) => {
+    // 获取请求体
+    const body = req.body;
+    // 响应数据
+    res.send({
+        status: 0,
+        message: "POST请求成功",
+        data: body
+    });
+});
+```
+
+**注意**：如果要获取 URL-encoded 格式的请求体数据，必须配置中间件
+
+```js
+app.use(express.urlencoded({
+    extended: false 
+}))
+```
+
+`extended`：如果为`true`，表示使用`body-parse`模块来处理。默认是true，可选false
+
+### 4.5 CORS 资源共享
+
+#### 1 . 接口的跨域问题
+
+刚才编写的 GET 和 POST 接口，存在一个很严重的问题：**不支持跨域请求**
+
+#### 2. 使用 cors 中间件解决跨域问题
+
+cors 是 Express 的一个**第三方中间件**。通过安装和配置 cors 中间件，可以很方便地解决跨域问题。
+
+* 运行`npm install cors`安装中间件
+* 使用`const cors = require('cors')`载入中间件
+* 在路由之前调用`app.use(cors())`配置中间件
+
+#### 3. 什么是 CORS
+
+CORS （Cross-Origin Resource Sharing，跨域资源共享）由一系列 **HTTP 响应头**组成，**这些 HTTP 响应头决定浏览器是否阻止前端 JS 代码跨域获取资源**。
+
+浏览器的**同源安全策略**默认会阻止网页“跨域”获取资源。但如果接口服务器配置了 CORS 相关的 HTTP 响应头，就可以**解除浏览器端的跨域访问限制**。
+
+<img src="../../resource/cors.png" align="left" />
+
+#### 4. CORS 的注意事项
+
+* CORS **主要在服务器端进行配置**。客户端浏览器无须做任何额外的配置，即可请求开启了 CORS 的接口。
+* CORS 在浏览器中**有兼容性**。只有支持 **XMLHttpRequest Level2** 的浏览器，才能正常访问开启了 CORS 的服务端接口（例如：IE10+、Chrome4+、FireFox3.5+）。
+
+#### 5. CORS 响应头部 - Access-Control-Allow-*Origin* 
+
+响应头部中可以携带一个`Access-Control-Allow-Origin`字段，其语法如下:
+
+```ini
+Access-Control-Allow-Origin: <origin> | *
+```
+
+其中，origin 参数的值指定了**允许访问该资源的外域 URL**
+
+例如，下面的字段值将只允许来自 http://github.com 的请求：
+
+```js
+res.setHeader('Access-Control-Allow-Origin', 'http://github.com');
+```
+
+如果指定了 Access-Control-Allow-Origin 字段的值为**通配符 ***，表示允许来自**任何域**的请求，示例代码如下：
+
+```js
+res.setHeader('Access-Control-Allow-Origin', '*');
+```
+
+#### 6. CORS 响应头部 - Access-Control-Allow-*Headers*
+
+默认情况下，CORS **仅支持客户端向服务器发送如下的 9 个请求头**：
+
+* Accept
+* Accept-Language
+* Content-Language
+* DPR
+* Downlink
+* Save-Data
+* Viewport-Width
+* Width
+* Content-Type（值只限于以下3种）
+  * `text/plain`
+  * `multipart/form-data`
+  * `application/x-www-form-urlencoded`
+
+如果客户端向服务器发送了**额外的请求头信息**，则需要在服务器端，**通过 Access-Control-Allow-Headers 对额外的请求头进行声明**，否则这次**请求会失败**！
+
+```js
+// 允许客户端额外发送 Content-Type 请求头和 X-Custom-Header 请求头
+// 注意：多个请求头之间使用逗号分隔
+res.setHeader('Access-Control-Allow-Header', 'Content-Type, X-Custom-Header');
+```
+
+#### 7. CORS 响应头部 - Access-Control-Allow-*Methods*
+
+默认情况下，CORS 仅支持客户端发起 **GET**、**POST**、**HEAD** 请求。
+
+如果客户端希望通过 **PUT**、**DELETE** 等方式请求服务器的资源，则需要在服务器端，通过 **Access-Control-Alow-Methods**来指明实际请求所允许使用的 HTTP 方法。
+
+```js
+// 只允许 POST、GET、DELETE、HEAD 请求方法
+res.setHeader('Access-Control-Allow-Methods', 'POST, GET, DELETE, HEAD');
+// 允许所有 HTTP 请求方法
+res.setHeader('Access-Control-Allow-Methods', '*');
+```
+
+#### 8. CORS请求的分类
+
+客户端在请求 CORS 接口时，根据**请求方式**和**请求头**的不同，可以将 CORS 的请求分为两大类，分别是：
+
+* 简单请求
+* 预检请求
+
+#### 9. 简单请求
+
+同时满足以下两大条件的请求，就属于简单请求：
+
+* 请求方式：GET、POST、HEAD 这三者
+* HTTP 头部信息不超过以下几种字段
+  * **无自定义头部字段**
+  * Accept
+  * Accept-Language
+  * Content-Language
+  * DPR
+  * Downlink
+  * Save-Data
+  * Viewport-Width
+  * Width
+  * Content-Type（值只限于以下3种）
+    * `text/plain`
+    * `multipart/form-data`
+    * `application/x-www-form-urlencoded`
+
+#### 10. 预检请求
+
+只要符合以下任何一个条件的请求，都需要进行预检请求：
+
+* 请求方式为 GET、POST、HEAD 之外的请求 Method 类型
+* 请求头包含**自定义头部字段**
+* 向服务器发送了`application/json`格式的数据
+
+在浏览器与服务器正式通信之前，**浏览器会先发送 OPTION 请求进行预检**，以获知服务器是否允许该实际请求，所以这一次的 OPTION 请求称为“预检请求”。**服务器成功响应预检请求后，才会发送真正的请求，并且携带真实数据**。
+
+#### 11. 简单请求和预检请求的区别
+
+**简单请求**的特点：客户端与服务器之间**只会发生一次请求**。
+
+**预检请求**的特点：客户端与服务器之间会发生两次请求，**OPTION 预检请求成功之后，才会发起真正的请求**。
+
