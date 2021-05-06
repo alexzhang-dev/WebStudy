@@ -678,7 +678,7 @@ const apiRouter = require('./router/apiRouter');
 app.use('/api', apiRouter);
 ```
 
-#### 4.3 编写 GET 接口
+### 4.3 编写 GET 接口
 
 ```js
 apiRouter.get('/', (req, res) => {
@@ -693,7 +693,7 @@ apiRouter.get('/', (req, res) => {
 });
 ```
 
-#### 4.4 编写 POST 接口
+### 4.4 编写 POST 接口
 
 ```js
 // 配置中间件
@@ -854,4 +854,72 @@ res.setHeader('Access-Control-Allow-Methods', '*');
 **简单请求**的特点：客户端与服务器之间**只会发生一次请求**。
 
 **预检请求**的特点：客户端与服务器之间会发生两次请求，**OPTION 预检请求成功之后，才会发起真正的请求**。
+
+### 4.6 JSONP 接口
+
+#### 1. 回顾 JSONP 的概念与特点
+
+概念：浏览器通过`<script>`标签的`src`属性，请求服务器上的数据，同时，服务器返回一个函数的调用。这种请求数据的方式叫做JSONP。
+
+特点：
+
+* JSONP 不属于真正的 Ajax 请求，因为他没有 XMLHttpRequest 对象。
+* JSONP 仅支持 GET 请求，不支持 POST、PUT、DELETE 请求
+
+#### 2. 创建 JSONP 接口的注意事项
+
+如果项目中已经配置了 CORS 跨域资源共享，为了防止冲突，必须在配置 CORS 之前声明 JSONP 接口，否则 JSONP 接口会被处理成开启了 CORS 的接口。示例代码如下：
+
+```js
+// 优先创建 JSONP 接口 【此接口不会处理为 CORS 接口】
+app.get('/api/jsonp', (req, res) => {});
+
+// 再配置 CORS 中间件 【后续的接口都会处理为 CORS 接口】
+app.use(cors());
+
+// 这是一个开启了 CORS 的接口
+app.get('/api/get', (req, res) => {});
+```
+
+#### 3. 实现 JSONP 接口的步骤
+
+* 获取客户端发来的回调函数的名字
+* 得到要通过 JSONP 形式发送给客户端的数据
+* 根据前两步得到的数据，拼接出一个函数调用的字符串
+* 把上一步拼接到的字符串，响应给客户端`<script>`标签进行解析执行
+
+#### 4. 实现 JSONP 接口的具体代码
+
+```javascript
+router.get('/', (req, res) => {
+    // 1. 获取到客户端发来的函数名
+    const funcName = req.query.callback;
+    // 2. 得到通过 JSONP 形式发送的数据
+    const data = {
+        name: 'zs',
+        age: 18
+    };
+    // 3. 根据前两步得到的数据，拼接出一个函数调用的字符串 == funcName({name='zs',age=18})
+    const scriptStr = `${funcName}(${JSON.stringify(data)})`;
+    // 4. 把上述数据响应给客户端
+    res.send(scriptStr);
+});
+```
+
+#### 5. 测试 JSONP 接口
+
+利用`$.ajax()`提供的`dataType='JSONP'`，发起 JSONP 请求
+
+```js
+$("#jsonp").on("click", () => {
+    $.ajax({
+        type: "GET",
+        url: "http://127.0.0.1/api/jsonp",
+        dataType: "JSONP",
+        success: (res) => {
+            console.log(res);
+        },
+    });
+});
+```
 

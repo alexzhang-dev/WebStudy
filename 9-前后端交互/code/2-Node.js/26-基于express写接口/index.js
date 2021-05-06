@@ -4,8 +4,12 @@ const express = require('express');
 const app = express();
 // 加载 apiRouter 自定义模块
 const apiRouter = require('./router/apiRouter');
+const jsonpApiRouter = require('./router/jsonpApiRouter');
 // 加载 cors 中间件
 const cors = require('cors');
+
+// 在配置 CORS 之前写 JSONP 接口，否则JSONP将视为开启了CORS的接口
+app.use('/api/jsonp', jsonpApiRouter);
 
 // 路由之前配置 cors
 app.use(cors());
