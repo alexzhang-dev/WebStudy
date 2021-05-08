@@ -3,6 +3,8 @@ const express = require('express');
 // 创建服务器实例
 const app = express();
 
+const joi = require('@hapi/joi');
+
 // 配置 CORS 跨域和解析表单数据的中间件
 const cors = require('cors');
 app.use(cors());
@@ -27,6 +29,17 @@ app.use((req, res, next) => {
 // 用户相关路由
 const userRouter = require('./router/user');
 app.use('/api/user', userRouter);
+
+
+// 加入全局捕获 joi 错误的中间件
+app.use((err, req, res, next) => {
+    // 如果数据验证失败
+    if (err instanceof joi.ValidationError) {
+        return res.cc(err);
+    }
+    // 未知错误
+    res.cc(err);
+});
 
 // 启动服务器
 app.listen(3007, () => {
