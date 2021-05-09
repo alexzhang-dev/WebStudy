@@ -28,7 +28,7 @@ app.use((req, res, next) => {
 
 // 用户相关路由
 const userRouter = require('./router/user');
-app.use('/api/user', userRouter);
+app.use('/api', userRouter);
 
 
 // 加入全局捕获 joi 错误的中间件
