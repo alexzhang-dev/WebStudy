@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./lib/vue.min.js"></script>
+</head>
+
+<body>
+    <div id="vue-app">
+        <input type="text" placeholder="请输入文字" v-model="msg" />
+        <div v-text="msg"></div>
+    </div>
+    <script>
+        const vueApp = new Vue({
+            el: "#vue-app",
+            data: {
+                msg: "",
+            },
+        });
+    </script>
+</body>
+
+</html>

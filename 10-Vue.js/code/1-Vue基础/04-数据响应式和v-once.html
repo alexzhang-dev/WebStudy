@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./lib/vue.min.js"></script>
+</head>
+
+<body>
+    <!-- v-once 只渲染一次，数据变化也不再变化 -->
+    <div id="vue-app" v-text="message" v-once></div>
+    <script>
+        const vueApp = new Vue({
+            el: "#vue-app",
+            data: {
+                message: "hello",
+            },
+        });
+    </script>
+</body>
+
+</html>
