@@ -26,17 +26,29 @@ app.use((req, res, next) => {
     next();
 });
 
+// 【配置解析token的中间件】
+const config = require('./config');
+// 配置解析 token 的中间件
+const expressJWT = require('express-jwt');
+// 使用 .unless({ path: [/^\/api\//] }) 指定哪些接口不需要进行 Token 的身份认证
+app.use(expressJWT({ secret: config.jwtSecretKey }).unless({ path: [/^\/api\//] }))
+
 // 用户相关路由
 const userRouter = require('./router/user');
-app.use('/api/user', userRouter);
+app.use('/api', userRouter);
+// 用户信息相关理由
+const userInfoRouter = require('./router/userinfo');
+app.use('/my', userInfoRouter);
 
 
-// 加入全局捕获 joi 错误的中间件
+// 全局错误中间件
 app.use((err, req, res, next) => {
     // 如果数据验证失败
     if (err instanceof joi.ValidationError) {
         return res.cc(err);
     }
+    // 捕获身份认证失败的错误
+    if (err.name === 'UnauthorizedError') return res.cc('身份认证失败！');
     // 未知错误
     res.cc(err);
 });

@@ -54,14 +54,14 @@ exports.login = (req, res) => {
             // 生成Token，剔除密码和用户头像
             const user = {...results[0], password: '', user_pic: '' };
             // 将用户信息加密
-            const tokenStr = jwt.sign(user, config.jwtSercetKey, {
+            const tokenStr = jwt.sign(user, config.jwtSecretKey, {
                 expiresIn: '10h', // 有效期10小时
             });
             // 将token响应给客户端
             res.send({
                 status: 0,
                 message: "登陆成功！",
-                token: 'Bearer' + tokenStr
+                token: 'Bearer ' + tokenStr
             });
         };
     });

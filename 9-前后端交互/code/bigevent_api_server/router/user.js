@@ -1,4 +1,4 @@
-// 【用户登录/注册/登出】
+// 【用户登录/注册】
 const express = require('express');
 
 // 创建路由
@@ -17,8 +17,5 @@ router.post('/register', expressJoi(userSchema.reg_login_schema), handler.regist
 
 // 登录  加上验证表单是否合法的中间件
 router.post('/login', expressJoi(userSchema.reg_login_schema), handler.login);
-
-// 登出
-router.post('/logout', handler.logout);
 
 module.exports = router;
