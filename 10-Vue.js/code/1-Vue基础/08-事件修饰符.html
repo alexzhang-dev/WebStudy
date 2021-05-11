@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./lib/vue.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div @click="handle0">
+            <!-- 也可以使用事件修饰符.stop 来组织事件冒泡 -->
+            <button @click.stop="handle1">按钮</button>
+            <!-- 使用事件修饰符.prevent 阻止默认行为 -->
+            <a href="#" @click.prevent="handle2">跳转</a>
+        </div>
+    </div>
+    <script>
+        const vm = new Vue({
+            el: "#app",
+            methods: {
+                handle0: function() {
+                    console.log("触发了父级元素");
+                },
+                handle1: function(event) {
+                    // 本身是会有事件冒泡机制的，如何处理？ 只能通过 事件对象.stopPropagation()
+                    // event.stopPropagation();
+                    console.log("触发了子级元素");
+                },
+                handle2: function(event) {
+                    // 阻止默认行为
+                    // event.preventDefault();
+                },
+            },
+        });
+    </script>
+</body>
+
+</html>

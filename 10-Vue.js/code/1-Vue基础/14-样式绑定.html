@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./lib/vue.min.js"></script>
+    <title>Document</title>
+    <style>
+        .active {
+            width: 100px;
+            height: 50px;
+        }
+        
+        .error {
+            background-color: red;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="vue-app">
+        <!-- 左边为类名，右边是操作的属性，如果为true，则显示active -->
+        <div :class="{active: isActive, error: isError}">123456</div>
+        <button @click="handle">切换</button>
+    </div>
+    <script>
+        const vm = new Vue({
+            el: "#vue-app",
+            data: {
+                isActive: true,
+                isError: true,
+            },
+            methods: {
+                handle: function() {
+                    // 控制 isActive 在 true/false 之间切换
+                    this.isActive = !this.isActive;
+                    this.isError = !this.isError;
+                },
+            },
+        });
+    </script>
+</body>
+
+</html>

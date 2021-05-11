@@ -31,7 +31,7 @@
 <!-- 原生JS -->
 <div id='msg'></div>
 <script>
-	var msg = 'hello world!';
+    var msg = 'hello world!';
     document.getElementById('msg').innerHTML = msg;
 </script>
 ```
@@ -40,8 +40,8 @@
 <script src="./lib/jquery-3.6.0.min.js"></script>
 <div id="jquery"></div>
 <script>
-    var msg = 'hello world!'
-	$("#jquery").html(msg);
+    var msg = 'hello world!';
+    $("#jquery").html(msg);
 </script>
 ```
 
@@ -163,14 +163,15 @@ const html = '<h1>你好，我的名字叫做' + name + ', 我今年' + age + '�
 
 #### 1. 什么是双向数据绑定
 
-一个元素的值影响另一个元素，请看[例子](code/1-Vue基础/05-双向数据绑定.html)
+页面**元素的值**影响 Vue 中 **data 的值**，请看[例子](code/1-Vue基础/05-双向数据绑定.html)
 
 #### 2. 双向数据绑定分析
 
 `v-model`指令用法：
 
-```js
+```html
 <div id="vue-app">
+    <!-- 一旦文本框的值改变，下面 data 中的msg的值也会改变 -->
     <input type="text" placeholder="请输入文字" v-model="msg" />
     <div v-text="msg"></div>
 </div>
@@ -184,5 +185,226 @@ const html = '<h1>你好，我的名字叫做' + name + ', 我今年' + age + '�
 </script>
 ```
 
+#### 3. MVVM 设计思想
 
+MVC 是后端的分层开发概念，MVVM 是前端视图层的概念
+
+* M(model)
+  * 数据层，Vue 中数据层都放在 data 里
+* V(view)
+  * Vue 中的 view ，即我们的 HTML 页面
+* VM(view-model)
+  * 将数据和视图层建立联系
+  * 每一个 Vue 的实例都是 vm
+
+<img src="resource/1-MVVM.png" align="left" />
+
+### 3.4 事件绑定
+
+#### 1. 给元素绑定事件
+
+通过`v-on`来给某个元素绑定事件，可以直接简写为`@`
+
+```html
+<div id="app">
+    <!-- 两种写法均可 -->
+    <button v-on:click="num++">按钮1</button>
+    <button @click="num--">按钮2</button>
+    <div>{{num}}</div>
+</div>
+<script>
+    const vm = new Vue({
+        el: "#app",
+        data: {
+            num: 0,
+        },
+    });
+</script>
+```
+
+#### 2. 事件函数
+
+在元素绑定时只能操作一些简单的语法，想要复杂的功能，就需要触发函数。在`methods`中声明函数
+
+```html
+<div id="app">
+    <button @click="handle">按钮</button>
+    <div>{{num}}</div>
+</div>
+<script>
+    const vm = new Vue({
+        el: "#app",
+        data: {
+            num: 0,
+        },
+        methods: {
+            handle: function() {
+                // 不可以直接写成num，会被看作为参数
+                // num++;
+                this.num++;
+                // 这里的this实际上就是 Vue 的实例 vm
+                console.log(this === vm); // true
+            },
+        },
+    });
+</script>
+```
+
+* 直接绑定函数名称：`@click="handle"`
+* 调用函数：`@click="handle()"`
+* 以上两种方式均可
+* 至于有什么区别，下面的传参可以解答
+
+#### 3. 事件函数参数传递方式
+
+如果绑定函数本身，那么事件对象就是函数的第一个参数
+
+```html
+<button @click="func">SayHi Btn</button>
+<script>
+	// code ...
+    methods: {
+        func: function(event){
+            // 如果直接绑定函数本身
+            // 那么事件对象就是函数的第一个参数
+            console.log(event.target.innerHTML);
+        }
+    }
+</script>
+```
+
+如果是事件绑定调用，那么事件对象`$event`必须是函数的最后一个参数
+
+```html
+<button @click="func('hi', $event)">SayHi Btn</button>
+<script>
+	// code ...
+    methods: {
+        func: function(p1, event){
+            // 如果直接绑定函数本身
+            // 那么事件对象就是函数的最后一个参数
+            console.log(event.target.innerHTML);
+        }
+    }
+</script>
+```
+
+`$event`是事件对象，固定写法
+
+#### 4. 事件修饰符
+
+`.stop`：阻止冒泡
+
+```html
+<a @click.stop = "handle">跳转</a>
+```
+
+`.prevent`：阻止默认行为
+
+```html
+<a @click.prevent = "handle">跳转</a>
+```
+
+更多的修饰符参考官方文档
+
+- `.stop` - 调用 `event.stopPropagation()`。
+- `.prevent` - 调用 `event.preventDefault()`。
+- `.capture` - 添加事件侦听器时使用 capture 模式。（事件捕获）
+- `.self` - 只当事件是从侦听器绑定的元素本身触发时才触发回调。
+
+#### 5. 按键修饰符
+
+`.enter`：回车键
+
+```html
+<input type="text" @keyup.enter = "submit" />
+```
+
+`.delete`：删除键
+
+```html
+<input type="text" @keyup.delete = "deleteHandle" />
+```
+
+**自定义按键修饰符**
+
+
+全局 `config.keyCodes` 对象添加
+```js
+Vue.config.keyCodes.f1 = 112
+```
+
+下面就可以直接使用
+
+
+```html
+<input type="text" @keyup.f1 = 'handle' />
+<!-- 也可以直接使用键码 -->
+<input type="text" @keyup.112 = 'handle' />
+```
+
+更多的修饰符参考官方文档
+
+- `.enter`
+- `.tab`
+- `.delete` (捕获“删除”和“退格”键)
+- `.esc`
+- `.space`
+- `.up`
+- `.down`
+- `.left`
+- `.right`
+
+### 3.5 属性绑定
+
+#### 1. Vue 如何动态处理属性？
+
+使用`v-bind`修饰属性，动态处理属性值，可缩写为`:`
+
+```html
+<a v-bind:href="url">跳转</a>
+<!-- 可缩写为 -->
+<a :href="url">跳转</a>
+```
+
+#### 2. 指令`v-model`底层原理分析
+
+```html
+<input type="text" v-model='num' />
+<!-- 等于下面 -->
+<input type="text" v-bind:value="num" v-on:input="num=$event.target.value"
+```
+
+核心原理就是监控`input`输入事件，一旦文本框内容发生变化，那么将触发input事件，就将文本框的值赋给下面的num的值
+
+* 使用`v-on`实现页面元素影响数据
+* 使用`v-bind`实现数据影响页面元素
+
+### 3.6 样式绑定
+
+#### 1. 处理`class`
+
+对象用法
+
+```html
+<div id="vue-app">
+    <!-- 左边为类名，右边是操作的属性，如果为true，则显示active -->
+    <div :class="{active: isActive}">123456</div>
+    <button @click="handle">切换</button>
+</div>
+<script>
+    const vm = new Vue({
+        el: "#vue-app",
+        data: {
+            isActive: true,
+        },
+        methods: {
+            handle: function() {
+                // 控制 isActive 在 true/false 之间切换
+                this.isActive = !this.isActive;
+            },
+        },
+    });
+</script>
+```
 
