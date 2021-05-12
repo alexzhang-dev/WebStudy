@@ -24,6 +24,8 @@
     <div id="vue-app">
         <!-- 左边为类名，右边是操作的属性，如果为true，则显示active -->
         <div :class="{active: isActive, error: isError}">123456</div>
+        <br />
+        <div :class="[activeClass, errorClass]">78910</div>
         <button @click="handle">切换</button>
     </div>
     <script>
@@ -32,12 +34,16 @@
             data: {
                 isActive: true,
                 isError: true,
+                activeClass: "active",
+                errorClass: "error",
             },
             methods: {
                 handle: function() {
                     // 控制 isActive 在 true/false 之间切换
                     this.isActive = !this.isActive;
                     this.isError = !this.isError;
+                    this.activeClass = this.activeClass ? "" : "active";
+                    this.errorClass = this.errorClass ? "" : "error";
                 },
             },
         });

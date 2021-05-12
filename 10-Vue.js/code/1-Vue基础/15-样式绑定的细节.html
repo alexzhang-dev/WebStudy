@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./lib/vue.min.js"></script>
+    <title>Document</title>
+    <style>
+        .active {
+            width: 100px;
+            height: 50px;
+        }
+        
+        .error {
+            background-color: red;
+            color: white;
+        }
+        
+        .test {
+            font-size: 24px;
+        }
+        
+        .base {
+            font-size: 28px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="vue-app">
+        <!-- 1. 对象语法和数组语法可以同时使用 -->
+        <div :class="[activeClass, errorClass, {test: isTest}]">123456</div>
+        <!-- 2. 绑定的值可以简化操作 -->
+        <div :class="arrayClasses"></div>
+        <div :class="objClasses"></div>
+        <!-- 3. 默认的类如何处理 -->
+        <div class="base" v-bind:class="objClasses">123456789</div>
+        <button @click="handle">切换</button>
+    </div>
+    <script>
+        const vm = new Vue({
+            el: "#vue-app",
+            data: {
+                activeClass: "active",
+                errorClass: "error",
+                isTest: true,
+                arrayClasses: ["active", "error"],
+                objClasses: {
+                    active: true,
+                    error: true,
+                },
+            },
+            methods: {
+                handle: function() {
+                    this.activeClass = this.activeClass ? "" : "active";
+                    this.errorClass = this.errorClass ? "" : "error";
+                },
+            },
+        });
+    </script>
+</body>
+
+</html>

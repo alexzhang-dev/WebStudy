@@ -382,9 +382,9 @@ Vue.config.keyCodes.f1 = 112
 
 ### 3.6 样式绑定
 
-#### 1. 处理`class`
+#### 1. `class`样式处理
 
-对象用法
+对象语法
 
 ```html
 <div id="vue-app">
@@ -406,5 +406,195 @@ Vue.config.keyCodes.f1 = 112
         },
     });
 </script>
+```
+
+数组语法
+
+```html
+<div id="vue-app">
+    <!-- 数组语法 -->
+    <div :class="[activeClass, errorClass]">123456</div>
+    <button @click="handle">切换</button>
+</div>
+<script>
+    const vm = new Vue({
+        el: "#vue-app",
+        data: {
+            activeClass: 'active',
+            errorClass: 'error',
+        },
+        methods: {
+            handle: function() {
+                // 控制 activeClass 在 '' 和 active 之间切换
+                this.activeClass = this.activeClass ? '' : 'active';
+            },
+        },
+    });
+</script>
+```
+
+相关的语法细节：
+
+* 对象绑定和数组绑定可以结合使用
+
+  ```html
+  <div :class="[activeClass, errorClass, {test: isTest}]">123456</div>
+  ```
+
+* class绑定的值可以简化操作
+
+  ```html
+  <div :class="arrayClasses"></div>
+  <div :class="objClasses"></div>
+  <script>
+  	// code...
+      data: {
+          arrayClasses: ['active', 'error'],
+          objClasses: {
+              active: true,
+              error: true,
+          },
+      }
+  </script>
+  ```
+
+* 默认的class如何处理
+
+  ```html
+  <!-- 默认的 class 会保留，新绑定的和原来默认的会结合在一起 -->
+  <div class="base" v-bind:class="objClasses">123456789</div>
+  ```
+
+#### 2. `style`样式处理
+
+对象语法，也可以简化来写
+
+```html
+<div id="vue-app">
+    <div :style="{color: colorStyle, fontSize: fontSizeStyle}">123456</div>
+    <!-- 也可以简化 -->
+    <div :style="objStyle">123456</div>
+</div>
+<script>
+    const vm = new Vue({
+        el: "#vue-app",
+        data: {
+            colorStyle: "red",
+            fontSizeStyle: "24px",
+            objStyle: {
+                color: "red",
+                fontSize: "24px",
+            },
+        },
+    });
+</script>
+```
+
+数组语法
+
+```html
+<div id="vue-app">
+    <div :style="[baseStyles, overrideStyles]">123456</div>
+</div>
+<script>
+    const vm = new Vue({
+        el: "#vue-app",
+        data: {
+            baseStyles: {
+                color: "orange",
+                fontSize: "26px",
+            },
+            overrideStyles: {
+                color: "blue",
+                fontSize: "28px",
+            },
+        },
+    });
+</script>
+```
+
+### 3.7 分支循环结构
+
+#### 1. 分支结构
+
+* `v-if`
+* `v-else`
+* `v-else-if`
+* `v-show`
+
+```html
+<div v-if="score >= 90">优秀</div>
+<div v-else-if="score < 90 && score >= 80">中</div>
+<div v-else-if="score < 80 && score > 60">一般</div>
+<div v-else>差</div>
+<div v-show="flag">测试 v-show</div>
+```
+
+`v-show`和`if...else`最大的区别就是：
+
+* `v-if`：**控制元素是否渲染到页面**。条件满足才会显示在DOM中
+* `v-show`：**控制元素是否显示（已经渲染到了页面）**。条件不满足也会显示在DOM中，只不过添加了`display:none`让页面看不到
+
+#### 2. 循环结构
+
+* `v-for`遍历数组
+
+  ```html
+  <li v-for='item in list'>{{item}}</li>
+  <li v-for="(item, index) in list">{{item}} --- {{index}}</li>
+  ```
+
+* `key`的作用：帮助 Vue 区分不同的元素，从而提高性能（通过给每个元素添加唯一标识`id`，让 Vue 区分元素），***只要我们做遍历，最好就加上 key***
+
+  ```html
+  <li :key='index' v-for="(item,index) in list">{{item}}</li>
+  ```
+
+* `v-for`遍历对象，`value`是属性值，`key`是属性名，`index`是索引
+
+  ```html
+  <div v-for="(value, key ,index) in obj">
+      {{value}} -- {{key}} -- {{index}}
+  </div>
+  ```
+
+* `v-if`和`v-for`结合使用
+
+  ```html
+  <div v-for="(value, key ,index) in obj" v-if="value == 18">
+      {{value}} -- {{key}} -- {{index}}
+  </div>
+  ```
+
+# 4. Vue 常用特性
+
+### 4.1 常用特性概览
+
+* 表单操作
+* 自定义指令
+* 计算属性
+* 过滤器
+* 侦听器
+* 生命周期
+
+### 4.2 表单操作
+
+#### 1. 基于 Vue 的表单操作
+
+* `input`单行文本
+* `textarea`多行文本
+* `select`下拉多选
+* `radio`单选框
+* `checkbox`多选框
+
+#### 2. 表单域修饰符
+
+* `.number`：转化为数值
+* `.trim`：去掉首尾空格
+* `.lazy`：将`input`事件改为`change`事件
+  * `change`事件只会在鼠标失去焦点才会触发（通常用于检测用户名是否被占用）
+
+```html
+<input type="text" v-model.number = 'age' />
 ```
 

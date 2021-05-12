@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./lib/vue.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div v-if="score>=90">优秀</div>
+        <div v-else-if="score < 90 && score>=80">中</div>
+        <div v-else-if="score < 80 && score>60">一般</div>
+        <div v-else>差</div>
+        <div v-show="flag">测试 v-show</div>
+        <button @click="handle">控制 v-show 是否显示</button>
+    </div>
+    <script>
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                score: 60,
+                flag: false,
+            },
+            methods: {
+                handle: function() {
+                    this.flag = !this.flag;
+                },
+            },
+        });
+    </script>
+</body>
+
+</html>

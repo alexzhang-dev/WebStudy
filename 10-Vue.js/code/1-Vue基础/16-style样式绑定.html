@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./lib/vue.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="vue-app">
+        <div :style="{color: colorStyle, fontSize: fontSizeStyle}">123456</div>
+        <!-- 也可以简化 -->
+        <div :style="objStyle">123456</div>
+        <div :style="[baseStyles, overrideStyles]">123456</div>
+    </div>
+    <script>
+        const vm = new Vue({
+            el: "#vue-app",
+            data: {
+                colorStyle: "red",
+                fontSizeStyle: "24px",
+                objStyle: {
+                    color: "red",
+                    fontSize: "24px",
+                },
+                baseStyles: {
+                    color: "orange",
+                    fontSize: "26px",
+                },
+                overrideStyles: {
+                    color: "blue",
+                    fontSize: "28px",
+                },
+            },
+        });
+    </script>
+</body>
+
+</html>

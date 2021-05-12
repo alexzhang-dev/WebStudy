@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./lib/vue.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="item in list">{{item}}</li>
+            <li v-for="(item, index) in list">{{item}} --- {{index}}</li>
+        </ul>
+        <ol>
+            <!-- key的作用是让 Vue 识别不同的元素，提高性能 -->
+            <li :key="item.id" v-for="item in nameList">
+                {{item.cName}} --- {{item.eName}}
+            </li>
+        </ol>
+        <!-- v-for 也可以来遍历对象 -->
+        <div v-for="(value, key ,index) in obj" v-if="value == 18">
+            {{value}} -- {{key}} -- {{index}}
+        </div>
+    </div>
+    <script>
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                list: ["apple", "banana", "orange"],
+                nameList: [{
+                    id: 1,
+                    cName: "张三",
+                    eName: "alex",
+                }, {
+                    id: 2,
+                    cName: "李四",
+                    eName: "tom",
+                }, ],
+                obj: {
+                    name: "zs",
+                    age: 18,
+                },
+            },
+        });
+    </script>
+</body>
+
+</html>
