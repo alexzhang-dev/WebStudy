@@ -598,3 +598,201 @@ Vue.config.keyCodes.f1 = 112
 <input type="text" v-model.number = 'age' />
 ```
 
+### 4.3 自定义指令
+
+#### 1. 为何需要自定义指令？
+
+内置指令不满足需求
+
+#### 2. 自定义指令语法规则
+
+* 使用`Vue.directive()`函数来自定义指令
+* 官方文档：https://cn.vuejs.org/v2/guide/custom-directive.html
+* 举个**获取元素焦点**的例子
+
+```js
+// 注册一个全局自定义指令 `v-focus`
+Vue.directive('focus', {
+    // 当被绑定的元素插入到 DOM 中时……
+    inserted: function (el) {
+      // 聚焦元素
+      el.focus()
+    }
+})
+```
+
+* 使用自定义指令
+
+```html
+<input type='text' v-focus />
+```
+
+#### 3. 带参数的自定义指令
+
+改变元素的背景色
+
+```js
+Vue.directive("bgcolor", {
+    // binding是一个对象，binding.value是指令的绑定值
+    inserted: function(el, binding) {
+        el.style.backgroundColor = binding.value.color;
+    },
+});
+```
+
+使用带参数的自定义指令
+
+```html
+<div v-bgcolor="{color: 'blue'}">123456</div>
+```
+
+#### 4. 自定义局部指令
+
+```js
+const vm = new Vue({
+    directives: {
+        focus: {
+            // 定义指令
+            inserted: function(el){
+                el.focus();
+            }
+        }
+	}
+});
+```
+
+局部指令只能在**本组件**中使用
+
+### 4.4 计算属性
+
+#### 1. 为什么需要计算属性？
+
+表达式的计算逻辑可能会比较复杂，使用计算属性可以使模板内容更加简洁。
+
+计算属性其实就是***将一些复杂逻辑抽取出来，作为函数使用***
+
+在 Vue 实例中`computed`定义函数
+
+#### 2. 计算属性的用法
+
+```html
+<div>{{msg}}</div>
+<!-- 使用 JS API 让一个字符串反转 -->
+<div>{{ msg.split('').reverse().join('') }}</div>
+<!-- 使用 Vue 计算属性，直接写函数名，不用加() -->
+<div>{{reverseString}}</div>
+<script>
+	const vm = new Vue({
+        computed: {
+            reverseString: function() {
+                return this.msg.split("").reverse().join("");
+            },
+        },
+    });
+</script>
+```
+
+#### 3. 计算属性与方法的区别
+
+* 计算属性是基于它们的依赖进行缓存的
+* 方法不存在缓存
+
+### 4.5 侦听器
+
+<img src="resource/2-侦听器.png" align="left" />
+
+#### 1. 侦听器的应用场景
+
+数据变化时执行异步或开销较大的操作
+
+#### 2. 侦听器的用法
+
+在`watch`中定义对属性的侦听操作
+
+```js
+const vm = new Vue({
+    watch: {
+        firstName: function(val) {
+            // val 表示变化后的值
+            this.fullName = val + this.lastName;
+        },
+        lastName: function(val) {
+            this.fullName = this.firstName + val;
+        }
+	}
+});
+```
+
+### 4.6 过滤器
+
+<img src="resource/3-过滤器.png" align="left" />
+
+#### 1. 过滤器的作用是什么？
+
+格式化数据，比如将字符串格式转为首字母大写，将日期格式转换为指定的格式
+
+#### 2. 自定义过滤器
+
+```js
+Vue.filter('过滤器名称', function(value){
+    // 过滤器逻辑
+});
+```
+
+#### 3. 过滤器的使用
+
+```html
+<div>{{msg | upper}}</div>
+<!-- 将上一个过滤器处理的结果作为下一个过滤器处理的值 -->
+<div>{{msg | upper | lower}}</div>
+<div v-bind:id="id | idFilter"></div>
+```
+
+#### 4. 局部过滤器
+
+```js
+const vm = new Vue({
+    filters: {
+        '过滤器名称': function(){}
+    }
+});
+```
+
+局部过滤器仅在本组件能使用
+
+#### 5. 带参数的过滤器
+
+```js
+Vue.filter('format', function(value, arg1){
+    // arg1 就是传递的参数
+});
+```
+
+#### 6. 带参数过滤器的使用
+
+```html
+<span>{{ msg | format(10) }}</span>
+```
+
+### 4.7 实例的生命周期
+
+#### 1. 主要阶段
+
+* 挂载（初始化相关属性）
+  * `beforeCreate`
+  * `created`
+  * `beforeMount`
+  * `mounted`
+* 更新（元素或组件的变更操作）
+  * `beforeUpdate`
+  * `updated`
+* 销毁（销毁相关属性）
+  * `beforeDestroy`
+  * `destroyed`
+
+[Vue实例生命周期图](resource/4-Vue实例生命周期.png)
+
+### 4.8 综合案例
+
+[图书管理+5种常见特性](code/1-Vue基础/30-综合案例-图书管理.html)
+

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./lib/vue.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="firstName" /><br />
+        <input type="text" v-model="lastName" /><br />
+        <div>{{fullName}}</div>
+        <!-- 我们也可以来用计算属性来实现这种效果 -->
+        <div>{{getFullName}}</div>
+    </div>
+    <script>
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                firstName: "Alex",
+                lastName: "Jane",
+                fullName: "Alex Jane",
+            },
+            methods: {},
+            watch: {
+                // 侦听器：用于检测数据的变化
+                firstName: function(val) {
+                    // val : 变化的值
+                    this.fullName = val + " " + this.lastName;
+                },
+                lastName: function(val) {
+                    this.fullName = this.firstName + " " + val;
+                },
+            },
+            computed: {
+                getFullName: function() {
+                    return this.firstName + " " + this.lastName;
+                },
+            },
+        });
+    </script>
+</body>
+
+</html>

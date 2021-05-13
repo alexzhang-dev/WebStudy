@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./lib/vue.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div>{{msg}}</div>
+        <!-- 将一个字符串反转 -->
+        <div>{{ msg.split('').reverse().join('') }}</div>
+        <!-- 使用 Vue 计算属性 -->
+        <div>{{reverseString}}</div>
+    </div>
+    <script>
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                msg: "hello",
+            },
+            methods: {},
+            computed: {
+                reverseString: function() {
+                    return this.msg.split("").reverse().join("");
+                },
+            },
+        });
+    </script>
+</body>
+
+</html>

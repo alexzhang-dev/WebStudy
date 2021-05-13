@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./lib/vue.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model.lazy="username" />
+        <span>{{tip}}</span>
+    </div>
+    <script>
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                username: "",
+                tip: "aaa",
+            },
+            methods: {
+                checkUsername: function(username) {
+                    // 因为定时器中的this是window，所以在外面缓存一下this
+                    const that = this;
+                    // 模拟接口调用
+                    setTimeout(function() {
+                        if (username == "admin") {
+                            return (that.tip = "用户名已存在！");
+                        }
+                        that.tip = "用户名可用！";
+                    }, 2000);
+                },
+            },
+            watch: {
+                username: function(val) {
+                    // 1. 检测用户名是否发生变化
+                    this.checkUsername(val);
+                    this.tip = "检测用户名是否有效中...";
+                },
+            },
+        });
+    </script>
+</body>
+
+</html>
