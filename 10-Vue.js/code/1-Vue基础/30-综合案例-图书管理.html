@@ -107,23 +107,7 @@
                 currIndex: 0,
                 flag: false,
                 submitFlag: false,
-                bookList: [{
-                    id: 1,
-                    bookName: "三国演义",
-                    addTime: +new Date(),
-                }, {
-                    id: 2,
-                    bookName: "水浒传",
-                    addTime: +new Date(),
-                }, {
-                    id: 3,
-                    bookName: "红楼梦",
-                    addTime: +new Date(),
-                }, {
-                    id: 4,
-                    bookName: "西游记",
-                    addTime: +new Date(),
-                }, ],
+                bookList: [],
             },
             methods: {
                 addBook: function() {
@@ -184,19 +168,60 @@
             watch: {
                 addId: function(val) {
                     // 在添加模式下
-                    // 如果添加的ID存在了，那么就不让提交了
-                    this.bookList.forEach((item) => {
-                        if (item.id == this.val) {
-                            alert("ID已存在！");
-                            this.submitFlag = true;
-                        } else {
-                            this.submitFlag = false;
-                        }
-                    });
+                    if (!this.flag) {
+                        this.submitFlag = false;
+
+                        // 如果添加的ID存在了，那么就不让提交了
+                        this.bookList.forEach((item) => {
+                            if (item.id == val) {
+                                alert("ID已存在！");
+                                this.submitFlag = true;
+                            }
+                        });
+                    }
+
                 },
+                addName: function(val) {
+                    if (!this.flag) {
+                        this.submitFlag = false;
+                        // 如果添加的名称存在，就不让提交
+                        const flag = this.bookList.some((item) => {
+                            return item.bookName != val;
+                        });
+                        if (flag) {
+                            alert("名称已存在！");
+                            this.submitFlag = true;
+                        }
+                    }
+                },
+            },
+            // 特性5：生命周期（图书数据处理）
+            mounted: function() {
+                // 该生命周期已被触发时，表示模板已经可以使用了
+                // 一般此时用于获取后端数据，将数据填充到模板中
+                const data = [{
+                    id: 1,
+                    bookName: "三国演义",
+                    addTime: +new Date(),
+                }, {
+                    id: 2,
+                    bookName: "水浒传",
+                    addTime: +new Date(),
+                }, {
+                    id: 3,
+                    bookName: "红楼梦",
+                    addTime: +new Date(),
+                }, {
+                    id: 4,
+                    bookName: "西游记",
+                    addTime: +new Date(),
+                }, ];
+                this.bookList = data;
             },
         });
     </script>
 </body>
+
+</html>
 
 </html>

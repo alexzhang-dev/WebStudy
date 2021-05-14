@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./lib/vue.min.js"></script>
+    <style>
+        div {
+            width: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 直接以组件名作为标签名 -->
+        <button-counter></button-counter>
+        <button-counter></button-counter>
+    </div>
+    <script>
+        // 定义全局组件
+        Vue.component("button-counter", {
+            // data的值是一个函数
+            data: function() {
+                return {
+                    count: 0,
+                };
+            },
+            template: '<button @click="handle">点击了{{count}}次</button>',
+            methods: {
+                handle: function() {
+                    this.count += 2;
+                },
+            },
+        });
+        const vm = new Vue({
+            el: "#app",
+            data: {},
+            methods: {
+                // 在这里定义方法，也可以在组件中使用
+                handle: function() {
+                    this.count += 2;
+                },
+            },
+        });
+    </script>
+</body>
+
+</html>

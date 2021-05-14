@@ -782,7 +782,7 @@ Vue.filter('format', function(value, arg1){
   * `beforeCreate`
   * `created`
   * `beforeMount`
-  * `mounted`
+  * `mounted`（组件已加载完毕）
 * 更新（元素或组件的变更操作）
   * `beforeUpdate`
   * `updated`

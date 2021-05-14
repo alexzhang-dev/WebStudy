@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./lib/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div>{{pmsg}}</div>
+        <!-- 静态传值 -->
+        <menu-item title="父组件的值"></menu-item>
+        <!-- 动态传值 可以静动态结合 -->
+        <menu-item :title="pmsg" content="hello world"></menu-item>
+    </div>
+    <script>
+        Vue.component("menu-item", {
+            props: ["title", "content"],
+            data: function() {
+                return {
+                    msg: "子组件数据",
+                };
+            },
+            template: "<div>{{msg + '---' + title + '---' + content}}</div>",
+        });
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                pmsg: "父组件的内容",
+            },
+            methods: {},
+        });
+    </script>
+</body>
+
+</html>
