@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./lib/vue.js"></script>
+    <style>
+        table {
+            margin-top: 10px;
+            width: 1000px;
+            border: 1px solid #ccc;
+        }
+        
+        table th {
+            width: calc(960px / 5);
+            border-bottom: 1px solid #ccc;
+            line-height: 30px;
+        }
+        
+        table tr {
+            line-height: 30px;
+        }
+        
+        table th:first-child {
+            width: 40px;
+        }
+        
+        table th:nth-child(n + 2) {
+            border-left: 1px solid #ccc;
+        }
+        
+        table tr td:first-child {
+            text-align: center;
+        }
+        
+        table tr:first-child td {
+            border-top: none !important;
+        }
+        
+        table tr td {
+            border-top: 1px solid #ccc;
+        }
+        
+        table tr td:nth-child(n + 2) {
+            padding-left: 5px;
+            box-sizing: border-box;
+            border-left: 1px solid #ccc;
+        }
+        
+        .addForm {
+            margin-top: 10px;
+            display: none;
+        }
+        
+        .showForm {
+            margin-top: 10px;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <my-info></my-info>
+    </div>
+    <script>
+        var infoTitle = {
+            template: `
+          <h1>个人信息</h1>
+          `,
+        };
+        var infoAdd = {
+            template: `
+          <button @click="changeFormStatus">新增</button>
+          `,
+            methods: {
+                changeFormStatus: function() {
+                    this.$emit("showorhide-form");
+                },
+            },
+        };
+        var addForm = {
+            props: ["isshowform", "updateinfo"],
+            data: function() {
+                return {
+                    defaultobj: {
+                        id: "",
+                        username: "",
+                        email: "",
+                        gender: 0,
+                        address: "",
+                    },
+                    flag: false,
+                };
+            },
+            template: `
+          <div class="addForm" :class="{showForm: isshowform}">
+              id：<input type="text" placeholder="填写id" size="5" v-model.number.lazy="defaultobj.id" :disabled="flag" />
+              用户名：<input type="text" placeholder="填写用户名" v-model.lazy="defaultobj.username" />
+              邮箱： <input type="text" placeholder="填写邮箱" v-model.lazy="defaultobj.email" />
+              性别：<input type="radio" value="0" checked name="gender" v-model.lazy="defaultobj.gender" />男&nbsp;<input type="radio" value="1" name="gender" v-model.lazy="defaultobj.gender"
+              />女&nbsp;
+              省份：<input type="text" placeholder="填写省份" v-model.lazy="defaultobj.address" />
+              <button @click="addUser">添加</button>
+          </div>
+      `,
+            methods: {
+                addUser: function() {
+                    if (this.flag) {
+                        // flag == true  修改模式
+                        this.$emit("update-user", this.defaultobj);
+                    } else {
+                        this.$emit("add-user", this.defaultobj);
+                    }
+                },
+            },
+            beforeUpdate: function() {
+                if (this.updateinfo.id) {
+                    this.defaultobj = this.updateinfo;
+                    this.flag = true;
+                } else {
+                    this.falg = false;
+                }
+            },
+        };
+        var listTitle = {
+            template: `
+          <thead>
+              <th>id</th>
+              <th>用户名</th>
+              <th>邮箱</th>
+              <th>性别</th>
+              <th>省份</th>
+              <th>操作</th>
+          </thead>
+          `,
+        };
+        var listContent = {
+            props: ["datalist"],
+            template: `
+          <tbody>
+              <tr v-for="item in datalist" :key="item.id" class="list-item">
+                  <td>{{item.id}}</td>
+                  <td>{{item.username}}</td>
+                  <td>{{item.email}}</td>
+                  <td v-if="item.gender == 0">男</td>
+                  <td v-else>女</td>
+                  <td>{{item.address}}</td>
+                  <td>
+                      <a href="#" @click.prevent="update(item.id)">修改</a>&nbsp;&nbsp;|
+                      <a href="#" @click.prevent="del(item.id)">删除</a>
+                  </td>
+              </tr>
+          </tbody>
+          `,
+            methods: {
+                update: function(id) {
+                    this.$emit("update-user", id);
+                },
+                del: function(id) {
+                    this.$emit("del", id);
+                },
+            },
+        };
+        Vue.component("info-list", {
+            props: ["datalist"],
+            template: `
+          <table cellspacing="0">
+              <list-title></list-title>
+              <list-content :datalist="datalist" @update-user="update($event)" @del="del($event)"></list-content>
+          </table>
+          `,
+            components: {
+                "list-title": listTitle,
+                "list-content": listContent,
+            },
+            methods: {
+                update: function(id) {
+                    this.$emit("update-user", id);
+                },
+                del: function(id) {
+                    this.$emit("del", id);
+                },
+            },
+        });
+        Vue.component("my-info", {
+            data: function() {
+                return {
+                    list: [{
+                        id: 1,
+                        username: "aaaaaa",
+                        email: "1642114555@qq.com",
+                        gender: 0,
+                        address: "北京市",
+                    }, {
+                        id: 2,
+                        username: "李四",
+                        email: "135@qq.com",
+                        gender: 1,
+                        address: "北京市",
+                    }, {
+                        id: 3,
+                        username: "王五",
+                        email: "264@gmail.com",
+                        gender: 0,
+                        address: "上海市",
+                    }, {
+                        id: 4,
+                        username: "xixi",
+                        email: "aaa@163.com",
+                        gender: 1,
+                        address: "广州市",
+                    }, ],
+                    isshowform: false,
+                    updateinfo: {},
+                };
+            },
+            template: `
+          <div>
+              <info-title></info-title>
+              <info-add @showorhide-form="showorhide"></info-add>
+              <add-form :isshowform="isshowform" :updateinfo="updateinfo" @add-user="add($event)" @update-user="updateuser($event)"></add-form>
+              <info-list :datalist="list" @update-user="update($event)" @del="del($event)"></info-list>
+          </div>
+          `,
+            components: {
+                "info-title": infoTitle,
+                "info-add": infoAdd,
+                "add-form": addForm,
+            },
+            methods: {
+                showorhide: function() {
+                    this.isshowform = !this.isshowform;
+                },
+                add: function(userObj) {
+                    this.list.push(userObj);
+                },
+                update: function(id) {
+                    let index = this.list.findIndex((item) => {
+                        return item.id === id;
+                    });
+                    this.updateinfo = this.list[index];
+                    this.isshowform = true;
+                },
+                updateuser: function(obj) {
+                    let index = this.list.findIndex((item) => {
+                        return item.id === obj.id;
+                    });
+                    this.list[index] = obj;
+                },
+                del: function(id) {
+                    let index = this.list.findIndex((item) => {
+                        return item.id === id;
+                    });
+                    this.list.splice(index, 1);
+                },
+            },
+        });
+        const vm = new Vue({
+            el: "#app",
+            data: {},
+            methods: {},
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./lib/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <base-layout>
+            <!-- 有名称的匹配名称，没有名称的匹配没有名称的 -->
+            <h1 slot="header">标题内容</h1>
+            <p>主要内容1</p>
+            <p>主要内容2</p>
+            <div slot="footer">底部内容</div>
+        </base-layout>
+        <base-layout>
+            <template slot="header">
+          <h1>标题内容</h1>
+          <h1>标题内容2</h1>
+          <h1>标题内容3</h1>
+          <h1>标题内容4</h1>
+        </template>
+            <p>主要内容1</p>
+            <p>主要内容2</p>
+            <template slot="footer">
+          <div>底部内容</div>
+          <div>底部内容2</div>
+          <div>底部内容3</div>
+          <div>底部内容4</div>
+        </template>
+        </base-layout>
+    </div>
+    <script>
+        Vue.component("base-layout", {
+            template: `
+            <div>
+                <header>
+                    <slot name="header"></slot>
+                </header>
+                <main>
+                    <slot></slot>
+                </main>
+                <footer>
+                    <slot name="footer"></slot>
+                </footer>
+            </div>
+            `,
+        });
+        const vm = new Vue({
+            el: "#app",
+            data: {},
+            methods: {},
+        });
+    </script>
+</body>
+
+</html>

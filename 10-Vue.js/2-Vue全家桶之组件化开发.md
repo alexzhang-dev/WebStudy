@@ -187,3 +187,196 @@ Vue.component('menu-item', {
 
 详细请看[代码示例](./code/2-Vue组件/6-props属性值的类型.html)
 
+### 4.2 子组件向父组件传值
+
+#### 1. 子组件通过自定义事件向父组件传值
+
+`$emit`是固定写法
+
+```html
+<button @click="$emit('自定义函数名称')">点击可操作父组件</button>
+```
+
+#### 2. 父组件监听子组件
+
+```html
+<list-item @上文自定义函数名称="操作"></list-item>
+```
+
+详细请看：[代码示例](./code/2-Vue组件/7-子组件向父组件传值.html)
+
+#### 3. 子组件向父组件传值携带参数
+
+```html
+<button @click="$emit('自定义参数名', 参数)"></button>
+```
+
+#### 4. 父组件接收参数
+
+`$event`是固定写法
+
+```html
+<menu-item @自定义函数名="$event接收参数"></menu-item>
+```
+
+### 4.3 兄弟组件之间传值
+
+<img src="./resource/8-事件管理中心.png" align="left" />
+
+#### 1. 单独的事件中心管理组件间的通信
+
+```js
+// 重新创建一个 Vue 实例，这个实例就担任事件中心的工作
+var eventHub = new Vue();
+```
+
+#### 2. 监听事件与销毁事件
+
+```js
+eventHub.$on('add-todo', addTodo);
+eventHub.$off('add-todo');
+```
+
+#### 3. 触发事件
+
+```js
+// 可以携带参数
+eventHub.$emit('add-todo', id);
+```
+
+详细请看[代码示例](./code/2-Vue组件/8-兄弟组件间数据通信.html)
+
+# 5. 组件插槽
+
+### 5.1 组件插槽的作用
+
+父组件向子组件传递内容
+
+<img src="./resource/9-组件插槽1.png" align="left" />
+
+### 5.2 组件插槽基本用法
+
+#### 1. 插槽位置
+
+```js
+Vue.component('alert-box', {
+    template: `
+	<div>
+		<strong>Error!</strong>
+		<slot></slot>
+    </div>
+	`;
+});
+```
+
+`<slot>`是Vue的API，`<slot>`中可以写默认的内容，如果有新的内容就会覆盖默认内容
+
+#### 2. 插槽内容
+
+```html
+<alert-box>Something bad happened.</alert-box>
+```
+
+组件中的内容就被放在了`slot`标签中
+
+详细请看[代码示例](./code/2-Vue组件/9-组件插槽的基本用法.html)
+
+### 5.3 具名插槽
+
+#### 1. 插槽定义
+
+在组件`template`中定义
+
+```html
+<header>
+    <slot name="header"></slot>
+</header>
+<main>
+	<slot></slot>
+</main>
+<footer>
+	<slot name="footer"></slot>
+</footer>
+```
+
+#### 2. 插槽内容
+
+```html
+<组件名>
+    <h1 slot="header">标题内容</h1>
+    <!-- 也可以使用<template>这个标签不会渲染到页面上 -->
+    <template slot="header">
+        <p>标题内容1</p>
+        <p>标题内容2</p>
+        <p>标题内容3</p>
+        <p>标题内容4</p>
+    </template>
+    <p>主要内容1</p>
+    <p>主要内容2</p>
+    <p slot="footer">底部内容</p>
+</组件名>
+```
+
+没有名称的会匹配没有名称的`slot`
+
+详细请看[代码示例](./code/2-Vue组件/10-具名插槽的使用.html)
+
+### 5.4 作用域插槽
+
+应用场景：父组件对子组件的内容进行加工处理
+
+#### 1. 插槽定义
+
+在`template`中定义
+
+```html
+<ul>
+    <li :key="item.id" v-for="item in fruitlist">
+        <slot :info="item">
+            {{item.name}}
+        </slot>
+    </li>
+</ul>
+```
+
+#### 2. 插槽使用
+
+```html
+<fruit-list :fruitlist="fruitlist">
+    <template slot-scope="slotProps">
+        <span class="current" v-if="slotProps.info.id === 3">
+            {{slotProps.info.name}}
+        </span>
+        <span v-else>{{slotProps.info.name}}</span>
+    </template>
+</fruit-list>
+```
+
+使用`slot-scope`来定义插槽的作用域
+
+详细请看[代码示例](./code/2-Vue组件/11-作用域插槽的用法.html)
+
+# 6. 基于组件的案例
+
+### 6.1 需求分析
+
+#### 1. 按照组件化方式实现业务需求
+
+根据业务功能进行组件化划分
+
+* 标题组件（展示文本）
+* 列表组件（列表展示、商品数量变更、商品删除）
+* 结算组件（计算商品总额）
+
+### 6.2 实现步骤
+
+#### 1. 功能实现步骤
+
+* 实现整体布局和样式效果
+* 划分独立的功能组件
+* 组合所有的子组件形成整体结构
+* 逐个实现各个组件功能
+  * 标题组件
+  * 列表组件
+  * 结算组件
+

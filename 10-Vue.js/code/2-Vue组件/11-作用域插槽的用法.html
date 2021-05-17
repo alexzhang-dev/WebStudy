@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./lib/vue.js"></script>
+    <style>
+        .current {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <fruit-list :fruitlist="fruitlist">
+            <template slot-scope="slotProps">
+          <span class="current" v-if="slotProps.info.id === 3">
+            {{slotProps.info.name}}
+          </span>
+          <span v-else>{{slotProps.info.name}}</span>
+        </template>
+        </fruit-list>
+    </div>
+    <script>
+        // 作用域插槽应用场景：父组件对子组件的内容进行加工处理
+        // slot就是放置组件插槽的
+        Vue.component("fruit-list", {
+            props: ["fruitlist"],
+            template: `
+            <ul>
+                <li :key="item.id" v-for="item in fruitlist">
+                    <slot :info="item">
+                        {{item.name}}
+                    </slot>
+                </li>
+            </ul>
+            `,
+        });
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                fruitlist: [{
+                    id: 1,
+                    name: "apple",
+                }, {
+                    id: 2,
+                    name: "orange",
+                }, {
+                    id: 3,
+                    name: "bannana",
+                }, ],
+            },
+            methods: {},
+        });
+    </script>
+</body>
+
+</html>

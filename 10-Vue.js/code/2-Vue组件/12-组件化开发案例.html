@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <script src="./lib/vue.js"></script>
+    <style type="text/css">
+        .container .cart {
+            width: 300px;
+            margin: auto;
+        }
+        
+        .container .title {
+            background-color: lightblue;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            /*color: #fff;*/
+        }
+        
+        .container .total {
+            background-color: #ffce46;
+            height: 50px;
+            line-height: 50px;
+            text-align: right;
+        }
+        
+        .container .total button {
+            margin: 0 10px;
+            background-color: #dc4c40;
+            height: 35px;
+            width: 80px;
+            border: 0;
+        }
+        
+        .container .total span {
+            color: red;
+            font-weight: bold;
+        }
+        
+        .container .item {
+            height: 55px;
+            line-height: 55px;
+            position: relative;
+            border-top: 1px solid #add8e6;
+        }
+        
+        .container .item img {
+            width: 45px;
+            height: 45px;
+            margin: 5px;
+        }
+        
+        .container .item .name {
+            position: absolute;
+            width: 90px;
+            top: 0;
+            left: 55px;
+            font-size: 16px;
+        }
+        
+        .container .item .change {
+            width: 100px;
+            position: absolute;
+            top: 0;
+            right: 50px;
+        }
+        
+        .container .item .change a {
+            font-size: 20px;
+            width: 30px;
+            text-decoration: none;
+            background-color: lightgray;
+            vertical-align: middle;
+        }
+        
+        .container .item .change .num {
+            width: 40px;
+            height: 25px;
+        }
+        
+        .container .item .del {
+            position: absolute;
+            top: 0;
+            right: 0px;
+            width: 40px;
+            text-align: center;
+            font-size: 40px;
+            cursor: pointer;
+            color: red;
+        }
+        
+        .container .item .del:hover {
+            background-color: orange;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="container">
+            <my-cart>
+                <template> </template>
+            </my-cart>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var CartTitle = {
+            props: ["uname"],
+            template: `
+        <div class="title">{{uname}}的购物车</div>
+      `,
+        };
+        var CartList = {
+            props: ["cartlist"],
+            template: `
+        <div>
+          <div class="item" v-for="item in cartlist">
+            <img :src="item.img"/>
+            <div class="name">{{item.name}}</div>
+            <div class="change">
+              <a href="" @click.prevent="changeNum(item.id, -1)">－</a>
+              <input type="text" class="num" :value="item.num" @blur="changeNum(item.id, $event)"  />
+              <a href=""  @click.prevent="changeNum(item.id, 1)">＋</a>
+            </div>
+            <div class="del" @click="removeProduct(item.id)">×</div>
+          </div>
+        </div>
+      `,
+            methods: {
+                removeProduct: function(id) {
+                    // 把id传递给父组件，不推荐在子组件直接操作props
+                    this.$emit("remove-product", id);
+                },
+                changeNum: function(id, event) {
+                    if (event instanceof Object) {
+                        this.$emit("change-num", {
+                            id: id,
+                            num: parseInt(event.target.value),
+                            flag: true,
+                        });
+                    } else {
+                        this.$emit("change-num", {
+                            id: id,
+                            num: event,
+                            flag: false,
+                        });
+                    }
+                },
+            },
+        };
+        var CartTotal = {
+            props: ["cartlist"],
+            template: `
+        <div class="total">
+          <span>总价：{{getTotal}}</span>
+          <button>结算</button>
+        </div>
+      `,
+            computed: {
+                // 计算商品总价
+                getTotal: function() {
+                    let sum = 0;
+                    this.cartlist.forEach((item) => {
+                        sum += item.num * item.price;
+                    });
+                    return sum;
+                },
+            },
+        };
+        Vue.component("my-cart", {
+            data: function() {
+                return {
+                    uname: "张三",
+                    list: [{
+                        id: 1,
+                        name: "TCL彩电",
+                        price: 1000,
+                        num: 1,
+                        img: "img/a.jpg",
+                    }, {
+                        id: 2,
+                        name: "机顶盒",
+                        price: 1000,
+                        num: 1,
+                        img: "img/b.jpg",
+                    }, {
+                        id: 3,
+                        name: "海尔冰箱",
+                        price: 1000,
+                        num: 1,
+                        img: "img/c.jpg",
+                    }, {
+                        id: 4,
+                        name: "小米手机",
+                        price: 1000,
+                        num: 1,
+                        img: "img/d.jpg",
+                    }, {
+                        id: 5,
+                        name: "PPTV电视",
+                        price: 1000,
+                        num: 2,
+                        img: "img/e.jpg",
+                    }, ],
+                };
+            },
+            template: `
+        <div class='cart'>
+          <cart-title :uname="uname"></cart-title>
+          <cart-list :cartlist="list" @remove-product="removeProduct($event)" @change-num="changeNum($event)"></cart-list>
+          <cart-total :cartlist="list"></cart-total>
+        </div>
+      `,
+            components: {
+                "cart-title": CartTitle,
+                "cart-list": CartList,
+                "cart-total": CartTotal,
+            },
+            methods: {
+                removeProduct: function(id) {
+                    // 根据 id 删除 list 中的数据
+                    // 1. 找到id对应数据的索引
+                    let index = this.list.findIndex((item) => {
+                        return item.id === id;
+                    });
+                    // 2. 进行删除操作
+                    this.list.splice(index, 1);
+                },
+                changeNum: function(obj) {
+                    // 先找到id对应的索引
+                    let index = this.list.findIndex((item) => {
+                        return item.id === obj.id;
+                    });
+                    // 小于1就维持为1
+                    if (this.list[index].num > 1) {
+                        // 再修改数量
+                        if (obj.flag) {
+                            this.list[index].num = obj.num;
+                        } else {
+                            this.list[index].num += obj.num;
+                        }
+                    }
+                },
+            },
+        });
+        var vm = new Vue({
+            el: "#app",
+            data: {},
+        });
+    </script>
+</body>
+
+</html>
