@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function queryData(url) {
+            var p = new Promise((resolve, reject) => {
+                const xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState != 4) return;
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        // 处理正常的情况
+                        resolve(xhr.responseText);
+                    } else {
+                        // 处理异常的情况
+                        reject("出错了");
+                    }
+                };
+                xhr.open("get", url);
+                xhr.send(null);
+            });
+            return p;
+        }
+        queryData('http://127.0.0.1/api/get').then((data) => {
+            console.log(data);
+            // 如果直接返回一个Promise实例对象，那么就可以调用下一个.then()
+            return queryData('http://127.0.0.1/api/get2');
+        }).then((data) => {
+            console.log(data);
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve('123')
+                }, 1000);
+            });
+        }).then((data) => {
+            //获取到成功结果，123
+            console.log(data);
+            return "hello";
+        }).then((data) => {
+            // 如果上一个then返回的是一个具体值，那么下一个then就直接得到具体值
+            // 如果返回一个普通值，那么系统就会自动创建一个Promise对象，保证链式编程不会断开
+            console.log(data);
+        });;
+    </script>
+</body>
+
+</html>
+
+</html>

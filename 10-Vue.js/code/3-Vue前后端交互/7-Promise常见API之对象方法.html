@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // Promise常见API之实例方法
+        // console.dir(Promise);
+        function queryData(url) {
+            var p = new Promise((resolve, reject) => {
+                const xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState != 4) return;
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        // 处理正常的情况
+                        resolve(xhr.responseText);
+                    } else {
+                        // 处理异常的情况
+                        reject("出错了");
+                    }
+                };
+                xhr.open("get", url);
+                xhr.send(null);
+            });
+            return p;
+        }
+        const p1 = queryData("http://127.0.0.1/api/get");
+        const p2 = queryData("http://127.0.0.1/api/get2");
+        const p3 = queryData("http://127.0.0.1/api/get3");
+        // 1. Promise.all()：所有任务完成后才能得到结果
+        Promise.all([p1, p2, p3]).then((result) => {
+            console.log(result);
+        });
+        // 2. Promise.race()：只要有一个任务完成都会得到结果
+        Promise.race([p1, p2, p3]).then((result) => {
+            // 只会得到最先完成的那个任务的结果
+            console.log(result);
+        });
+    </script>
+</body>
+
+</html>

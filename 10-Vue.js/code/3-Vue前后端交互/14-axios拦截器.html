@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./lib/axios.js"></script>
+</head>
+
+<body>
+    <script>
+        // 1. 配置请求拦截器
+        axios.interceptors.request.use(
+            (config) => {
+                // 请求之前做一些操作
+                config.headers.mytoken = "tokenString";
+                return config;
+            },
+            (error) => {
+                // 响应异常时处理
+                return Promise.reject(error);
+            }
+        );
+        // 2. 配置响应拦截器
+        axios.interceptors.response.use(
+            (response) => {
+                // 在这里对响应做一些处理
+                return response.data;
+            },
+            (error) => {
+                // 响应异常时处理
+                return Promise.reject(error);
+            }
+        );
+        axios
+            .get("http://127.0.0.1/api/get2")
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    </script>
+</body>
+
+</html>

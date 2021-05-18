@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // fetch API 的基本用法
+        fetch("http://127.0.0.1/api/get?id=123", {
+                method: "GET",
+            })
+            .then((data) => {
+                return data.text();
+            })
+            .then((data) => {
+                // 这里获取到的才是最终的数据
+                console.log(data);
+            });
+        fetch("http://127.0.0.1/api/get/123", {
+                method: "GET",
+            })
+            .then((data) => {
+                return data.text();
+            })
+            .then((data) => {
+                // 这里获取到的才是最终的数据
+                console.log(data);
+            });
+        // DELETE
+        fetch("http://127.0.0.1/api/get/789", {
+                method: "DELETE",
+            })
+            .then((data) => {
+                return data.text();
+            })
+            .then((data) => {
+                // 这里获取到的才是最终的数据
+                console.log(data);
+            });
+        // POST
+        fetch("http://127.0.0.1/api/add", {
+                method: "POST",
+                body: "uname=zs&pwd=123",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+            })
+            .then((data) => {
+                return data.text();
+            })
+            .then((data) => {
+                console.log(data);
+            });
+        // POST 发送JSON格式数据
+        fetch("http://127.0.0.1/api/add", {
+                method: "POST",
+                body: JSON.stringify({
+                    uname: "lisi",
+                    pwd: "123",
+                }),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
+            .then((data) => {
+                return data.text();
+            })
+            .then((data) => {
+                console.log(data);
+            });
+        // PUT
+        fetch("http://127.0.0.1/api/books/123", {
+                method: "PUT",
+                body: JSON.stringify({
+                    username: "lisi",
+                    pwd: "123",
+                }),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
+            .then((data) => {
+                return data.text();
+            })
+            .then((data) => {
+                console.log(data);
+            });
+    </script>
+</body>
+
+</html>

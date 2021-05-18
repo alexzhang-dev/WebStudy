@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./lib/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <button>点击操作jQuery的Ajax操作</button>
+    <script>
+        // $("button").on("click", function() {
+        //     var ret = "------";
+        //     $.ajax({
+        //         type: "GET",
+        //         url: "http://api.zhangxiao.cool:1007/api/get",
+        //         success: function(resp) {
+        //             ret = resp;
+        //         },
+        //     });
+        //     // 此时打印的还是--- ,Ajax就是典型的异步编程
+        //     console.log(ret);
+        // });
+        $.ajax({
+            type: "GET",
+            url: "http://127.0.0.1/api/get1",
+            success: function(resp) {
+                console.log(resp);
+            },
+        });
+        $.ajax({
+            type: "GET",
+            url: "http://127.0.0.1/api/get2",
+            success: function(resp) {
+                console.log(resp);
+            },
+        });
+        $.ajax({
+            type: "GET",
+            url: "http://127.0.0.1/api/get3",
+            success: function(resp) {
+                console.log(resp);
+            },
+        });
+    </script>
+</body>
+
+</html>
