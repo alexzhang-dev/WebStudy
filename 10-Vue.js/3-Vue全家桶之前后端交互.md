@@ -589,3 +589,14 @@ queryData().then((result) => {
 });
 ```
 
+# 6. 基于接口的案例
+
+需要调用的接口：
+
+* 图书列表数据加载**GET** `/books`
+* 添加图书**POST**`/books`
+* 验证图书名称是否存在**GET**`/books/book/:name`
+* 编辑图书-根据ID查询图书信息**GET**`/books/:id`
+* 编辑图书-提交图书信息**PUT**`/books/:id`
+* 删除图书**DELETE**`/books/:id`
+

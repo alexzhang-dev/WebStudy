@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./lib/vue.js"></script>
+    <script src="./lib/vue-router.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <router-link to="/user/1">User1</router-link>
+        <router-link to="/user/2">User2</router-link>
+        <router-link to="/user/3">User3</router-link>
+        <router-link to="/user/4">User4</router-link>
+        <router-link to="/register">Register</router-link>
+
+        <router-view></router-view>
+    </div>
+    <script>
+        const User = {
+            // 接收 props
+            props: ["uname", "age"],
+            template: `<h1>用户信息：{{uname + '---' + age}}</h1>`,
+        };
+        const Register = {
+            template: "<h1>Register</h1>",
+        };
+        const router = new VueRouter({
+            routes: [{
+                path: "/",
+                redirect: "/user",
+            }, {
+                // 如果 props 是一个对象，那么就会原样挂载到组件中
+                path: "/user/:id",
+                component: User,
+                props: {
+                    uname: "zhangsan",
+                    age: 18,
+                },
+            }, {
+                path: "/register",
+                component: Register,
+            }, ],
+        });
+        const vm = new Vue({
+            el: "#app",
+            router,
+        });
+    </script>
+</body>
+
+</html>

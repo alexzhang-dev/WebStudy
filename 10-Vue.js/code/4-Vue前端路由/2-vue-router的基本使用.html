@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- 导入 vue 文件，为全局 window 对象挂载 Vue 构造函数 -->
+    <script src="./lib/vue.js"></script>
+    <!-- 导入 vue-router 文件，为全局 window 对象挂载 VueRouter 构造函数 -->
+    <script src="./lib/vue-router.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- router-link 是 vue 中提供的标签，默认会被渲染为 a 标签 -->
+        <!-- to 属性默认渲染为 href 属性 -->
+        <!-- to 属性的值默认会被渲染为 # 开头的 hash 地址 -->
+        <router-link to="/user">User</router-link>
+        <router-link to="/register">Register</router-link>
+
+        <!-- 路由填充位【又叫路由占位符】 -->
+        <!-- 通过路由规则匹配的组件，将会被渲染到 router-view 的位置 -->
+        <router-view></router-view>
+    </div>
+    <script>
+        // 定义路由组件
+        const User = {
+            template: "<h1>User</h1>",
+        };
+        const Register = {
+            template: "<h1>Register</h1>",
+        };
+        // 创建路由实例对象;
+        const router = new VueRouter({
+            // routes 是路由匹配规则组
+            routes: [
+                // 路由重定向
+                {
+                    // 其中 path 表示被重定向的原地址，redirect表示将要重定向的新地址
+                    path: "/",
+                    redirect: "/user",
+                },
+                // 每一个路由规则都是一个配置对象，其中至少都包含 path 和 component 两个属性
+                // path 表示当前路由匹配的hash值
+                // component 表示当前路由对应的组件
+                {
+                    path: "/user",
+                    component: User,
+                }, {
+                    path: "/register",
+                    component: Register,
+                },
+            ],
+        });
+        const vm = new Vue({
+            el: "#app",
+            // 为了让路由规则生效，必须将路由对象挂载到 vue 根实例上
+            router,
+            data: {},
+            methods: {},
+        });
+    </script>
+</body>
+
+</html>

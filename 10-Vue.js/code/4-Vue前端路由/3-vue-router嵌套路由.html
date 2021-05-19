@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./lib/vue.js"></script>
+    <script src="./lib/vue-router.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 父级组件的路由链接和路由填充位 -->
+        <p>
+            <router-link to="/user">User</router-link>
+            <router-link to="/register">Register</router-link>
+        </p>
+        <div>
+            <router-view></router-view>
+        </div>
+    </div>
+    <script>
+        // 子级路由的路由链接和填充位
+        const User = {
+            template: `
+                <div>
+                    <h1>User组件</h1>
+                    <hr />
+                    <router-link to="/user/tab1">tab1</router-link>
+                    <router-link to="/user/tab2">tab2</router-link>
+                    <!-- 子路由填充位置 -->
+                    <router-view />
+                </div>
+            `,
+        };
+        const Register = {
+            template: `
+                <div>
+                    <h1>Register组件</h1>
+                </div>
+            `,
+        };
+        const tab1 = {
+            template: `<h3>tab1</h3>`,
+        };
+        const tab2 = {
+            template: `<h3>tab2</h3>`,
+        };
+        const router = new VueRouter({
+            routes: [{
+                path: "/",
+                redirect: "/user",
+            }, {
+                path: "/user",
+                component: User,
+                // children 数组，表示子路由规则
+                children: [{
+                    path: "/user/tab1",
+                    component: tab1,
+                }, {
+                    path: "/user/tab2",
+                    component: tab2,
+                }, ],
+            }, {
+                path: "/register",
+                component: Register,
+            }, ],
+        });
+        const vm = new Vue({
+            el: "#app",
+            data: {},
+            methods: {},
+            router,
+        });
+    </script>
+</body>
+
+</html>
