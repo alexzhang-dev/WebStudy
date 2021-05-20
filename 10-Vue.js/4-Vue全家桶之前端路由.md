@@ -363,3 +363,93 @@ const router = new VueRouter({
 <router-link :to="{name:'user', params: { id: 123 }}">User</router-link>
 ```
 
+```js
+// 编程式导航，也可以传一个配置对象
+router.push({
+    name: 'user',
+    params: {
+        id: 123
+    }
+});
+```
+
+# 6. vue-router编程式导航
+
+### 6.1 页面导航的两种方式
+
+* 声明式导航：通过点击链接实现导航的方式，叫做声明式导航
+
+  ```html
+  <!-- 例如 a 链接和 router-link 都是声明式导航 -->
+  <a></a>
+  <router-link></router-link>
+  ```
+
+* 编程式导航：通过调用 JavaScript API 来实现导航
+  * 普通网页中的`location.href`
+
+### 6.2 编程式导航基本用法
+
+常用的编程式导航API：
+
+* `this.$router.push('hash地址')`
+* `this.$router.go(n)`：n是一个数值，比如传1就代表从历史记录中向前走一位
+
+```js
+const User = {
+    template: `<button @click="goToRegister">注册页面</button>`;
+    methods: {
+    	goToRegister: function(){
+            // 使用编程式导航跳转
+            this.$router.push('/register');
+        }
+	}
+}
+```
+
+### 6.3 编程式导航参数规则
+
+#### `router.push()`参数规则
+
+```js
+// 字符串【路径名称】
+router.push('/home');
+// 对象
+router.push({ path: '/home' });
+// 命名的路由【传递参数】
+router.push({ name: 'home', params: { id: 1 } });
+// 带查询参数，变成 /user?uname=zs
+router.push({ path: '/user', query: { uname: 'zs' } });
+```
+
+# 7. 基于vue-router的案例
+
+### 7.1 案例分析
+
+**用到的路由技术要点**：
+
+* 路由的基础用法
+* 嵌套路由
+* 路由重定向
+* 路由传参
+* 编程式导航
+
+### 7.2 案例步骤
+
+* 抽离页面为组件
+* 将左侧菜单改造为路由链接
+* 创建左侧菜单对应的路由组件
+* 在右侧主体区域添加路由占位符
+* 添加子路由规则
+* 通过路由重定向默认渲染用户组件
+* 渲染用户列表数据
+* 编程式导航跳转到用户详情页
+* 实现后退功能
+
+### 7.3 案例代码
+
+* [基础页面布局](./code/4-Vue前端路由/10-基于vue-router的案例之页面的基本结构.html)
+* [抽离页面为组件](./code/4-Vue前端路由/11-基于vue-router的案例之抽离页面为组件.html)
+* [创建并链接路由](./code/4-Vue前端路由/12-基于vue-router的案例之将改造为路由.html)
+* [详情与后退功能](./code/4-Vue前端路由/13-基于vue-router的案例之添加详情操作和后退操作.html)
+

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./lib/vue.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        ul {
+            list-style: none;
+        }
+        
+        #app {
+            width: 100%;
+            overflow: hidden;
+        }
+        
+        header {
+            height: 80px;
+            text-align: center;
+            line-height: 80px;
+            font-size: 36px;
+            background-color: rgb(155, 174, 212);
+            color: #fff;
+        }
+        
+        main {
+            height: 797px;
+        }
+        
+        nav {
+            width: 260px;
+            background-color: rgb(155, 174, 212);
+            height: 100%;
+            float: left;
+        }
+        
+        nav li {
+            width: 100%;
+            height: 60px;
+            line-height: 60px;
+            background-color: rgb(158, 158, 158);
+            border-bottom: 1px solid #fff;
+            font-size: 24px;
+            text-align: center;
+        }
+        
+        nav li a {
+            text-decoration: none;
+            color: #fff;
+            display: block;
+        }
+        
+        section {
+            width: calc(100% - 260px);
+            float: left;
+        }
+        
+        section div {
+            margin: 5px;
+        }
+        
+        .content-title {
+            height: 60px;
+            line-height: 60px;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .content-table {
+            width: 100%;
+        }
+        
+        .content-table thead {
+            background-color: rgb(207, 207, 207);
+        }
+        
+        .content-table thead,
+        .content-table tr {
+            line-height: 50px;
+            height: 50px;
+        }
+        
+        .content-table th:nth-child(n + 2) {
+            border-left: 1px solid #fff;
+        }
+        
+        .content-table td {
+            border-left: 1px solid #ccc;
+            text-align: center;
+            border-bottom: 1px solid #ccc;
+        }
+        
+        .content-table td:last-child {
+            border-right: 1px solid #ccc;
+        }
+        
+        footer {
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            background-color: rgb(158, 158, 158);
+            font-size: 20px;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 头部 -->
+        <header>后台管理</header>
+        <!-- 主体部分 -->
+        <main>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="#">用户管理</a>
+                    </li>
+                    <li>
+                        <a href="#">权限管理</a>
+                    </li>
+                    <li>
+                        <a href="#">商品管理</a>
+                    </li>
+                    <li>
+                        <a href="#">订单管理</a>
+                    </li>
+                    <li>
+                        <a href="#">系统设置</a>
+                    </li>
+                </ul>
+            </nav>
+            <section>
+                <div>
+                    <div class="content-title">用户管理区域</div>
+                    <table border="0" class="content-table" cellspacing="0">
+                        <thead>
+                            <th>编号</th>
+                            <th>姓名</th>
+                            <th>年龄</th>
+                            <th>操作</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>zs</td>
+                                <td>20</td>
+                                <td>
+                                    <a href="#">详情</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>ls</td>
+                                <td>30</td>
+                                <td>
+                                    <a href="#">详情</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+        <!-- 底部 -->
+        <footer>版权信息</footer>
+    </div>
+    <script>
+        const vm = new Vue({
+            el: "#app",
+            data: {},
+            methods: {},
+        });
+    </script>
+</body>
+
+</html>
