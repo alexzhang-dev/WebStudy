@@ -2,7 +2,7 @@
 >
 > 作者：张霄
 >
-> 邮箱：alexzhang1030@foxmail.com
+> 邮箱：mail4alexzzz@gmail.com
 
 # 简介：
 

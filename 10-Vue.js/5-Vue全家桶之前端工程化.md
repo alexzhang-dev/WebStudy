@@ -211,7 +211,7 @@ webpack提供了**友好的模块化支持**，以及**代码压缩混淆**、**
 
   ```js
   module.exports = {
-      mode: 'development'; // mode 用来指定构建模式
+      mode: 'development', // mode 用来指定构建模式
   }
   ```
 
@@ -467,5 +467,50 @@ loader加载器可以协助webpack打包处理特定文件
   }
   ```
 
-  
 
+# 3. Vue 单文件组件
+
+### 3.1 传统组件的问题和解决方案
+
+#### 1. 问题
+
+* 全局定义的组件必须保证组件的名称不重复
+* 字符串模板缺乏语法高亮，在HTML有多行时，需要用到`\`来转义
+* 不支持 CSS 意味着当 HTML 和 JavaScript 组件化时，CSS明显被遗漏
+* 没有构建步骤的限制，只能使用 HTML 和 ES5 JavaScript，而不能使用预处理器（例如babel）
+
+#### 2. 解决方案
+
+* 使用`.vue`的单文件组件可以解决上述问题
+
+### 3.2 单文件组件的组成结构
+
+* `template`：组件的模板区域
+* `script`：业务逻辑区域
+* `style`：样式区域
+
+```vue
+<template>
+	<!-- 这里定义 Vue 组件中的模板内容 -->
+</template>
+
+<script>
+	// 这里定义 Vue 组件中的业务逻辑
+    export default = {
+        data: (){
+        	return {
+        		// 数据
+    		}
+    	},
+        methods: {
+            // 方法
+        }
+    }
+</script>
+
+<style scoped>
+	/* 这里定义组件的样式 scoped表示样式只能在本组件内生效 */
+</style>
+```
+
+### 3.3 配置vue-loader
