@@ -255,7 +255,7 @@ module.exports = {
 
 #### 4. 配置 webpack 自动打包功能
 
-* 运行`npm i webpack-dev -server -D`，安装开发环境依赖`webpack-dev-server`，该模块可以让webpack支持自动打包
+* 运行`npm i webpack-dev-server -D`，安装开发环境依赖`webpack-dev-server`，该模块可以让webpack支持自动打包
 
 * 修改`package.json`中的`dev`脚本
 
@@ -423,7 +423,7 @@ loader加载器可以协助webpack打包处理特定文件
 
 * 运行`npm i url-loader file-loader -D`命令安装开发环境依赖
 
-* 在`webpack.config.js`中`module -> rules`修改 CSS 的 loader配置：
+* 在`webpack.config.js`中`module -> rules`添加配置项
 
   ```js
   // 所有第三方文件模块的匹配规则
@@ -454,7 +454,7 @@ loader加载器可以协助webpack打包处理特定文件
   }
   ```
 
-* 在`webpack.config.js`中`module -> rules`修改 CSS 的 loader配置：
+* 在`webpack.config.js`中`module -> rules`添加配置项
 
   ```js
   // exclude 为排除项
@@ -467,6 +467,8 @@ loader加载器可以协助webpack打包处理特定文件
   }
   ```
 
+
+* 目前高版本`webpack`已默认支持 JS 高级语法
 
 # 3. Vue 单文件组件
 
@@ -496,7 +498,7 @@ loader加载器可以协助webpack打包处理特定文件
 
 <script>
 	// 这里定义 Vue 组件中的业务逻辑
-    export default = {
+    export default {
         data: (){
         	return {
         		// 数据
@@ -514,3 +516,29 @@ loader加载器可以协助webpack打包处理特定文件
 ```
 
 ### 3.3 配置vue-loader
+
+* 运行`npm i vue-loader vue-template-compiler -D`安装开发环境依赖
+
+* 在`webpack.config.js`中添加`vue-loader`
+
+  ```js
+  const VueLoaderPlugin = require('vue-loader/lib/plugin');
+  module.exports = {
+      module: {
+          rules: [
+              // ... 其他规则
+              {
+                  test: /\.vue$/,
+                  use: 'vue-loader'
+              }
+          ],
+      }
+      plugins: [
+      	// ... 其他插件
+      	new VueLoaderPlugin(), // 请确保引入这个插件
+      ]
+  }
+  ```
+
+  
+
