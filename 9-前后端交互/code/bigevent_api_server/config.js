@@ -1,4 +1,4 @@
-// 【向外共享加密和还原的 jwtSercetKey】
+// 【Token加密和还原的 jwtSercetKey 密码】
 module.exports = {
-    jwtSercetKey: "node.js No.1!"
+    jwtSecretKey: "node.js No.1!"
 }

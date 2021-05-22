@@ -6,7 +6,7 @@
 
 # 简介：
 
-素材大部分来自网络，推荐使用 [VSCode](https://code.visualstudio.com/) 作为编辑器，内容涵盖 H5、C3、JS、JQuery、ECharts、Ajax（待补充.....）
+素材大部分来自网络，推荐使用 [VSCode](https://code.visualstudio.com/) 作为编辑器，内容涵盖 H5、C3、JS、jQuery、ECharts、Ajax、Node.js、Vue.js（待补充.....）
 
 由于涉及到侵权风险，目前基于本教程的所有修订、改变不做任何正式授权。
 
@@ -77,3 +77,10 @@
     * [2-Git的使用](9-前后端交互/笔记/2-git/2-git的使用.md)
     * [3-Github](9-前后端交互/笔记/2-git/3-github.md)
     * [4-Git分支](9-前后端交互/笔记/2-git/4-git分支.md)
+  * [0803.Node.js](9-前后端交互/笔记/3-Node.js)
+    * [1-node内置模块](9-前后端交互/笔记/3-node/1-node内置模块.md)
+    * [2-node模块化](9-前后端交互/笔记/3-node/2-node模块化.md)
+    * [3-express框架](9-前后端交互/笔记/3-node/3-express.md)
+    * [4-数据库与身份认证](9-前后端交互/笔记/3-node/4-数据库与身份认证.md)
+* 09.Vue.js
+

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./lib/vue.min.js"></script>
+    <title>Document</title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- v-cloak指令的用法
+            1. 在 CSS 中提供样式
+            [v-cloak] {
+                display: none
+            }
+            2. 在插值表达式中使用
+
+        背后的原理：
+            1. 通过样式隐藏内容
+            2. 在内存中进行值的替换
+            3. 将内容显示
+    -->
+    <!-- v-cloak: 隐藏所有未编译的插值表达式 -->
+    <div id="vue-app">
+        <div v-cloak>{{message}}</div>
+        <!-- 一些数据绑定指令 -->
+        <!-- 1. v-text:比插值表达式更加简洁，内置v-cloak -->
+        <div v-text="message"></div>
+        <!-- 2. v-html:会将HTML标签编译 -->
+        <p v-html="html"></p>
+        <!-- 3. v-pre: 原样输出，跳过编译 -->
+        <p v-pre>{{message}}</p>
+    </div>
+    <script>
+        const html = "<h1>你好，Vue！</h1>";
+        const vueApp = new Vue({
+            el: "#vue-app",
+            data: {
+                message: "Hello Vue",
+            },
+        });
+    </script>
+</body>
+
+</html>

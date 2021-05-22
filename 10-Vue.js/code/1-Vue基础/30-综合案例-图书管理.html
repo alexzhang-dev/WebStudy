@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./lib/vue.min.js"></script>
+    <style>
+        input {
+            padding-left: 2px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        #app {
+            margin: 0 auto;
+            width: 500px;
+        }
+        
+        .title {
+            line-height: 80px;
+            text-align: center;
+        }
+        
+        table {
+            border: 1px solid orange;
+            border-bottom: none;
+        }
+        
+        table td,
+        table th {
+            border-bottom: 1px solid orange;
+        }
+        
+        table th:nth-child(n + 2),
+        table td:nth-child(n + 2) {
+            line-height: 35px;
+            border-left: 1px solid orange;
+        }
+        
+        table {
+            width: 100%;
+        }
+        
+        table tr:first-child,
+        table tr:nth-child(2) {
+            background-color: #f3dcab;
+        }
+        
+        table tr:first-child td {
+            line-height: 30px;
+            padding-left: 2px;
+        }
+        
+        table tr:nth-child(n + 2) td {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h1 class="title">图书管理</h1>
+        <table border="0" cellspacing="0">
+            <tr>
+                <td colspan="4">
+                    编号：<input v-focus type="text" v-model.number.lazy="addId" :disabled="flag" /> 名称：
+                    <input type="text" v-model.trim.lazy="addName" />
+                    <button @click="addBook" :disabled="submitFlag">提交</button>
+                </td>
+            </tr>
+            <tr>
+                <th>编号</th>
+                <th>名称</th>
+                <th>时间</th>
+                <th>操作</th>
+            </tr>
+            <tr :key="index" v-for="(item, index) in bookList">
+                <td>{{item.id}}</td>
+                <td>{{item.bookName}}</td>
+                <td>{{item.addTime | dateFormat}}</td>
+                <td>
+                    <a href="javascript:;" @click.prevent="updateBook(index)">修改</a
+            >&nbsp;|&nbsp;
+            <a href="javascript:;" @click.prevent="deleteBook(index)">删除</a>
+                </td>
+            </tr>
+        </table>
+        <br />
+        <div>总计：{{getTotal}}本书</div>
+    </div>
+    <script>
+        function padZero(n) {
+            return n < 10 ? "0" + n : n;
+        }
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                addId: "",
+                addName: "",
+                currIndex: 0,
+                flag: false,
+                submitFlag: false,
+                bookList: [{
+                    id: 1,
+                    bookName: "三国演义",
+                    addTime: +new Date(),
+                }, {
+                    id: 2,
+                    bookName: "水浒传",
+                    addTime: +new Date(),
+                }, {
+                    id: 3,
+                    bookName: "红楼梦",
+                    addTime: +new Date(),
+                }, {
+                    id: 4,
+                    bookName: "西游记",
+                    addTime: +new Date(),
+                }, ],
+            },
+            methods: {
+                addBook: function() {
+                    if (this.flag) {
+                        // 如果flag是true，那么就证明是修改
+                        // currIndex就是当前操作的元素的下标
+                        this.bookList[this.currIndex].bookName = this.addName;
+                        // 修改完清空
+                        this.addId = "";
+                        this.addName = "";
+                        // 修改完将flag改为flase
+                        this.flag = false;
+                    } else {
+                        const bookObj = {
+                            id: this.addId,
+                            bookName: this.addName,
+                            addTime: new Date(),
+                        };
+                        this.bookList.push(bookObj);
+                    }
+                },
+                updateBook: function(index) {
+                    this.currIndex = index;
+                    this.addId = this.bookList[index].id;
+                    this.flag = true;
+                    this.addName = this.bookList[index].bookName;
+                },
+                deleteBook: function(index) {
+                    console.log(index);
+                    this.bookList.splice(index, 1);
+                },
+            },
+            // 特性1：自定义指令（表单聚焦）
+            directives: {
+                focus: {
+                    inserted: function(el) {
+                        el.focus();
+                    },
+                },
+            },
+            // 特性2：计算属性（计算图书数量）
+            computed: {
+                getTotal: function() {
+                    return this.bookList.length;
+                },
+            },
+            // 特性3：过滤器（过滤日期）
+            filters: {
+                dateFormat: function(value) {
+                    const date = new Date(value);
+                    const yyyy = date.getFullYear();
+                    const mm = padZero(date.getMonth() + 1);
+                    const dd = padZero(date.getDate());
+                    return `${yyyy}-${mm}-${dd}`;
+                },
+            },
+            // 特性4：监听器（监听添加图书合理性）
+            watch: {
+                addId: function(val) {
+                    this.submitFlag = false;
+                    // 在添加模式下
+                    // 如果添加的ID存在了， 那么就不让提交了
+                    this.bookList.forEach((item) => {
+                        if (item.id == val) {
+                            alert("ID已存在！");
+                            this.submitFlag = true;
+                        }
+                    });
+                },
+                addName: function(val) {
+                    this.bookList.some((item) => {
+                        return item.bookName == val;
+                    });
+                },
+            },
+        });
+    </script>
+</body>
+
+</html>

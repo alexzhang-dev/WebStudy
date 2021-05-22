@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./lib/vue.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 3. 插值表达式支持基本的表达式 -->
+    <div id="vue-app">工资：{{money * day}}元/月</div>
+    <script>
+        new Vue({
+            // 1. 元素的挂载位置
+            el: "#vue-app",
+            // 2. 模型数据，是一个对象
+            data: {
+                money: 100,
+                day: 30,
+            },
+        });
+    </script>
+</body>
+
+</html>

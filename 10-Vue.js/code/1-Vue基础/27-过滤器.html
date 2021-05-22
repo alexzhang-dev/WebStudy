@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./lib/vue.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="msg" />
+        <!-- 过滤器的使用 -->
+        <div>{{msg | upper}}</div>
+        <!-- 可以有多个过滤器 -->
+        <!-- <div>{{msg | upper | lower}}</div> -->
+        <!-- 可以在绑定属性时使用过滤器 -->
+        <!-- <div v-bind:id="id | idFilter"></div> -->
+    </div>
+    <script>
+        // 1. 定义一个过滤器
+        Vue.filter("upper", function(value) {
+            // 让第一个首字母大写
+            if (value.length > 0) {
+                return value.charAt(0).toUpperCase() + value.slice(1);
+            }
+        });
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                msg: "hello",
+            },
+            methods: {},
+            filters: {
+                // 局部作用域
+                lower: function() {},
+            },
+        });
+    </script>
+</body>
+
+</html>

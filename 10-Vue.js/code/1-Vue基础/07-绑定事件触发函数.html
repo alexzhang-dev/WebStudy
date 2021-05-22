@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./lib/vue.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div>{{num}}</div>
+        <div>
+            <button @click="handle">按钮</button>
+            <button @click="handle(123, $event)">带参数的传递</button>
+        </div>
+    </div>
+    <script>
+        /**
+         * 1. 如果事件直接绑定函数名称，那么默认会传递事件对象作为事件函数的第一个参数
+         * 2. 如果事件绑定函数调用，
+         */
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                num: 0,
+            },
+            methods: {
+                handle: function(p, event) {
+                    console.log(p);
+                    console.log(event.target.tagName);
+                    // 不可以直接写成num，会被看作为参数
+                    // num++;
+                    this.num++;
+                    // 这里的this实际上就是 Vue 的实例 vm
+                    console.log(this === vm); // true
+                },
+            },
+        });
+    </script>
+</body>
+
+</html>

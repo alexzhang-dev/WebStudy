@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./lib/vue.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <!-- .enter：回车键 -->
+            <input type="text" @keyup.enter="submit" placeholder="按下回车建可查看输入的字" />
+            <!-- .delete 删除键 -->
+            <input type="text" @keyup.delete="deleteHandle" placeholder="按下删除键控制台打印剩余的字" />
+        </div>
+    </div>
+    <script>
+        const vm = new Vue({
+            el: "#app",
+            methods: {
+                submit: (event) => {
+                    alert(event.target.value);
+                },
+                deleteHandle: (event) => {
+                    if (event.target.value.length != 0) {
+                        console.log(event.target.value);
+                    }
+                },
+            },
+        });
+    </script>
+</body>
+
+</html>

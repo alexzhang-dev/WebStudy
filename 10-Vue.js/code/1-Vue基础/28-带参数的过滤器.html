@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./lib/vue.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="msg" />
+        <!-- 使用带参数的过滤器 -->
+        <span>{{msg | format(11)}}</span>
+    </div>
+    <script>
+        // 1. 定义一个带参数的过滤器
+        Vue.filter("format", function(value, arg1) {
+            if (arg1 > 10) {
+                console.log("10+++");
+            }
+            return value;
+        });
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                msg: "hello",
+            },
+            methods: {},
+        });
+    </script>
+</body>
+
+</html>

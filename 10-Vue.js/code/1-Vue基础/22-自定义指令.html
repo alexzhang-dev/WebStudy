@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./lib/vue.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-focus />
+    </div>
+    <script>
+        // 自定义指令
+        Vue.directive("focus", {
+            inserted: function(el) {
+                // 聚焦
+                el.focus();
+            },
+        });
+        const vm = new Vue({
+            el: "#app",
+            data: {},
+            methods: {},
+        });
+    </script>
+</body>
+
+</html>
