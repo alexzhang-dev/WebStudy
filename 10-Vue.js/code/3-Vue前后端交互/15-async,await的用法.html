@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./lib/axios.js"></script>
+</head>
+
+<body>
+    <script>
+        axios.defaults.baseURL = "http://127.0.0.1/api";
+        // 使用axios获取结果
+        axios
+            .get("/get", {
+                params: {
+                    id: 1,
+                },
+            })
+            .then((res) => {
+                console.log(res.data);
+            });
+        // 使用async/await
+        // async function queryData(id) {
+        //     // await只能在async函数中使用
+        //     const result = await axios.get("/get", {
+        //         params: {
+        //             id: id,
+        //         },
+        //     });
+        //     console.log(result.data);
+        // }
+        // queryData(5).then((res) => {
+        //     console.log(res);
+        // });
+        async function queryData(id) {
+            // await只能在async函数中使用
+            const result = await new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve("success");
+                    // reject("error");
+                }, 1000);
+            });
+            return result;
+        }
+        queryData(5)
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    </script>
+</body>
+
+</html>

@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <script src="./lib/vue.min.js"></script>
+    <script src="./lib/vue.js"></script>
+    <script src="./lib/axios.js"></script>
     <style>
         input {
             padding-left: 2px;
@@ -70,9 +71,9 @@
         <table border="0" cellspacing="0">
             <tr>
                 <td colspan="4">
-                    编号：<input v-focus type="text" v-model.number.lazy="addId" :disabled="flag" /> 名称：
-                    <input type="text" v-model.trim.lazy="addName" />
-                    <button @click="addBook" :disabled="submitFlag">提交</button>
+                    编号：<input v-focus type="text" required v-model.number.lazy="addCode" :disabled="flag" /> 名称：
+                    <input type="text" v-model.trim.lazy="addName" required />
+                    <button @click="addBook" :disabled="submitFlag">{{flag ? '修改' : '添加'}}</button>
                 </td>
             </tr>
             <tr>
@@ -81,14 +82,14 @@
                 <th>时间</th>
                 <th>操作</th>
             </tr>
-            <tr :key="index" v-for="(item, index) in bookList">
-                <td>{{item.id}}</td>
-                <td>{{item.bookName}}</td>
+            <tr :key="item.id" v-for="item in bookList">
+                <td>{{item.code}}</td>
+                <td>{{item.name}}</td>
                 <td>{{item.addTime | dateFormat}}</td>
                 <td>
-                    <a href="javascript:;" @click.prevent="updateBook(index)">修改</a
+                    <a href="javascript:;" @click.prevent="updateBook(item.id)">修改</a
             >&nbsp;|&nbsp;
-            <a href="javascript:;" @click.prevent="deleteBook(index)">删除</a>
+            <a href="javascript:;" @click.prevent="deleteBook(item.id)">删除</a>
                 </td>
             </tr>
         </table>
@@ -96,25 +97,40 @@
         <div>总计：{{getTotal}}本书</div>
     </div>
     <script>
+        // 设置请求基准路径
+        axios.defaults.baseURL = "http://127.0.0.1";
+        // 添加响应拦截器，默认得到的响应就是data.data
+        axios.interceptors.response.use(response => {
+            return response.data;
+        }, error => {
+            console.log(error)
+            return Promise.reject(error);
+        });
+
         function padZero(n) {
             return n < 10 ? "0" + n : n;
         }
         const vm = new Vue({
             el: "#app",
             data: {
-                addId: "",
+                addCode: "",
                 addName: "",
                 currIndex: 0,
                 flag: false,
                 submitFlag: false,
                 bookList: [],
+                updateId: 0,
             },
             methods: {
-                addBook: function() {
+                addBook: async function() {
                     if (this.flag) {
                         // 如果flag是true，那么就证明是修改
                         // currIndex就是当前操作的元素的下标
-                        this.bookList[this.currIndex].bookName = this.addName;
+                        let res = await axios.put('/books/' + this.updateId, {
+                            code: this.addCode,
+                            name: this.addName
+                        });
+                        if (res.status == 200) this.queryData();
                         // 修改完清空
                         this.addId = "";
                         this.addName = "";
@@ -122,22 +138,35 @@
                         this.flag = false;
                     } else {
                         const bookObj = {
-                            id: this.addId,
-                            bookName: this.addName,
-                            addTime: new Date(),
+                            code: this.addCode,
+                            name: this.addName,
                         };
-                        this.bookList.push(bookObj);
+                        // 调用添加接口
+                        const res = await axios.post('/books', bookObj);
+                        console.log(res);
+                        // 操作成功重新加载列表数据
+                        if (res.status == 200) this.queryData();
+                        this.addCode = '';
+                        this.addName = '';
                     }
                 },
-                updateBook: function(index) {
-                    this.currIndex = index;
-                    this.addId = this.bookList[index].id;
+                updateBook: async function(id) {
+                    this.currIndex = this.bookList.findIndex(item => {
+                        return item.id == id;
+                    });
                     this.flag = true;
-                    this.addName = this.bookList[index].bookName;
+                    const query = (await axios.get('/books/' + id)).data;
+                    this.addName = query.name;
+                    this.addCode = query.code;
+                    this.updateId = id;
                 },
-                deleteBook: function(index) {
-                    console.log(index);
-                    this.bookList.splice(index, 1);
+                deleteBook: async function(id) {
+                    let res = await axios.delete('/books/' + id);
+                    if (res.status == 200) this.queryData();
+                },
+                // 调用后台接口获取数据
+                queryData: async function() {
+                    this.bookList = (await axios.get('/books')).data;
                 },
             },
             // 特性1：自定义指令（表单聚焦）
@@ -161,76 +190,44 @@
                     const yyyy = date.getFullYear();
                     const mm = padZero(date.getMonth() + 1);
                     const dd = padZero(date.getDate());
-                    return `${yyyy}-${mm}-${dd}`;
+                    const hh = padZero(date.getHours());
+                    const mmmm = padZero(date.getMinutes());
+                    const ss = padZero(date.getSeconds());
+                    return `${yyyy}-${mm}-${dd} ${hh}:${mmmm}:${ss}`;
                 },
             },
-            // 特性4：监听器（监听添加图书合理性）
+            // 特性4： 监听器（监听添加图书合理性）
             watch: {
-                addId: function(val) {
-                    this.submitFlag = false;
+                addCode: function(val) {
                     // 在添加模式下
-<<<<<<< HEAD
-                    // 如果添加的ID存在了， 那么就不让提交了
-                    this.bookList.forEach((item) => {
-                        if (item.id == val) {
-                            alert("ID已存在！");
-=======
                     if (!this.flag) {
                         this.submitFlag = false;
-
                         // 如果添加的ID存在了，那么就不让提交了
                         this.bookList.forEach((item) => {
-                            if (item.id == val) {
+                            if (item.code == val) {
                                 alert("ID已存在！");
                                 this.submitFlag = true;
                             }
                         });
                     }
-
                 },
                 addName: function(val) {
                     if (!this.flag) {
                         this.submitFlag = false;
                         // 如果添加的名称存在，就不让提交
                         const flag = this.bookList.some((item) => {
-                            return item.bookName != val;
+                            return item.name == val;
                         });
                         if (flag) {
                             alert("名称已存在！");
->>>>>>> 51fc64019408f6a6817e0cfbdbf4e195a17af3be
                             this.submitFlag = true;
                         }
                     }
                 },
-                addName: function(val) {
-                    this.bookList.some((item) => {
-                        return item.bookName == val;
-                    });
-                },
             },
-            // 特性5：生命周期（图书数据处理）
             mounted: function() {
-                // 该生命周期已被触发时，表示模板已经可以使用了
-                // 一般此时用于获取后端数据，将数据填充到模板中
-                const data = [{
-                    id: 1,
-                    bookName: "三国演义",
-                    addTime: +new Date(),
-                }, {
-                    id: 2,
-                    bookName: "水浒传",
-                    addTime: +new Date(),
-                }, {
-                    id: 3,
-                    bookName: "红楼梦",
-                    addTime: +new Date(),
-                }, {
-                    id: 4,
-                    bookName: "西游记",
-                    addTime: +new Date(),
-                }, ];
-                this.bookList = data;
-            },
+                this.queryData();
+            }
         });
     </script>
 </body>

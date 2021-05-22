@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function queryData(url) {
+            var p = new Promise((resolve, reject) => {
+                const xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState != 4) return;
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        // 处理正常的情况
+                        resolve(xhr.responseText);
+                    } else {
+                        // 处理异常的情况
+                        reject("出错了");
+                    }
+                };
+                xhr.open("get", url);
+                xhr.send(null);
+            });
+            return p;
+        }
+        // 发送多个Ajax请求并且保证顺序
+        queryData('http://127.0.0.1/api/get').then((data) => {
+            console.log(data);
+            return queryData('http://127.0.0.1/api/get2');
+        }).then((data) => {
+            console.log(data);
+            return queryData('http://127.0.0.1/api/get3');
+        }).then((data) => {
+            console.log(data);
+        });
+    </script>
+</body>
+
+</html>
+
+</html>

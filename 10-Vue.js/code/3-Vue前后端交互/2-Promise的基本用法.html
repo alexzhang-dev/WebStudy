@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 1. Promise 其实是一个对象
+        // console.log(typeof Promise);
+        // console.dir(Promise);
+        // 2. 使用 Promise
+        var p = new Promise((resolve, reject) => {
+            // 这里用于实现异步任务
+            // 成功时调用 resolve()
+            setTimeout(function() {
+                let flag = false;
+                if (flag) {
+                    // 正常情况，可以得到数据
+                    resolve("hello");
+                } else {
+                    // 异常情况调用 reject()
+                    reject("Error");
+                }
+            }, 1000);
+        });
+        // 通过 .then 接收
+        p.then(
+            (data) => {
+                // 第一个参数函数中是成功的结果
+                console.log(data);
+            },
+            (err) => {
+                console.log(err);
+            }
+        );
+    </script>
+</body>
+
+</html>

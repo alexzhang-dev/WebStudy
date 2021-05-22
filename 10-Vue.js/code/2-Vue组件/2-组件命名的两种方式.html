@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./lib/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 直接引用使用驼峰命名法的在页面中会报错 -->
+        <HelloWorld></HelloWorld>
+        <!-- 但是在使用-命名法的template中使用驼峰命名法就不会报错 -->
+        <vue-component> </vue-component>
+    </div>
+    <script>
+        // 报错
+        Vue.component("HelloWorld", {
+            data: function() {
+                return {
+                    msg: "hello world~",
+                };
+            },
+            template: "<div>{{msg}}</div>",
+        });
+        Vue.component("vue-component", {
+            data: function() {
+                return {
+                    msg: "hello world~",
+                };
+            },
+            // 这种就可以
+            template: "<HelloWorld></HelloWorld>",
+        });
+        const vm = new Vue({
+            el: "#app",
+            data: {},
+            methods: {},
+        });
+    </script>
+</body>
+
+</html>

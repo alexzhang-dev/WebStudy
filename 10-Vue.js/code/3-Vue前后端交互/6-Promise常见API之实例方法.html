@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // Promise常见API之实例方法
+        // console.dir(Promise);
+        function queryData() {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    // resolve("success");
+                    reject("error");
+                }, 1000);
+            });
+        }
+        // queryData()
+        //     .then(function(data) {
+        //         // 成功结果
+        //         console.log(data);
+        //     })
+        //     .catch(function(err) {
+        //         // 异常结果
+        //         console.log(err);
+        //     })
+        //     .finally(function() {
+        //         // 无论成功与否都会执行
+        //         console.log("finished");
+        //     });
+        queryData()
+            .then(
+                function(data) {
+                    // 成功结果
+                    console.log(data);
+                },
+                function(err) {
+                    // 异常结果
+                    console.log(err);
+                }
+            )
+            .finally(function() {
+                // 无论成功与否都会执行
+                console.log("finished");
+            });
+    </script>
+</body>
+
+</html>

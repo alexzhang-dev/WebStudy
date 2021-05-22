@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./lib/axios.js"></script>
+</head>
+
+<body>
+    <script>
+        axios.defaults.baseURL = "http://127.0.0.1/api";
+        // 多个异步任务
+        async function queryData() {
+            const info = await axios.get("/async1");
+            // 上一个异步任务的结果是下一个异步任务的参数
+            // 此时await关键字就是让下一个Promise任务等待这个任务才能处理
+            const result = await axios.get("/async2?info=" + info.data);
+            return result;
+        }
+        queryData().then((result) => {
+            console.log(result.data);
+        });
+    </script>
+</body>
+
+</html>

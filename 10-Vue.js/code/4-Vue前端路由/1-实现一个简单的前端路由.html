@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./lib/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <a href="#/zhuye">主页</a>
+        <a href="#/keji">科技</a>
+        <a href="#/caijing">财经</a>
+        <a href="#/xinwen">新闻</a>
+
+        <!-- 根据 :is 属性来匹配不同的组件，把对应组件渲染在<component>标签中 -->
+        <!-- 可以吧<component>看做是【组件的占位符】 -->
+        <component :is="comName"></component>
+    </div>
+    <script>
+        const zhuye = {
+            template: `<h1>主页信息</h1>`,
+        };
+        const keji = {
+            template: `<h1>科技信息</h1>`,
+        };
+        const caijing = {
+            template: `<h1>财经信息</h1>`,
+        };
+        const xinwen = {
+            template: `<h1>新闻信息</h1>`,
+        };
+
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                comName: "zhuye",
+            },
+            methods: {},
+            // 注册为局部组件
+            components: {
+                zhuye,
+                keji,
+                caijing,
+                xinwen,
+            },
+        });
+
+        // 监听 window 的 onhashchange 事件，获取到最新的hash值
+        window.onhashchange = function() {
+            // 通过 location.hash 获取最新的hash值
+            console.log(location.hash);
+            switch (location.hash.slice(2)) {
+                case "zhuye":
+                    vm.comName = "zhuye";
+                    break;
+                case "keji":
+                    vm.comName = "keji";
+                    break;
+                case "caijing":
+                    vm.comName = "caijing";
+                    break;
+                case "xinwen":
+                    vm.comName = "xinwen";
+                    break;
+            }
+        };
+    </script>
+</body>
+
+</html>
