@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script src="../lib/vue.js"></script>
+    <script type="x-template" id="tpl">
+        <div>
+          <h2>{{counter}}</h2>
+          <button @click="increment">+1</button>
+          <button @click="decrement">-1</button>
+      </div>
+    </script>
+    <script>
+      Vue.createApp({
+        data() {
+          return {
+            counter: 0,
+          }
+        },
+        // 可以使用 x-template 来将指定模板
+        // 注意！！！必须加id，引入template如果是以#开头
+        // 那么 Vue 就会默认不解析字符串，而是调用document.querySelector()来获取真正的模板
+        template: '#tpl',
+        methods: {
+          increment() {
+            this.counter++
+          },
+          decrement() {
+            this.counter--
+          },
+        },
+      }).mount('#app')
+    </script>
+  </body>
+</html>

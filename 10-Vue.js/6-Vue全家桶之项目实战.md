@@ -424,6 +424,45 @@ handleDropdownItem: function(command) {
 }
 ````
 
+#### 4. 面包屑导航
+
+https://element.eleme.cn/#/zh-CN/component/breadcrumb
+
+注册`Breadcrumb`和`BreadcrumbItem`
+
+#### 5. 面包屑导航数据
+
+我们可以在每个组件中向头部组件传递值，这里提供一种笨思路
+
+采用事件管理中心的方法来做，在`main.js`入口函数中挂载事件管理中心
+
+```js
+// 挂载事件管理中心
+Vue.prototype.eventHub = new Vue()
+```
+
+在面包屑所在组件中，`created`钩子函数中定义一个事件
+
+```js
+this.eventHub.$on('getBreadCrumb', val => {
+    this.breadCrumbList = val
+})
+```
+
+在每一个单独页面组件中，`created`钩子函数中触发事件并传递值
+
+```js
+this.eventHub.$emit('getBreadCrumb', ['用户管理', '用户列表'])
+```
+
+传递的值将会挂载到面包屑所在组件`breadCrumbList`，页面将循环输出
+
+```html
+ <el-breadcrumb-item v-for="item in breadCrumbList" :key="item">
+     {{item}}
+</el-breadcrumb-item>
+```
+
 ### 4.3 左侧菜单
 
 #### 1. 整体布局
@@ -523,3 +562,222 @@ methods: {
 #### 4. 侧边栏的折叠与展开
 
 `el-menu`中的属性`collapse`可以控制是否折叠，通过一个按钮控制这个值是`true/false`即可控制侧边栏的折叠与展开
+
+### 4.4 子路由
+
+主页的右侧主体部分其实是多个子组件所组成的，因此我们需要定义一个子组件
+
+假设我们定义了一个子组件`HomeWelcome`
+
+```vue
+<template>
+  <h3>Welcome, {{ username }}</h3>
+</template>
+<script>
+export default {
+  data() {
+    return {
+      username: ''
+    }
+  },
+  created() {
+    this.username = sessionStorage.getItem('username')
+  }
+}
+</script>
+```
+
+我们需要在`Home.vue`中定义路由占位
+
+```html
+<!-- 主体 -->
+<el-main>
+    <!-- 加入路由占位 -->
+    <router-view></router-view>
+</el-main>
+```
+
+在`router/index.js`中为`home`注册子路由规则
+
+```js
+{
+    path: '/home',
+    component: Home,
+    redirect: '/welcome',
+        children: [
+            {
+                path: '/welcome',
+                component: HomeWelcome
+            }
+        ]
+}
+```
+
+### 4.4 改造左侧菜单的路由链接
+
+https://element.eleme.cn/#/zh-CN/component/menu
+
+Element-UI的导航组件中提供了一个属性`router`
+
+* 默认为false
+
+* 是否使用 vue-router 的模式，启用该模式会在激活导航时以 index 作为 path 进行路由跳转
+* 开启后，每一个菜单项的`index`的属性值，将作为路由的`path`
+
+# 5. 用户管理
+
+### 5.1 作为主页的子路由
+
+创建一个`User.vue`子组件，在`router/index.js`中将user注册为`home`的子路由
+
+```js
+{
+    path: '/home',
+    component: Home,
+    redirect: '/welcome',
+        children: [
+            {
+                path: '/welcome',
+                component: HomeWelcome
+            },
+            {
+                path: '/user',
+                component: User
+            },
+        ]
+}
+```
+
+### 5.2 保存左侧菜单的激活状态
+
+在`Element-UI`的menus中有一项属性`default-active`，用于判断当前激活的菜单，值为当前菜单的`index`属性的值
+
+思路大概是：
+
+* 点击左侧菜单，将index的值储存在sessionStorage中
+* home组件一旦发生更改，就去取sessionStorage中的index，来改变菜单的激活状态
+
+#### 首页默认取消所有菜单的激活状态
+
+我们还是用老方法，使用事件管理中心，首先在`Home.vue`中`created`钩子函数设定
+
+```js
+this.eventHub.$on('toHomeClearActivePath', () => {
+    window.sessionStorage.removeItem('activeNavPath')
+    this.defaultOpeneds = []
+    this.activeNavPath = ''
+})
+```
+
+其中`defaultOpeneds`用于控制菜单的收起，`activeNavPath`用于控制当前高亮的菜单项
+
+我们要在`welcome`中设定，触发我们刚刚设定的事件
+
+```js
+// 在首页清空导航的activePath
+this.eventHub.$emit('toHomeClearActivePath')
+```
+
+需要在`el-menu`中设定一个属性，这个属性就是用来控制展开与关闭的
+
+```css
+:default-openeds="defaultOpeneds"
+```
+
+### 5.3 内容区域的卡片视图
+
+https://element.eleme.cn/#/zh-CN/component/card
+
+在`components/user/Users.vue`中，设定
+
+```html
+<el-card>
+    <div slot="header" class="clearfix">
+        <span>卡片名称</span>
+    </div>
+</el-card>
+```
+
+在`plugins/element.js`中注册`Card`
+
+#### 1. 卡片头部的搜索和新增
+
+##### 搜索
+
+https://element.eleme.cn/#/zh-CN/component/input
+
+搜索我们选择使用 Element-UI 中输入框 -> 复合型输入框 -> 带搜索的输入框
+
+```html
+<!-- 将多余部分去掉 -->
+<el-input placeholder="请输入用户名用于搜索">
+    <el-button slot="append" icon="el-icon-search"></el-button>
+</el-input>
+```
+
+由于我们在开发登录时已经注册了input，此时就不需要再注册了
+
+下一步我们就需要将搜索框的长度限制，此时可以使用Element-UI的栅格系统来控制，栅格规定每一行有24个区块
+
+https://element.eleme.cn/#/zh-CN/component/layout
+
+```html
+ <el-row :gutter="20">
+     <el-col :span="6">
+         <el-input placeholder="请输入用户名用于搜索">
+             <el-button slot="append" icon="el-icon-search"></el-button>
+         </el-input>
+     </el-col>
+</el-row>
+```
+
+其中`el-row`中的`:gutter`表示每个`cl-col`之间的间距，每一个`el-col`中的`:span`就表示自己占多个个区块，在`plugins/element.js`中注册`Row`和`Col`
+
+##### 新增
+
+添加按钮重新写一个`el-col`
+
+```html
+<el-col :span="2">
+    <el-button type="primary">添加用户</el-button>
+</el-col>
+```
+
+#### 2. 获取用户列表数据
+
+在`created`钩子函数中调用方法`this.getUserList()`
+
+在`methods`中定义方法
+
+```js
+async getUserList() {
+    const res = await this.$http.get('users', {
+        params: this.queryInfo
+    })
+    // 进行判断，如果res!=200，那么就弹出error提示框
+    if (res.meta.status !== 200) {
+        this.$message.error('获取用户列表失败')
+    }
+    console.log(res.data)
+    // 成功就将值储存
+    this.userlist = res.data.userlist
+    this.total = res.data.total
+}
+```
+
+#### 3. 渲染用户数据
+
+https://element.eleme.cn/#/zh-CN/component/table
+
+使用 Element-UI 表格来渲染数据
+
+```html
+<el-table :data="userlist" stripe style="width: 100%" border>
+    <el-table-column prop="id" label="ID" width="180"> </el-table-column>
+</el-table>
+```
+
+其中`:data`是表格用到的数据，`stripe`是隔行变色，默认为false，`border`为添加边框线
+
+`prop`是每一列用到的数据名，`label`是每一列的表头
+
