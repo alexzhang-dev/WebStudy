@@ -312,7 +312,7 @@ this.$router.push('/login')
 
 #### 2. 弹框
 
-点击注销之后点击确定才会真正执行注销，需要注册
+点击注销之后点击确定才会真正执行注销，需要注册`MessageBox`
 
 ```js
 import { MessageBox } from 'element-ui'
@@ -1227,4 +1227,249 @@ async addUser() {
 },
 ```
 
-#### 5. 添加用户前的
+### 5.5 用户修改功能
+
+#### 1. 修改界面布局
+
+很简单，我们依然使用 Dialog 来作为弹出层，`disabled`给`el-input`可以让这个输入框禁用，通过对`editDialogVisible`的控制来达到对修改界面的显示和隐藏
+
+```html
+<el-dialog
+     title="修改用户信息"
+     :visible.sync="editDialogVisible"
+     width="35%"
+     @close="editFormDialogClosed"
+     >
+    <el-form
+       label-width="80px"
+       :model="editUser"
+       :rules="addFormRules"
+        ref="editFormRef"
+        >
+        <el-form-item label="用户名">
+            <el-input
+               disabled
+               v-model="editUser.username"
+               autocomplete="off"
+               ></el-input>
+        </el-form-item>
+        <el-form-item label="邮箱" required prop="email">
+            <el-input autocomplete="off" v-model="editUser.email"></el-input>
+        </el-form-item>
+        <el-form-item label="手机号" required prop="mobile">
+            <el-input autocomplete="off" v-model="editUser.mobile"></el-input>
+        </el-form-item>
+    </el-form>
+    <div slot="footer" class="dialog-footer">
+        <el-button @click="editDialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="editUser">确 定</el-button>
+    </div>
+</el-dialog>
+```
+
+#### 2. 修改界面的数据
+
+我们在修改按钮的点击事件中，不仅要对`editDialogVisible`进行修改，还需要通过ID来获取相应信息同时挂载在页面中
+
+```js
+async showEditDialog(id) {
+    this.editDialogVisible = true
+    // 通过 ID 获取信息
+    const res = await this.$http.get(`users/${id}`)
+    // 对响应状态做一个简单的判断
+    if (res.meta.status !== 200) {
+        return this.$message.error(`获取用户信息失败：${res.meta.msg}`)
+    }
+    this.editUser = res.data
+},
+```
+
+#### 3. 关闭修改界面重置表单验证结果
+
+在Dialog中监听`@close`
+
+```js
+// 关闭修改界面重置表单验证结果
+editDialogClosed() {
+    this.$refs.editFormRef.resetFields()
+},
+```
+
+#### 4. 修改用户信息
+
+```js
+// 修改用户信息
+async editUserMethod() {
+    let flag = false
+    // 先进行表单预验证
+    this.$refs.editFormRef.validate(valid => {
+        if (valid) {
+            flag = true
+        }
+    })
+    if (flag) {
+        // 表单已经预验证完成，需要向后端发送数据了
+        const res = await this.$http.put(
+            `users/${this.editUser.id}`,
+            this.editUser
+        )
+        if (res.meta.status !== 200) {
+            return this.$message.error(`用户信息更新失败：${res.meta.msg}`)
+        }
+        // 更新成功，关闭页面，再次调用getUserList更新页面数据
+        this.$message.success('用户信息更新成功')
+        this.editDialogVisible = false
+        this.getUserList()
+    }
+}
+```
+
+### 5.6 用户修改功能
+
+#### 1. 点击删除弹出警示框
+
+和注销一样，这里采用确认框
+
+```js
+deleteUser(id) {
+    this.$confirm('确定删除该用户？该操作无法撤销', '提示框', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+    })
+        .then(async () => {
+        // 确定之后调用后台接口删除用户
+        const res = await this.$http.delete(`users/${id}`)
+        if (res.meta.status !== 200) {
+            return this.$message.error(`删除用户失败：${res.meta.msg}`)
+        }
+        this.$message.success('删除用户成功')
+        // 删除用户成功之后，跳转到第一页，防止出现问题
+        this.queryInfo.pagenum = 1
+        this.getUserList()
+    })
+        .catch(action => {
+        // 点击取消和关闭的操作
+    })
+},
+```
+
+# 6. 权限管理
+
+### 6.1 通过路由展示权限组件
+
+创建一个`Rights.vue`，在`router/index.js`将其注册为`Home`的子路由
+
+```js
+{
+    path: '/home',
+    component: Home,
+    redirect: '/welcome',
+    children: [
+      {
+        path: '/rights',
+        component: Rights
+      }
+    ]
+  }
+```
+
+### 6.2 发送面包屑
+
+在`created`钩子函数中，触发父组件所定义的事件管理中心的方法
+
+```js
+export default {
+  // 注入事件管理中心
+  inject: ['eventHub'],
+  created() {
+    // 向面包屑导航发送数据
+    this.eventHub.$emit('getBreadCrumb', ['权限管理', '权限列表'])
+  }
+}
+```
+
+### 6.3 布局权限列表视图
+
+我们使用表格来做
+
+#### 1. 获取数据
+
+在`created`钩子函数中获取数据
+
+```js
+async created() {
+    // other code ...
+    // 请求后端接口获取数据挂载页面
+    const res = await this.$http.get('rights/list')
+    if (res.meta.status !== 200) {
+      return this.$message.error(`获取权限列表失败：${res.meta.msg}`)
+    }
+    this.rightsList = res.data
+  }
+```
+
+#### 2. 完善页面视图
+
+```html
+<el-table :data="rightsList" style="width: 100%" border stripe>
+    <el-table-column label="#" type="index" width="100"></el-table-column>
+    <el-table-column
+        prop="id"
+        label="权限ID"
+        sortable
+        width="100"
+        ></el-table-column>
+    <el-table-column prop="authName" label="权限名称" sortable>
+    </el-table-column>
+    <el-table-column prop="path" label="路径" sortable> </el-table-column>
+    <el-table-column prop="level" label="权限等级" sortable> </el-table-column>
+</el-table>
+```
+
+#### 3. 增加索引列
+
+```html
+<el-table-column label="#" type="index" width="100"></el-table-column>
+```
+
+#### 4. 为每一列增加排序功能
+
+在每一列增加`sortable`属性即可实现排序，但是`type="index"`的索引列无法实现这种功能
+
+#### 5. 美化权限的等级
+
+由于获取的原始数据权限等级`0`、`1`不太美观，我们可以将其美化为`权限一`、`权限二`等
+
+使用Element-UI的组件tag：https://element.eleme.cn/#/zh-CN/component/tag
+
+记得注册`Tag`
+
+```html
+<el-table-column prop="level" label="权限等级" sortable>
+    <template slot-scope="scope">
+        <el-tag v-if="scope.row.level == 0">一级权限</el-tag>
+        <el-tag v-else-if="scope.row.level == 1" type="success">
+            二级权限
+        </el-tag>
+        <el-tag v-else type="warning">三级权限</el-tag>
+    </template>
+</el-table-column>
+```
+
+### 6.4 权限管理业务分析
+
+通过权限管理模块控制不同的角色可以进行哪些操作，具体可以通过角色的方式进行控制，即每个用户分配一个特定的角色，角色包括不同的功能权限
+
+* 一个用户对应一个角色
+
+* 一个角色对应不同的多个权限
+
+  * 有的角色有增删改查的权限
+  * 有的角色只有查的权限
+  * 有的角色只有增的权限
+
+  * ......
+
+  
+
