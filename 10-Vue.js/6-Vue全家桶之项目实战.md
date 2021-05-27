@@ -424,24 +424,61 @@ handleDropdownItem: function(command) {
 }
 ````
 
-#### 4. 面包屑导航
+#### 4. 处理 dropdown 的箭头
+
+因为 element-ui 默认的下拉菜单的箭头是不会变化的，因此我们需要监听下拉菜单子项展开/关闭的状态，来修改箭头的图标
+
+在`el-dropdown`中监听事件，该事件会向回调传入一个参数，status表示为子项是否展开/关闭
+
+```html
+<el-dropdown @visible-change="handleDropdownChange">
+```
+
+我们在`methods`中定义一个处理该事件的回调，通过官方提供的回调参数，用于更改图标
+
+```js
+handleDropdownChange(status) {
+    // 展开或收起
+    if (status) {
+        this.headerAvatarArrow = 'el-icon-arrow-up'
+    } else {
+        this.headerAvatarArrow = 'el-icon-arrow-down'
+    }
+}
+```
+
+#### 5. 面包屑导航
 
 https://element.eleme.cn/#/zh-CN/component/breadcrumb
 
 注册`Breadcrumb`和`BreadcrumbItem`
 
-#### 5. 面包屑导航数据
+#### 6. 面包屑导航数据
 
 我们可以在每个组件中向头部组件传递值，这里提供一种笨思路
 
-采用事件管理中心的方法来做，在`main.js`入口函数中挂载事件管理中心
+采用事件管理中心的方法来做，在`App.vue`根组件中`provide`事件管理中心
 
 ```js
-// 挂载事件管理中心
-Vue.prototype.eventHub = new Vue()
+import Vue from 'vue'
+export default {
+  // 向所有子组件提供事件管理中心
+  provide() {
+    return {
+      eventHub: new Vue()
+    }
+  }
+}
 ```
 
-在面包屑所在组件中，`created`钩子函数中定义一个事件
+在需要传递数据的所在组件中，使用`inject`注入事件管理中心
+
+```js
+// 注入事件管理中心
+inject: ['eventHub'],
+```
+
+在需要传递数据的地方定义方法，例如`Home.vue`的`created`钩子函数中定义一个事件
 
 ```js
 this.eventHub.$on('getBreadCrumb', val => {
@@ -781,3 +818,413 @@ https://element.eleme.cn/#/zh-CN/component/table
 
 `prop`是每一列用到的数据名，`label`是每一列的表头
 
+#### 4. 为表格添加索引列
+
+在所有的列前加上，`type="index"`表示为索引项
+
+```html
+<el-table-column type="index" />
+```
+
+#### 5. 为状态列添加开关效果
+
+在状态列中放置作用域插槽，`slot-scope`就可以获取到每一列的数据了
+
+```html
+<el-table-column label="状态">
+    <template slot-scope="scope">
+        {{ scope.row }}
+    </template>
+</el-table-column>
+```
+
+在插槽中添加按钮，数据来源于后台返的数据
+
+```html
+<template slot-scope="scope">
+    <el-switch v-model="scope.row.mg_state"></el-switch>
+</template>
+```
+
+在`plugins/element.js`注册`Switch`
+
+#### 6. 在操作列添加操作按钮
+
+这里我们可以选择为文字按钮，我个人认为美观一些
+
+```html
+<el-table-column label="操作">
+    <template slot-scope="scope">
+        <el-button 
+           type="text" 
+           @click="editUser(scope.row.id)" 
+           size="small"
+           >编辑</el-button>
+        <el-button
+           type="text"
+           @click="deleteUser(scope.row.id)"
+           size="small"
+           >删除</el-button>
+    </template>
+</el-table-column>
+```
+
+#### 7. 实现分页效果
+
+Element-UI已经提供了分页组件：https://element.eleme.cn/#/zh-CN/component/pagination
+
+我们直接选择完整功能
+
+```html
+<el-pagination
+     :page-sizes="[5, 8, 10, 50]"
+     :page-size="5"
+     :current-page="queryInfo.pagenum"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="total"
+      background
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+>
+</el-pagination>
+```
+
+* `page-sizes`表示为可以选择**xx条/页**的列表
+* `page-size`表示当前的**xx条/页**
+* `current-page`表示当前处于的页码值
+* `layout`表示功能
+* `total`表示显示的总条数
+* `background`表示分页带有背景色
+* `size-change`监听**xx条/页**改变即可触发，该事件会向回调传一个参数，参数就是当前每一页显示的条数
+* `current-change`监听当前页码值，该事件会向回调传入一个参数，参数就是页码值
+
+#### 8. 修改用户状态
+
+将用户状态的更改同步更新到数据库上，我们需要对mg_state此值进行监听
+
+switch组件上提供了一个方法`change`，该方法用于switch的值改变时触发
+
+```html
+<el-switch
+   v-model="scope.row.mg_state"
+   change="handleStateChange(scope.row)"
+></el-switch>
+```
+
+把该行的数据传递过去，用于修改数据库的状态
+
+```js
+async handleStateChange(userInfo) {
+    // 发起请求，修改用户状态
+    const res = await this.$http.put(
+        `users/${userInfo.id}/state/${userInfo.mg_state}`
+    )
+    // 判断并回应结果
+    if (res.meta.status !== 200) {
+        // 失败就打印失败信息，并且当前已经在页面修改的的状态取反
+        userInfo.mg_state = !userInfo.mg_state
+        return this.$message.error(`修改 ${userInfo.username} 的状态失败`)
+    }
+    this.$message.success(`修改 ${userInfo.username} 的状态成功`)
+}
+```
+
+#### 9. 实现搜索功能
+
+首先，我们将搜索文本框与查询数据中的查询参数双向绑定，在搜索按钮中绑定事件
+
+```html
+<el-input
+    placeholder="请输入用户名用于搜索"
+    v-model="queryInfo.query"
+    clearable
+    @clear="getUserList"
+    >
+    <el-button
+        lot="append"
+        icon="el-icon-search"
+        @click="search"
+        ></el-button>
+</el-input>
+```
+
+在下面的处理函数中，先把页码恢复为1，之后再调用`this.getUserList()`就可以了
+
+新需求：在搜索框中提供一个清空按钮，点击清空就可以重新获取所有内容
+
+* `clearable`：提供一个清空按钮
+* `@click`监听清空函数，调用getUserList()方法获取到所有的数据
+
+### 5.4 用户添加功能
+
+#### 1. 点击添加按钮弹出对话框
+
+https://element.eleme.cn/#/zh-CN/component/dialog
+
+我们选择嵌套表格的Diaglog
+
+```html
+<el-dialog title="添加用户" :visible.sync="addDialogVisible" width="35%">
+    <el-form>
+        <el-form-item label="用户名">
+            <el-input autocomplete="off"></el-input>
+        </el-form-item>
+    </el-form>
+    <div slot="footer" class="dialog-footer">
+        <el-button @click="addDialogVisible = false">取 消</el-button>
+        <el-button type="primary">确 定</el-button>
+    </div>
+</el-dialog>
+```
+
+* `title`：Dialog头部区域的内容
+* `:visible`：为Dialog绑定了显示和隐藏的值，true为显示
+* `width`：控制整个对话框的宽度
+* 所以我们给取消按钮添加`@click="addDialogVisible = flase"`表示为隐藏
+
+因此，我们需要给添加按钮加上`@click="addDialogVisible = true"`，让添加界面显示
+
+#### 2. 渲染添加用户的表单
+
+```html
+<el-form
+   label-width="80px"
+   :model="addForm"
+   :rules="addFormRules"
+   ref="addFormRef"
+   >
+    <el-form-item label="用户名" required prop="username">
+        <el-input autocomplete="off" v-model="addForm.username"></el-input>
+    </el-form-item>
+    <el-form-item label="密码" required prop="password">
+        <el-input autocomplete="off" v-model="addForm.password"></el-input>
+    </el-form-item>
+    <el-form-item label="邮箱" required prop="email">
+        <el-input autocomplete="off" v-model="addForm.email"></el-input>
+    </el-form-item>
+    <el-form-item label="手机" required prop="mobile">
+        <el-input autocomplete="off" v-model="addForm.mobile"></el-input>
+    </el-form-item>
+</el-form>
+```
+
+* `:model`表单绑定的对象
+* `:rules`表单的校验规则
+* `prop`每一项对应的校验规则
+
+因此，我们需要创建一个`addForm`和`addFormRules`校验规则
+
+```js
+// 添加用户的表单数据
+addForm: {
+    username: '',
+    password: '',
+    email: '',
+    mobile: '',
+    // rid用于角色
+    rid
+},
+// 添加用户表单的验证规则对象
+addFormRules: {
+    username: [
+        {
+            required: true,
+            message: '请输入用户名',
+            trigger: 'blur'
+        },
+        {
+            min: 3,
+            max: 10,
+            message: '用户名长度在 3 到 10 个字符',
+            trigger: 'blur'
+        }
+    ],
+    password: [
+        {
+            required: true,
+            message: '请输入密码',
+            trigger: 'blur'
+        },
+        {
+            min: 6,
+            max: 15,
+            message: '密码长度在 6 到 15 个字符',
+            trigger: 'blur'
+        }
+    ],
+    email: [
+        {
+            required: true,
+            message: '请输入邮箱',
+            trigger: 'blur'
+        }
+    ],
+    mobile: [
+        {
+            required: true,
+            message: '请输入手机',
+            trigger: 'blur'
+        }
+    ]
+}
+```
+
+邮箱和手机号的校验规则还是比较简单的，所以我们需要自定义校验规则
+
+```js
+data() {
+    // 验证邮箱的校验规则
+    const regEmail = (rule, value, callback) => {
+      const regEmail = /^[a-zA-Z0-9]+([-_.][a-zA-Z0-9]+)*@[a-zA-Z0-9]+([-_.][a-zA-Z0-9]+)*\.[a-z]{2,}$/
+      if (!regEmail.test(value)) {
+        // 验证失败使用callback(new Error('error info'))
+        return callback(new Error('请输入正确格式的邮箱'))
+      }
+      // 成功直接调 callback() 就OK
+      callback()
+    }
+    // 验证手机号的校验规则
+    const regMobile = (rule, value, callback) => {
+      const regEmail = /^[1][3,4,5,7,8][0-9]{9}$/
+      if (!regEmail.test(value)) {
+        return callback(new Error('请输入正确格式的手机号'))
+      }
+      callback()
+    }
+    return {
+        // 添加用户表单的验证规则对象
+        addFormRules: {
+            // other code ...
+            email: [
+                {
+                    required: true,
+                    message: '请输入邮箱',
+                    trigger: 'blur'
+                },
+                {
+                    // validator：使用自定义的验证规则对象
+                    validator: regEmail,
+                    trigger: 'blur'
+                }
+            ],
+            mobile: [
+                {
+                    required: true,
+                    message: '请输入手机',
+                    trigger: 'blur'
+                },
+                {
+                    validator: regMobile,
+                    trigger: 'blur'
+                }
+            ]
+        }
+    }
+}
+```
+
+#### 3. 选择用户组
+
+我们选择在加载这个页面的时候，从远程访问获取到所有的角色
+
+```js
+methods: {
+    // 获取所有的角色[给添加时用]
+    async getAllRoles() {
+      // 先清空所有
+      this.roles = []
+      // 获取所有的roles，并遍历挂载
+      const res = await this.$http('roles')
+      if (res.meta.status !== 200) {
+        return this.$message.error('获取用户组失败')
+      }
+      // 默认选择普通用户
+      const normalRoleObj = {
+        id: -1,
+        roleName: '普通用户'
+      }
+      this.roles.push(normalRoleObj)
+      res.data.forEach(role => {
+        const roleObj = {}
+        roleObj.id = role.id
+        roleObj.roleName = role.roleName
+        this.roles.push(roleObj)
+      })
+    }
+}
+created() {
+    // other code ...
+    this.getAllRoles()
+}
+```
+
+将这个数据渲染到添加页面上
+
+```html
+<el-form-item label="角色组" required>
+    <el-select v-model="addForm.rid">
+        <el-option
+            :label="role.roleName"
+            :value="role.id"
+            v-for="role in roles"
+            :key="role.id"
+            ></el-option>
+    </el-select>
+</el-form-item>
+```
+
+记得注册`Select`和`Option`
+
+#### 4. 添加表单的重置操作
+
+我们在对话框Dialog关闭后重置表单就可以了
+
+在`el-dialog`中有一个事件`close`，监听此事件，触发函数
+
+```html
+<el-dialog @close="addFormDialogClosed"></el-dialog>
+```
+
+```js
+// 关闭添加页面重置表单
+addFormDialogClosed() {
+    this.$refs.addFormRef.resetFields()
+}
+```
+
+#### 5. 添加用户前的表单预验证
+
+在添加页面的确定按钮上，绑定一个点击事件
+
+```html
+<el-button type="primary" @click="addUser">确 定</el-button>
+```
+
+处理函数如下：
+
+```js
+// 添加用户
+async addUser() {
+    let flag = false
+    // 表单预验证
+    this.$refs.addFormRef.validate(valid => {
+        if (!valid) {
+            return null
+        }
+        flag = true
+    })
+    if (flag) {
+        // 校验成功，将数据提交后台接口
+        const res = await this.$http.post('users', this.addForm)
+        if (res.meta.status !== 201) {
+            return this.$message.error(`添加用户失败：${res.meta.msg}`)
+        }
+        this.$message.success('添加用户成功')
+        this.addDialogVisible = false
+        // 添加完成重新获取用户列表
+        this.getUserList()
+    }
+},
+```
+
+#### 5. 添加用户前的
