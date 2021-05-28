@@ -1471,5 +1471,318 @@ async created() {
 
   * ......
 
-  
+
+<img src="./resource/22-vue实战2.png" align="left" />
+
+# 7. 角色列表
+
+### 7.1 通过路由将角色组件展示
+
+创建一个`Roles.vue`，在`router/index.js`将其注册为`Home`的子路由
+
+```js
+{
+    path: '/home',
+    component: Home,
+    redirect: '/welcome',
+    children: [
+        {
+            path: '/roles',
+            component: Roles
+        }
+    ]
+}
+```
+
+### 7.2 发送面包屑数据
+
+在`created`钩子函数中，触发父组件所定义的事件管理中心的方法
+
+```js
+export default {
+  // 注入事件管理中心
+  inject: ['eventHub'],
+  created() {
+    // 向面包屑导航发送数据
+    this.eventHub.$emit('getBreadCrumb', ['权限管理', '角色列表'])
+  }
+}
+```
+
+### 7.3 渲染角色列表的数据
+
+和用户列表基本相同，我们仍然采用`el-card`作为底，使用表格来展示数据
+
+```html
+<el-card>
+    <el-button type="primary">添加角色</el-button>
+    <el-table :data="roleList" stripe style="width: 100%" border>
+        <el-table-column type="index" label="#" width="100" />
+        <el-table-column prop="roleName" label="角色名称" />
+        <el-table-column prop="roleDesc" label="角色描述" />
+        <el-table-column label="操作">
+        <el-button type="primary" size="small" icon="el-icon-edit" />
+        <el-button type="danger" icon="el-icon-delete" size="small" />
+        <el-tooltip
+          effect="dark"
+          content="修改用户组"
+          enterable
+          placement="top"
+        >
+          <el-button type="warning" icon="el-icon-s-custom" size="small" />
+        </el-tooltip>
+      </el-table-column>
+    </el-table>
+</el-card>
+```
+
+在`created`钩子函数中请求后台数据，并挂载到`roleList`上
+
+我们给操作这一栏增加了三个按钮
+
+<img src="./resource/23-vue实战7.png" align="left" />
+
+### 7.4 操作按钮增加Tip提示
+
+<img src="./resource/24-vue实战8.png" align="left" />
+
+ToolTip：https://element.eleme.cn/#/zh-CN/component/tooltip
+
+注册`Tooltip`
+
+```html
+<el-tooltip
+       effect="dark"
+       content="修改用户组"
+       :enterable="false"
+       placement="top"
+       >
+    <el-button type="warning" icon="el-icon-s-custom" size="small" />
+</el-tooltip>
+```
+
+* `effect`：模式 dark/light
+* `content`：提示的文字
+* `enterable`：鼠标是否可以进入tooltip，默认为true可以进入
+* `placement`：提示出现的地方，top表示为正上方
+
+### 7.5 角色展开视图
+
+#### 1. 增加展开列
+
+在索引列的前面，增加一列，`type='expand'`
+
+```html
+<!-- 展开列-->
+<el-table-column type="expand" width="50" />
+```
+
+### 7.6 添加编辑删除角色
+
+这三项操作与用户操作基本相同，加入弹出层即可，这里不放置代码了
+
+### 7.7 角色权限下渲染
+
+#### 1. 分析实现思路
+
+```html
+ <!-- 展开列-->
+<el-table-column type="expand" width="50">
+    <template slot-scope="scope">
+        {{ scope.row }}
+    </template>
+</el-table-column>
+```
+
+展开列中通过循环来将所有的数据一级、二级、三级渲染上去
+
+#### 2. 渲染一级权限
+
+通过v-for对权限进行循环，而`item1`就是一级权限
+
+如果没有权限，就默认加一个占位
+
+```html
+<template slot-scope="scope">
+    <div>
+        <div v-if="!scope.row.children.length">
+            该角色下暂无任何权限
+        </div>
+        <el-row v-else v-for="item1 in scope.row.children" :key="item1.id">
+            <!-- 一级权限 -->
+            <el-col :span="5">
+                <el-tag>{{ item1.authName }}</el-tag>
+            </el-col>
+            <!-- 二级和三级权限 -->
+            <el-col :span="19"></el-col>
+        </el-row>
+    </div>
+</template>
+```
+
+#### 3. 渲染二级三级权限
+
+有以及权限可以得到，二级三级权限也都是通过嵌套循环来做的，这里就不放置代码了
+
+#### 4. 给每个权限添加删除按钮
+
+给el-tag设置`closable`属性可以定义一个标签是否可移除。
+
+el-tag有一个`close`事件，用于将事件移除
+
+```js
+// 根据 ID 删除对应权限
+removeRightById(roleId, rightId) {
+    this.$confirm('确定删除该权限？该操作无法撤销', '提示框', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+    })
+        .then(async () => {
+        // 确定之后调用后台接口删除用户
+        const res = await this.$http.delete(
+            `roles/${roleId}/rights/${rightId}`
+        )
+        if (res.meta.status !== 200) {
+            return this.$message.error(`删除权限失败：${res.meta.msg}`)
+        }
+        this.$message.success('删除权限成功')
+        const roleIndex = this.roleList.findIndex(item => {
+            return item.id === roleId
+        })
+        // 删除用户成功之后重新挂载数据
+        this.roleList[roleIndex].children = res.data
+    })
+        .catch(action => {
+        // 点击取消和关闭的操作
+    })
+}
+```
+
+### 7.8 角色分配权限
+
+#### 1. 点击按钮弹出Dialog
+
+和之前的思路一样，这里就不放代码了
+
+#### 2. 点击页面处理事件中获取所有权限的数据
+
+获取所有权限的数据并通过树形结构渲染出来
+
+```js
+// 分配权限按钮点击事件
+async showSetRightDialog() {
+    this.setRightDialogVisible = true
+    // 获取权限数据，使用树形结构
+    const res = await this.$http.get('rights/tree')
+    if (res.meta.status !== 200) {
+        return this.$message.error(`获取权限列表失败：${res.meta.msg}`)
+    }
+    // 把权限数据保存在data中
+    this.rightList = res.data
+},
+```
+
+在Dialog弹出层中对数据进行渲染
+
+使用el-tree控件：https://element.eleme.cn/#/zh-CN/component/tree
+
+使用默认展开和选中，记得注册`Tree`
+
+#### 3. 渲染树形结构
+
+```html
+<el-tree
+    :data="rightList"
+    :props="treeProps"
+    show-checkbox
+    node-key="id"
+    default-expand-all
+    :default-checked-keys="checkedTreeKeys"
+></el-tree>
+```
+
+* `data`：依赖的数据
+* `props`：这个是树形结构的绑定对象，简单来说就是树形结构根据依赖数据的哪一项进行渲染
+* `show-checkbox`：显示出复选框
+* `node-key`：点击复选框，value的值是依赖数据的哪个数据
+* `default-expand-all`：默认展开所有的列表
+* `default-checked-keys`：默认选中的列表，根据`node-key`来判断，这是一个数组
+
+#### 4. 实现默认选中的思路
+
+点击按钮的同时，把这个角色所有的三级权限的ID获取到，将其替换为`default-checked-keys`就可以了
+
+先定义一个递归函数，用于获取所有的三级节点的ID
+
+```js
+// 通过递归的形式获取角色下所有三级权限的ID，并保存在data中
+getLeafKeys(node, arr) {
+    // 如果当前节点不包含children属性，说明是三级节点
+    if (!node.children) {
+        return arr.push(node.id)
+    }
+    node.children.forEach(item => {
+        this.getLeafKeys(item, arr)
+    })
+}
+```
+
+在点击按钮的时候，调用递归函数
+
+```js
+// 分配权限按钮点击事件
+async showSetRightDialog(role) {
+    // other code ...
+    // 递归获取三级节点的ID
+    this.getLeafKeys(role, this.checkedTreeKeys)
+    // other code ...
+},
+```
+
+要传入当前的role角色的信息
+
+#### 5. 关闭分配权限界面重置默认选中
+
+在分配权限的Dialog监听close事件，将选中的重置为空
+
+```html
+<el-dialog
+      title="分配角色权限"
+      :visible.sync="setRightDialogVisible"
+      width="30%"
+      @close="checkedTreeKeys = []"
+>
+```
+
+#### 6. 分配权限
+
+点击确定之后，向服务器发起请求，保存权限，因为一个Roleid，所以我们在点击分配按钮事件上，将用户保存在data中，也就是`currentRoleId`
+
+```js
+// 分配权限
+async setRight() {
+    // el-tree有内置方法getCheckedKeys可以获取被选中的node-key
+    // 由于我们指定的tree的node-key是id，所以可以获取到所有的被选中的id
+    const checkedRightIds = this.$refs.treeRef.getCheckedKeys()
+    // 不仅获取已选中的ID，还要获取半选中的ID
+    const halfCheckedRightIds = this.$refs.treeRef.getHalfCheckedKeys()
+    const allCheckedRightsIds = [
+        ...checkedRightIds,
+        ...halfCheckedRightIds
+    ].join(',')
+    // 发起请求
+    const res = await this.$http.post(`roles/${this.currentRoleId}/rights`, {
+        rids: allCheckedRightsIds
+    })
+    if (res.meta.status !== 200) {
+        return this.$message.error(`分配权限失败${res.meta.msg}`)
+    }
+    this.$message.success('分配权限成功！')
+    // 成功关闭页面
+    this.setRightDialogVisible = false
+    // 重新获取数据
+    this.getRoleList()
+},
+```
 
