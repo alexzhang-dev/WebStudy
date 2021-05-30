@@ -1786,3 +1786,214 @@ async setRight() {
 },
 ```
 
+# 8. 分类管理
+
+### 8.1 商品分类管理概述
+
+商品分类用于购物时，快速找到所要购买的商品，可以通过电商平台主页直观的看到
+
+<img src="./resource/25-vue实战9.png" align="left" />
+
+### 8.2 开发商品分类
+
+#### 1. 通过路由加载商品分类组件
+
+和所有的组件相同，在`router/index.js`中注册组件
+
+之后发送面包屑数据
+
+#### 2. 绘制商品分类基本结构
+
+卡片视图中放置一个添加按钮和表格和分页
+
+#### 3. 获取商品分类列表数据
+
+在`created`钩子函数中获取接口数据
+
+#### 4. 使用 vue-table-with-tree-grid 组件
+
+由于我们想要实现的表格的效果Element-UI并没有，所以需要使用第三方组件
+
+https://github.com/MisterTaki/vue-table-with-tree-grid
+
+首先使用 Vue UI 来下载依赖，在`main.js`中导入组件
+
+```js
+// Vue.component的方式来注册组件，第一个参数是给组件起的名字，第二个参数是组件
+Vue.component('tree-table', TreeTable)
+```
+
+这样就可以在自己的项目中通过下方的方式来使用组件了
+
+```html
+<tree-table></tree-table>
+```
+
+#### 5. 添加分页功能
+
+分页功能和 Users 是一致的
+
+#### 6. 添加新增分类的Dialog
+
+基本和其他新增功能一致，增加验证规则
+
+#### 7. 添加分类时的级联选择框
+
+https://element.eleme.cn/#/zh-CN/component/cascader
+
+注册`Cascader`
+
+```html
+<el-cascader
+   v-model="addCategoryForm.categoryPid"
+   :options="categoryList"
+   :props="cascaderProps"
+   @change="parentCategoryChanged"
+   :show-all-levels="false"
+   change-on-select
+   filterable
+></el-cascader>
+```
+
+* `v-model`：双向绑定的值
+* `:options`：源数据
+* `:props`：绑定源数据配置
+* `@change`：监听选择框的值改变事件
+* `:show-all-levels`：输入框中是否显示选中值的完整路径
+* `change-on-select`：是否可以选择一级
+* `filterable`：是否可以搜索
+
+```js
+// 级联选择框的props
+cascaderProps: {
+    // 子级菜单展开的方式
+    expandTrigger: 'hover',
+    // value: 选中的值
+    value: 'cat_id',
+    // label：看到的值
+    label: 'cat_name'
+}
+```
+
+#### 8. 添加编辑和删除功能
+
+与角色组件的基本一致，这里就不放代码了
+
+# 9. 参数管理
+
+### 9.1 参数管理概述
+
+商品参数用于显示商品的固定特征信息，可以通过电商平台详情页面看到
+
+* 动态参数（用户可以动态选择不同的属性）
+
+  <img src="./resource/26-vue实战10.png" align="left" />
+
+* 静态属性（商品固定的参数）
+
+  <img src="./resource/27-vue实战11.png" align="left" />
+
+### 9.2 通过路由展示组件
+
+这个和其他的都一样，只不过需要注册`Params`组件
+
+### 9.3 开发参数管理页面
+
+#### 1. 使用 el-alert 展示警告文本
+
+https://element.eleme.cn/#/zh-CN/component/alert
+
+注册`Alert`
+
+```html
+<el-alert
+   title="注意：只能选择三级分类！"
+   type="warning"
+   show-icon
+   :closable="false"
+>
+</el-alert>
+```
+
+* `title`：提示文本
+* `type`：风格
+* `show-icon`：展示出文字前的小图标
+* `closeable`：是否可以删除
+
+#### 2. 使用级联选择器
+
+```html
+<!-- 选择商品分类区域 -->
+<el-row class="params_opt">
+    <el-col>
+        <span>选择商品分类：</span>
+        <!-- 选择商品的级联选择框 -->
+        <el-cascader
+           v-model="selectedKeys"
+           :options="categoryList"
+           :props="paramsCascaderProps"
+            @change="handleCascaderChanged"
+           filterable
+       ></el-cascader>
+    </el-col>
+</el-row>
+```
+
+#### 3. 渲染 Tabs 页签
+
+https://element.eleme.cn/#/zh-CN/component/tabs
+
+注册`Tabs`
+
+```html
+<el-tabs v-model="activeName" @tab-click="handleTabChange">
+    <el-tab-pane label="动态参数" name="dynamic">动态参数</el-tab-pane>
+    <el-tab-pane label="静态参数" name="static">静态参数</el-tab-pane>
+</el-tabs>
+```
+
+* `label`：每个页签的名字
+* `name`：对应`v-model`的值
+* 内容写在每个页签中
+
+#### 4. 如果没有选中分类，添加按钮为禁用
+
+我们使用计算属性，添加一个方法
+
+```js
+computed: {
+    // 如果按钮需要被禁用，则返回true，反之返回false
+    isBtnDisabled: function() {
+        if (this.selectedKeys.length !== 3) {
+            return true
+        }
+        return false
+    }
+},
+```
+
+在按钮上添加一个属性，让计算属性来控制这个按钮是否应该被禁用
+
+```html
+<el-button type="primary" :disabled="isBtnDisabled">添加参数</el-button>
+```
+
+#### 5. 获取参数列表
+
+在级联选择框的`@change`处理函数中，获取参数列表
+
+在切换 Tab 面板的处理函数中，也重新再获取一次参数列表
+
+将获取到的数据通过不同的模式渲染到不同的数据上
+
+```js
+// 将获取的数据挂载到不同的数据源上
+sel === 'many'
+    ? (this.manyParams = res.data)
+    : (this.onlyParams = res.data)
+```
+
+#### 6. 对参数进行基本操作
+
+添加、修改、删除参数和其他基本相同，这里就不妨代码了
+
