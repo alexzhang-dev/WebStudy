@@ -1997,3 +1997,287 @@ sel === 'many'
 
 添加、修改、删除参数和其他基本相同，这里就不妨代码了
 
+#### 7. 渲染参数下的可选项
+
+每个参数名称下都应该对应多个参数，由于我们在渲染结构的时候已经加入了`expand`展开列，可以在展开列中渲染参数
+
+```js
+// 在获取数据的时候将 attr_vals 通过字符串分割为数组
+res.data.forEach((item, index) => {
+    res.data[index].attr_vals = item.attr_vals.split(',')
+})
+```
+
+在展开列中
+
+```html
+ <!-- 展开列 -->
+<el-table-column type="expand">
+    <template slot-scope="scope">
+        <el-tag
+          v-for="item in scope.row.attr_vals"
+          class="eachParams"
+          :key="item"
+          closable
+         >{{ item }}</el-tag>
+    </template>
+</el-table-column>
+```
+
+#### 8. 添加按钮点击变为输入框
+
+```html
+ <!-- 输入文本框 -->
+<el-input
+   class="addTagInput"
+   v-if="scope.row.inputVisible"
+   v-model="scope.row.inputValue"
+   ref="addTagInputRef"
+   size="small"
+   @keyup.enter.native="handleInputConfirm(scope.row)"
+   @blur="handleInputConfirm(scope.row)"
+>
+</el-input>
+<!-- 添加的按钮 -->
+<el-button v-else size="small" @click="showInput(scope.row)">
+    + 新的参数
+</el-button>
+```
+
+```js
+res.data.forEach(item => {
+    // 每一行添加一个inputVisible和inputValue
+    item.inputVisible = false
+    item.inputValue = ''
+})
+```
+
+点击添加按钮，触发函数，按钮隐藏，输入框出现
+
+```js
+// 添加按钮展示文本框
+showInput(currentParam) {
+    currentParam.inputVisible = true
+    // this.$nextTick()将回调延迟到下次 DOM 更新循环之后执行
+    // 把inputVisibel重置为true之后，真实 DOM 还没有完成绘制，所以无法获取到addTagInputRef
+    // 因此需要使用$nextTick
+    this.$nextTick(_ => {
+        // 让文本框自动获取焦点
+        this.$refs.addTagInputRef.$refs.input.focus()
+    })
+}
+```
+
+输入内容后点击enter或者blur，文本框消失
+
+```js
+// 文本框失去焦点和摁下enter都会触发
+handleInputConfirm(currentParam) {
+    if (currentParam.inputValue.trim().length === 0) {
+        return null
+      }
+    // 将 Tag 内容 push 到 attr_vals 的数组中
+    currentParam.attr_vals.push(currentParam.inputValue)
+    // 将内容持久化保存
+    // 1. 将数组再转为字符串
+    const vals = currentParam.attr_vals.join(',')
+    // 2. 调用接口
+    const res = await this.$http.put(
+        `categories/${this.getCategoryId}/attributes/${currentParam.attr_id}`,
+        {
+            attr_name: currentParam.attr_name,
+            attr_sel: currentParam.attr_sel,
+            attr_vals: vals
+        }
+    )
+    console.log(currentParam.attr_sel)
+    if (res.meta.status !== 200) {
+        return this.$message.error(`保存新可选参数失败：${res.meta.msg}`)
+    }
+    this.$message.success('保存新可选参数成功')
+    // 文本框消失，重置内容
+    currentParam.inputValue = ''
+    currentParam.inputVisible = false
+},
+```
+
+再`tag`上添加`closable`，可以监听`@close`
+
+```js
+// 标签删除
+async handleTagClose(currentParam, currentTag) {
+    // 通过传递当前的tag的名字来获取到对应的index
+    const index = currentParam.attr_vals.findIndex(item => {
+        return item === currentTag
+    })
+    // 获取到之后删除掉
+    currentParam.attr_vals.splice(index, 1)
+    // 调用接口
+    // 2. 调用接口
+    const vals = currentParam.attr_vals.join(',')
+    const res = await this.$http.put(
+        `categories/${this.getCategoryId}/attributes/${currentParam.attr_id}`,
+        {
+            attr_name: currentParam.attr_name,
+            attr_sel: currentParam.attr_sel,
+            attr_vals: vals
+        }
+    )
+    console.log(currentParam.attr_sel)
+    if (res.meta.status !== 200) {
+        return this.$message.error(`删除可选参数失败：${res.meta.msg}`)
+    }
+    this.$message.success('删除可选参数成功')
+}
+```
+
+#### 9. 选择三级后再选择二级或一级清空表格数据
+
+再处理级联选择框的事件中，判断如果选择的不是三级菜单，就把数据清空
+
+```js
+handleCascaderChanged() {
+    // 证明选中的不是三级分类
+    if (this.selectedKeys.length !== 3) {
+        this.selectedKeys = []
+        // 如果选中的不是三级菜单，就清空表格数据
+        this.manyParams = []
+        this.onlyParams = []
+        return null
+    }
+    // 如果选中了，那么就获取参数列表
+    this.getParams(this.getCategoryId, this.activeName)
+},
+```
+
+# 10. 商品列表
+
+### 10.1 通过路由将商品列表组件加载出来
+
+这个和其他的基本一致，就不放代码了
+
+### 10.2 获取商品列表
+
+再`created`钩子函数中，调用接口获取商品列表
+
+```js
+methods: {
+    // 根据分页获取数据列表
+    async getGoodsList() {
+        // 获取商品列表数据
+        const res = await this.$http.get('goods', { params: this.queryInfo })
+        if (res.meta.status !== 200) {
+            return this.$message.error(`获取商品列表失败：${res.meta.msg}`)
+        }
+        this.goodsList = res.data.goods
+        this.queryInfo.pagenum = res.data.pagenum
+        this.total = res.data.total
+    }
+},
+created() {
+    // 获取数据
+    this.getGoodsList()
+}
+```
+
+### 10.3 通过表格渲染数据
+
+基本上和用户界面相同
+
+其中值得一提的是，我们要全局挂载一个格式化时间的过滤器
+
+```js
+// 注册一个全局的过滤器
+Vue.filter('dateFormat', function(originValue) {
+  return format.dateFormat(originValue)
+})
+```
+
+```html
+ <el-table-column label="创建时间" width="180">
+     <template slot-scope="scope">
+         <!-- 使用过滤器 -->
+         {{ scope.row.add_time | dateFormat }}
+     </template>
+</el-table-column>
+```
+
+### 10.4 使用编程时导航跳转到添加页面
+
+由于我们想要通过组件的方式来添加商品，所以需要使用编程时导航来加载组件
+
+```js
+ // 通过编程式导航来跳转到添加商品组件
+addGoods() {
+    this.$router.push('/goods/add')
+}
+```
+
+### 10.5 开发添加商品
+
+#### 1. 绘制 alert 提示框
+
+```html
+<el-alert
+   title="请填写商品信息"
+   type="info"
+   center
+   show-icon
+   :closable="false"
+>
+</el-alert>
+```
+
+#### 2. 绘制进度条
+
+https://element.eleme.cn/#/zh-CN/component/steps
+
+使用含状态的进度条，记得注册`Step`和`Steps`
+
+```html
+<el-steps :active="0" finish-status="success" align-center>
+    <el-step title="基本信息"></el-step>
+    <el-step title="商品参数"></el-step>
+    <el-step title="商品属性"></el-step>
+    <el-step title="商品图片"></el-step>
+    <el-step title="商品内容"></el-step>
+    <el-step title="完成"></el-step>
+</el-steps>
+```
+
+* `:active`：当前处于步骤的index
+* `finish-status`：完成状态的风格
+* `align-center`：居中显示
+
+#### 3. 绘制表单
+
+将表单放在`el-tabs`的外面，不要放在`el-tabs-pane`和`el-tabs`中间
+
+#### 4. 图片上传
+
+https://element.eleme.cn/#/zh-CN/component/upload
+
+使用 Upload 上传组件，使用图片列表缩略图
+
+```html
+<el-upload
+    :action="uploadURL"
+    :on-preview="handlePreview"
+    :on-remove="handleRemove"
+    :file-list="fileList"
+    list-type="picture"
+>
+    <el-button size="small" type="primary">点击上传</el-button>
+    <div slot="tip" class="el-upload__tip">
+        只能上传jpg/png文件，且不超过500kb
+    </div>
+</el-upload>
+```
+
+* `action`：上传地址
+* `on-preview`：预览的处理函数
+* `on-remove`：删除的处理函数
+* `list-type`：可以指定当前上传文件预览的呈现方式
+
+手动给上传组件添加请求头
+
