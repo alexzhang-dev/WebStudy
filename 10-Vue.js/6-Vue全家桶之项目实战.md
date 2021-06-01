@@ -2281,3 +2281,79 @@ https://element.eleme.cn/#/zh-CN/component/upload
 
 手动给上传组件添加请求头
 
+```html
+<el-upload :headers="headerObj">
+```
+
+```js
+// 上传图片时需要用到的 Headers
+headerObj: {
+    Authorization: window.sessionStorage.getItem('token')
+}
+```
+
+#### 5. 图片上传成功
+
+在`el-upload`上有一个钩子`on-success`，该属性用于接收一个回调函数，回想回调函数传入三个参数
+
+* `response`：服务器的响应
+* `file`：当前的图片
+* `fileList`：所有的图片列表
+
+由于添加商品需要用到图片信息，因此需要在钩子函数中将图片push到addForm对象上
+
+#### 6. 图片删除
+
+`el-upload`上有钩子`on-remove`删除上传的图片，需要将该图片从addForm中删除
+
+```js
+// 处理图片删除
+handleUploadRemove(file) {
+    const filePath = file.response.data.tmp_path
+    const index = this.addGoodsForm.pics.findIndex(item => {
+        return item.pic === filePath
+    })
+    this.addGoodsForm.pics.splice(index, 1)
+}
+```
+
+#### 7. 图片预览
+
+`el-upload`上有钩子`on-preview`图片预览，就弹出Dialog
+
+```js
+// 处理图片预览
+handlePreview(file) {
+    // 让预览Dialog弹出来
+    this.previewDialogVisible = true
+    this.previewImgURL = this.$baseURL + file.response.data.tmp_path
+},
+```
+
+#### 8. 商品添加需要编辑器
+
+用到的富文本编辑器是：`vue-quill-edtior`
+
+```js
+// 在 main.js 全局注册 vue-quill-editor
+import VueQuillEditor from 'vue-quill-editor'
+
+import 'quill/dist/quill.core.css' // import styles
+import 'quill/dist/quill.snow.css' // for snow theme
+import 'quill/dist/quill.bubble.css' // for bubble theme
+
+Vue.use(VueQuillEditor)
+```
+
+在组件中使用
+
+```html
+<!-- 富文本编辑器 -->
+<quill-editor v-model="addGoodsForm.goods_introduce" />
+```
+
+# 11. 订单管理
+
+### 1. 通过路由加载订单列表
+
+和其他的一样
