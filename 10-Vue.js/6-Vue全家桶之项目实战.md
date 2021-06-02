@@ -2357,3 +2357,88 @@ Vue.use(VueQuillEditor)
 ### 1. 通过路由加载订单列表
 
 和其他的一样
+
+# 12. 项目优化
+
+### 12.1 添加进度条效果
+
+通过`nprogress`实现
+
+https://github.com/rstacruz/nprogress
+
+我们在配置`axios`的时候配置了请求响应拦截器，可以在这之中对于进度条进行显示和隐藏效果
+
+* `NProgress.start();`方法用于展示进度条
+* `NProgress.done();`方法用于关闭进度条
+
+```js
+// 配置请求拦截器
+axios.interceptors.request.use(config => {
+  // 为请求头添加 Authorization 字段
+  config.headers.Authorization = window.sessionStorage.getItem('token')
+  // 添加进度条
+  nprogress.start()
+  return config
+})
+
+// 配置响应拦截器
+axios.interceptors.response.use(
+  response => {
+    // 隐藏进度条
+    nprogress.done()
+    return response.data
+  },
+  error => {
+    return Promise.reject(error)
+  }
+)
+```
+
+### 12.2 在执行build期间移除所有的console指令
+
+在第一次build打包时，会出现`warning  Unexpected console statement  no-console`
+
+这句话的意思时：在发布阶段中，不可以出现`console.xx`指令，删除掉就可以了
+
+`babel-plugin-transform-remove-console`
+
+这个插件可以在发布阶段可以移除所有的`console.xx`
+
+```bash
+npm install babel-plugin-transform-remove-console --save-dev
+```
+
+#### 1. 如何使用？
+
+在项目根目录`.babelrc`文件中，加入以下配置
+
+```js
+// 没有配置
+{
+  "plugins": ["transform-remove-console"]
+}
+// 有配置
+{
+  "plugins": [ ["transform-remove-console", { "exclude": [ "error", "warn"] }] ]
+}
+```
+
+或者在`babel.config.js`中，加入以下配置
+
+```js
+module.exports = {
+  presets: ['@vue/cli-plugin-babel/preset'],
+  plugins: [
+    [
+      'component',
+      {
+        libraryName: 'element-ui',
+        styleLibraryName: 'theme-chalk'
+      }
+    ],
+    // 加入配置
+    'transform-remove-console'
+  ]
+}
+```
+
