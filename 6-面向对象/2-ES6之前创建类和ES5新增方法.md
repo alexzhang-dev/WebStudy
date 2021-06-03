@@ -39,8 +39,8 @@ function Person(uname, age) {
 }
 var p = new Person("alex", 18);
 var p2 = new Person("tom", 19);
-p.say();
-p2.say();
+p.say(); // hello!alex
+p2.say(); // hello!tom
 ```
 
 ##### new在执行时会做四件事情
@@ -89,6 +89,7 @@ function Person(uname, age) {
 }
 var p = new Person("alex", 18);
 var p2 = new Person("tom", 19);
+console.log(p.say === p2.say) // false
 ```
 
 > 上面我们创建了两个实例对象：p和p2
