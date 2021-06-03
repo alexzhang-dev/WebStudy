@@ -87,10 +87,20 @@
 在项目根目录下`.eslintrc.js`中配置
 
 ```js
-rules: {
+module.exports = {
+  root: true,
+  env: {
+    node: true
+  },
+  extends: ["plugin:vue/essential"],
+  rules: {
     // 禁用函数名后面必须加空格
-    'space-before-function-paren': 0
+    "space-before-function-paren": 0
+  },
+  parserOptions: {
+    parser: "babel-eslint"
   }
+};
 ```
 
 在 VS Code 编辑器下的`settings.json`中添加
@@ -2426,19 +2436,200 @@ npm install babel-plugin-transform-remove-console --save-dev
 或者在`babel.config.js`中，加入以下配置
 
 ```js
+// 发布阶段需要用到的插件
+const productPlugins = []
+if(process.env.NODE_ENV === 'production'){
+   // 只有发布阶段才会remove-console插件
+   productPlugins.push('transform-remove-console')
+}
+
 module.exports = {
-  presets: ['@vue/cli-plugin-babel/preset'],
   plugins: [
-    [
-      'component',
-      {
-        libraryName: 'element-ui',
-        styleLibraryName: 'theme-chalk'
-      }
-    ],
     // 加入配置
-    'transform-remove-console'
+    ...productPlugins
   ]
 }
 ```
+
+### 12.3 生成打包报告
+
+打包时，为了直观的看到项目中存在的问题，可以在打包时生成打包报告，生成报告的方式有两种：
+
+* 通过命令行参数的形式生成打包报告
+
+  ```bash
+  vue-cli-service build --report
+  ```
+
+* 通过 Vue-CLI-UI 直接查看报告，通过控制台和分析面板，可以方便的看到项目中存在的问题
+
+### 12.4 项目优化策略
+
+#### 1. 通过 vue.config.js 修改 webpack 的默认配置
+
+通过 vue-cli 生成的项目，默认隐藏了所有的 webpack 配置，目的是为了屏蔽项目的配置过程，让程序员专注于具体功能的业务逻辑的实现上
+
+如果程序员有修改 webpack 默认配置的需求，可以在项目根目录中，创建`vue.config.js`配置文件，从而对项目的打包发布过程有自定义的配置（具体配置参考 https://cli.vuejs.org/zh/config/#vue-config-js ）
+
+```js
+// vue.config.js
+// 这个文件，应该导出一个包含自定义配置的对象
+module.exports = {
+    // 配置项
+}
+```
+
+#### 2. 为开发模式和发布模式指定不同的打包入口
+
+默认情况下，Vue项目的开发模式和发布模式，共用一个打包的入口文件`src/main.js`。为了将项目的开发过程与发布过程分离，我们可以为两种模式各自指定一种入口的打包文件，即：
+
+* 开发模式的入口`src/main-dev.js`
+* 发布模式的入口`src/main-prod.js`
+
+#### 3. configureWebpack 和 chainWebpack
+
+在`vue.config.js`中，新增`configureWebpack`与`chainWebpack`节点，来自定义`webpack`的打包配置
+
+在这里，这两者的作用是完全相同的，唯一的区别就是他们修改 webpack 配置的方式不同：
+
+* `chainWebpack`通过**链式编程**的方式，来修改默认的 webpack 配置
+* `configureWebpack`通过**操作对象**的形式，来修改默认的 webpack 配置
+
+#### 4. 通过 chainWebpack 自定义打包入口文件
+
+```js
+module.exports = {
+    chainWebpack: config => {
+        config.when(process.env.NODE_ENV === 'production', config => {
+            config.entry('app').clear().add('./src/main-prod.js')
+        })
+        config.when(process.env.NODE_ENV === 'development', config => {
+            config.entry('app').clear().add('./src/main-dev.js')
+        })
+    }
+}
+```
+
+`config.entry('app').clear().add('./src/main-prod.js')`
+
+* 通过`config.entry('app')`获取到默认的打包入口
+* `clear()`清空默认的打包入口
+* `add`新增默认打包入口
+
+#### 5. 通过 externals 加载外部 CDN 资源
+
+默认情况下，通过 import 语法导入的第三方依赖包，最终会被打包合并到同一个文件中，从而导致打包成功后，单文件体积过大的问题
+
+为了解决上述问题，可以通过 webpack 的 externals 节点，来配置并加载外部的 CDN 资源。凡是声明在 externals 中的第三方依赖包，都不会被打包
+
+```js
+// vue.config.js
+config.set('externals', {
+    vue: 'Vue',
+    'vue-router': 'VueRouter',
+    axios: 'axios',
+    lodash: '_',
+    echarts: 'echarts',
+    nprogress: 'NProgress',
+    'vue-quill-editor': 'VueQuillEditor'
+})
+```
+
+在`public/index.html`中加入以下 CDN 资源
+
+```html
+<!-- nprogress 样式表文件 -->
+<link rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+<!-- 富文本编辑器的样式文件 -->
+<link rel="stylesheet" href="https://cdn.staticfile.org/quill/1.3.4/quill.core.min.css" />
+<link rel="stylesheet" href="https://cdn.staticfile.org/quill/1.3.4/quill.snow.min.css" />
+<link rel="stylesheet" href="https://cdn.staticfile.org/quill/1.3.4/quill.bubble.min.css"/>
+<script src="https://cdn.staticfile.org/vue/2.5.22/vue.min.js"></script>
+<script src="https://cdn.staticfile.org/vue-router/3.0.1/vue-router.min.js"></script>
+<script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+<script src="https://cdn.staticfile.org/lodash.js/4.17.11/lodash.min.js"></script>
+<script src="https://cdn.staticfile.org/echarts/4.1.0/echarts.min.js"></script>
+<script src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js"></script>
+<!-- 富文本编辑器的 js 文件 -->
+<script src="https://cdn.staticfile.org/quill/1.3.4/quill.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-quill-editor@3.0.4/dist/vue-quill-editor.js"></script>
+```
+
+#### 6. 通过 CDN 优化 ElementUI 的打包
+
+虽然在开发阶段，我们使用 Element-UI 组件的按需加载，尽可能的减少了打包的体积，但是那些按需加载的组件，还是占用了很大的文件体积。此时我们可以使用 CDN 的方式来加载 Element-UI
+
+* 在`main-prod.js`中，删除掉按需加载的Element-UI
+* 在`public/index.html`的头部，通过 CDN 的形式来加载 Element-UI 的 JS 和 CSS 样式
+
+#### 7. 首页内容定制
+
+不同的打包环境下，首页内容可能有所不同，我们可以通过插件的方式进行定制。插件配置如下：
+
+```js
+chainWebpack: config => {
+    config.when(process.env.NODE_ENV === 'production', config => {
+        config.plugin('html').tap(args => {
+            args[0].isProd = true
+            return args
+        })
+    })
+    // 开发模式
+    config.when(process.env.NODE_ENV === 'development', config => {
+      config.plugin('html').tap(args => {
+        args[0].isProd = true
+        return args
+      })
+    })
+}
+```
+
+在`public/index.html`首页中，就可以根据`isProd`的值来决定是否应该渲染
+
+```html
+<!-- 按需渲染的页面标题 -->
+<title><%= htmlWebpackPlugin.options.isProd ? '' : 'dev - ' %>shop</%></title>
+
+<!-- 按需加载外部的 CDN 资源 -->
+<% if (htmlWebpackPlugin.options.isProd) { %>
+<!-- 通过 external 加载的外部 CDN 资源 -->
+<% } %>
+```
+
+#### 8. 实现路由懒加载
+
+当我们打包构建项目时，JS包会变得很大，影响页面的加载，如果我们能把不同的路由对应的组件分割成不同的代码块，然后当路由被访问的时候才加载对应组件，这样就会很高效了
+
+* 安装`babel/plugin-syntax-dynamic-import`包
+* 在`babel.config.js`配置文件中声明该插件
+* 将路由改造为按需加载模式
+
+```js
+const foo = () => import ( /* webpackChunkName: 'grounp-foo' */ './Foo.vue')
+```
+
+* `webpackChunkName`：组件的分组，同一个分组可以会打包为同一个JS文件
+
+* https://router.vuejs.org/zh/guide/advanced/lazy-loading.html
+
+# 13. 项目上线
+
+### 13.1 项目上线相关配置
+
+* 通过 node 创建服务器
+* 开启 gzip 配置
+* 配置 https 服务
+* 使用 pm2 管理应用
+
+#### 1. 开启 gzip
+
+使用宝塔面板可以对服务器进行 Nginx 的zip
+
+如果使用 Express 作为服务器
+
+* 安装相关包`npm install compression -D`
+* 导入包`const compression = require('compression')`
+* 使用包`app.use(compression())`
+
+
 
