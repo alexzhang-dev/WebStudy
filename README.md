@@ -2,7 +2,7 @@
 >
 > 作者：张霄
 >
-> 邮箱：mail4alexzzz@gmail.com
+> 邮箱：alexzhang1030@gmail.com
 
 # 简介：
 
@@ -89,5 +89,6 @@
   * [0905.Vue全家桶之前端工程化](10-Vue.js/5-Vue全家桶之前端工程化.md)
   * [0906.Vue全家桶之Vuex](10-Vue.js/7-Vue全家桶之Vuex.md)
   * [0907.Vue全家桶项目实战](10-Vue.js/6-Vue全家桶之项目实战.md)
+  * 0908.Vue3.x【待更新】
 * 10.微信小程序
 
