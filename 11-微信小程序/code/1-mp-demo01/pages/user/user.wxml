@@ -1,0 +1,43 @@
+<!--pages/user/user.wxml-->
+<view class="container1">
+  <view>A</view>
+  <view>B</view>
+  <view>C</view>
+</view>
+
+<scroll-view scroll-y>
+  <view>D</view>
+  <view>E</view>
+  <view>F</view>
+</scroll-view>
+
+<!-- 轮播图区域 -->
+<!-- indicator-dots：显示面板指示点 -->
+<swiper
+  indicator-dots
+  indicator-color="#fff"
+  indicator-active-color="#000"
+  autoplay
+  interval="2000"
+  circular
+  >
+  <swiper-item>A</swiper-item>
+  <swiper-item>B</swiper-item>
+  <swiper-item>C</swiper-item>
+</swiper>
+
+<text user-select>18939559196</text>
+
+<!-- rich-text 可以将 HTML 渲染为对应的 WXML -->
+<rich-text nodes="<h1 style='margin-top: 20px'>标题</h1>"></rich-text>
+
+<button>按钮</button>
+
+<!-- 通过 type 指定按钮类型 -->
+<button>默认按钮</button>
+<button type="primary">主色调按钮</button>
+<button type="warn">警告按钮</button>
+<!-- 通过 size 指定按钮尺寸 -->
+<button size="mini">小按钮</button>
+<!-- plain 镂空按钮 -->
+<button size="mini" plain>小的镂空按钮</button>

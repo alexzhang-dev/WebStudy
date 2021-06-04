@@ -1,0 +1,62 @@
+/* pages/user/user.wxss */
+.container1 {
+  display: flex;
+  justify-content: space-between;
+}
+
+.container1 view {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container1 view:nth-child(1) {
+  background-color: lightblue;
+}
+
+.container1 view:nth-child(2) {
+  background-color: lightcoral;
+}
+
+.container1 view:nth-child(3) {
+  background-color: lightgoldenrodyellow
+}
+
+scroll-view {
+  margin-top: 20px;
+  background-color: green;
+  height: 120px;
+  width: 120px;
+}
+
+scroll-view view {
+  height: 200px;
+  color: white
+}
+
+swiper{
+  width: 100%;
+  height: 200px;
+  margin-top: 10px;
+  margin-bottom: 50px
+}
+
+swiper-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+swiper-item:nth-child(1) {
+  background-color: lightgreen;
+}
+
+swiper-item:nth-child(2) {
+  background-color: lightpink;
+
+}
+swiper-item:nth-child(3) {
+  background-color: lightsalmon;
+}
