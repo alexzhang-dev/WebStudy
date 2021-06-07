@@ -1,0 +1,51 @@
+<!-- 在页面使用 {{}} Mustache 语法来绑定内容 -->
+<view>{{ info }}</view>
+<!-- 动态绑定属性 -->
+<image src="{{ imgURL }}" alt="" mode="widthFix"></image>
+<!-- 三元表达式 -->
+<view>{{ flag ? '是真的' : '是假的' }}</view>
+<!-- 算术运算 -->
+<view>{{ num + 100 }}</view>
+<!-- 绑定事件 -->
+<view>
+  <button type="primary" bindtap="handleTap" size="mini">点击我</button>
+  {{ msg }}
+</view>
+<view>
+  <!-- 事件传参不可以直接穿 -->
+  <!-- <button bindtap="handleTap2(123)">这种方法是错误的，bindtap后面会直接解析为处理函数的名字</button> -->
+  <!-- 需要用到 data-* 来传参 -->
+  <button bindtap="handleTap2" size="mini" data-num="{{ 123 }}">事件传参</button>
+</view>
+<view>
+  <!-- 监控输入事件 -->
+  <input type="text" bindinput="handleInput" class="input" placeholder="监控输入事件" />
+  <text>输入的值是：{{ inputMsg }}</text>
+</view>
+<view>
+  <!-- 使用 wx:if={{}} 来判断该代码块是否被渲染 -->
+  性别：
+  <text wx:if="{{ gender === 0 }}">男</text>
+  <text wx:elif="{{ gender === 1 }}">女</text>
+  <text wx:else>保密</text>
+</view>
+<view>
+  <!-- 可以使用 block 来控制多个组件显示或隐藏 -->
+  <!-- block 不会渲染在页面上 -->
+  <block wx:if="{{ userType === 0 }}">
+    <view>用户组：管理员</view>
+    <view>用户权限：删除用户</view>
+  </block>
+</view>
+<!-- 使用 wx:for 来循环渲染 -->
+<view wx:for="{{ list }}">
+  索引：{{ index }}; 值：{{ item }}
+</view>
+<!-- 使用 wx:for-index 来指定索引名， 使用 wx:for-item 来指定值 -->
+<view wx:for="{{ list }}" wx:for-index="i" wx:for-item="value">
+  索引：{{ i }}; 值：{{ value }}
+</view>
+<!-- wx:for 时 推荐使用 wx:key 来指定 key 值 -->
+<view wx:for="{{ userList }}" wx:key="{{ item.id }}">
+  {{ item.userName }}
+</view>

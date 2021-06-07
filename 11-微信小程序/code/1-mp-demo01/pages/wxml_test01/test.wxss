@@ -1,0 +1,9 @@
+/* pages/wxml_test01/test.wxss */
+.input{
+  border: 1px solid rgb(207, 206, 206);
+  border-radius: 5px;
+  padding-left: 3px;
+  width: 40%;
+  height: 32px
+}
+/* 微信将屏幕分为 750 等份，每一份就是 1 rpx */
