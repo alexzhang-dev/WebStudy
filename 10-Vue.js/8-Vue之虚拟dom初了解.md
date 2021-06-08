@@ -29,7 +29,7 @@
 
 ### 1.2 Vue 的虚拟 DOM
 
-在 Vue.js 中，有一个十分重要的概念，那就是`Diff算法`，简单来说，Diff 算法用户用于最小单元的动态更新 DOM 视图。而 Diff 算法，就是对虚拟 DOM 进行比较。其中，Vue.js 的虚拟 DOM 借鉴了 snabbdom，所以下面我们就以snabbdom 作为例子来讲解。
+在 Vue.js 中，有一个十分重要的概念，那就是`Diff算法`，简单来说，Diff 算法用于最小单元的动态更新 DOM 视图。而 Diff 算法，就是对虚拟 DOM 进行比较。其中，Vue.js 的虚拟 DOM 借鉴了 snabbdom，所以下面我们就以snabbdom 作为例子来讲解。
 
 # 2. 手写效果
 
