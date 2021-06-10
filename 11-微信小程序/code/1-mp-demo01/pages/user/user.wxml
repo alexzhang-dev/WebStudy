@@ -41,3 +41,6 @@
 <button size="mini">小按钮</button>
 <!-- plain 镂空按钮 -->
 <button size="mini" plain>小的镂空按钮</button>
+
+<navigator url="/pages/index/index" open-type="switchTab">跳转到 index</navigator>
+<navigator url="/pages/wxml_test01/test" open-type="navigate">跳转到 wxml_test01</navigator>

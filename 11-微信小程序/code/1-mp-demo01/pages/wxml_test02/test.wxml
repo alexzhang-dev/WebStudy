@@ -1,0 +1,1 @@
+<button bindtap="requestGet">发起 GET 请求</button>
