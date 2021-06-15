@@ -1,0 +1,2 @@
+<!--pages/wxml_test03/test.wxml-->
+<view wx:for="{{ colorList }}" wx:key="{{item.id}}" class="color-item" style="background-color: rgba({{item.color}})">{{item.color}}</view>

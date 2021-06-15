@@ -1,0 +1,11 @@
+/* pages/wxml_test03/test.wxss */
+.color-item {
+  border:1px solid #efefef;
+  line-height: 200rpx;
+  border-radius: 15rpx;
+  margin: 15rpx;
+  text-align: center;
+  text-shadow: 0rpx 0rpx 5rpx #fff;
+  box-shadow: 1rpx 1rpx 6rpx #aaa;
+  color: white
+}

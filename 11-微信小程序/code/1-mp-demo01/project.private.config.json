@@ -1,0 +1,24 @@
+{
+  "setting": {},
+  "condition": {
+    "plugin": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "name": "pages/wxml_test03/test",
+          "pathName": "pages/wxml_test03/test",
+          "query": "",
+          "scene": null
+        }
+      ]
+    }
+  }
+}

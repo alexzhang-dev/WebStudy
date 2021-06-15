@@ -3,6 +3,7 @@
     "pages/index/index",
     "pages/wxml_test02/test",
     "pages/wxml_test01/test",
+    "pages/wxml_test03/test",
     "pages/user/user",
     "pages/logs/logs"
   ],
@@ -27,6 +28,9 @@
       "text": "用户",
       "iconPath": "/images/tab/user.png",
       "selectedIconPath": "/images/tab/user_active.png"
+    },{
+      "pagePath": "pages/wxml_test03/test",
+      "text": "上拉触底案例"
     }]
   },
   "style": "v2",
