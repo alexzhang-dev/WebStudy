@@ -5,14 +5,14 @@
     "pages/wxml_test01/test",
     "pages/wxml_test03/test",
     "pages/user/user",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/userinfo/info"
   ],
   "window":{
     "backgroundTextStyle":"dark",
     "navigationBarBackgroundColor": "#ccc",
     "navigationBarTitleText": "Test",
     "navigationBarTextStyle":"white",
-    "enablePullDownRefresh": true,
     "backgroundColor": "#666",
     "onReachBottomDistance": 100
   },

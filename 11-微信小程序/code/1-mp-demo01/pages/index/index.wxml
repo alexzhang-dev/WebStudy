@@ -20,4 +20,27 @@
   <view class="usermotto">
     <text class="user-motto">{{motto}}</text>
   </view>
+  <view>{{ m1.toUpper('zs') }}</view>
+  <wxs module="m1">
+    module.exports.toUpper = function(str) {
+    return str.toUpperCase();
+    }
+    // module.exports.getUsername = function() {
+    // return "zs"
+    // }
+  </wxs>
+  <wxs src="./tool.wxs" module="tool"></wxs>
+  <view>{{ tool.toLower('LS') }}</view>
+  <!-- 用户列表的 WXML 页面 -->
+  <view>
+    用户名：张三
+    操作：<button bindtap="goToInfo" data-username="张三">详情</button>
+  </view>
+  <view>
+    用户名：李四
+    操作：<button bindtap="goToInfo" data-username="李四">详情</button>
+  </view>
+  <view>
+    <my-test01></my-test01>
+  </view>
 </view>

@@ -44,5 +44,11 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
-  }
+  },
+  goToInfo: function (e) {
+    // 编程式导航传参
+    wx.navigateTo({
+        url: '/pages/userinfo/info?username=' + e.target.dataset.username
+    })
+}
 })

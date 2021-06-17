@@ -6,22 +6,25 @@ Page({
    */
   data: {
     colorList: [],
-    isLoading: false
+    isLoading: false,
+    pagenum: 1,
+    pagesize: 10,
+    total: 50
   },
 
-  getColors: function(){
-    return Math.floor(Math.random()*255)
+  getColors: function () {
+    return Math.floor(Math.random() * 255)
   },
 
-  getColorList: function(){
+  getColorList: function () {
     const arr = []
-    for(let i=0;i<10;i++){
-      arr[i] = {id: i, color: [this.getColors(), this.getColors(), this.getColors()]}
+    for (let i = 0; i < 10; i++) {
+      arr[i] = { id: i, color: [this.getColors(), this.getColors(), this.getColors()] }
     }
     return arr;
   },
 
-  getColorListByPage: function(){
+  getColorListByPage: function () {
     this.setData({
       isLoading: true
     })
@@ -29,19 +32,19 @@ Page({
       title: '加载中...',
     })
     new Promise((resolve) => {
-      setTimeout(()=> {
+      setTimeout(() => {
         const arr = this.getColorList();
         this.setData({
           colorList: [...this.data.colorList, ...arr]
         })
         resolve()
-      },300)
+      }, 300)
     }).finally(() => {
       this.setData({
         isLoading: false
       })
       wx.hideLoading({
-        success: (res) => {},
+        success: (res) => { },
       })
     })
   },
@@ -92,7 +95,16 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    if(!this.data.isLoading){
+    if(this.data.pagenum * this.data.pagesize >= this.data.total){
+      return wx.showToast({
+        title: '没有下一页了...',
+        icon: 'none'
+      })
+    }
+    if (!this.data.isLoading) {
+      this.setData({
+        pagenum: this.data.pagenum + 1
+      })
       this.getColorListByPage()
     }
   },
@@ -101,6 +113,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    
+
   }
 })
