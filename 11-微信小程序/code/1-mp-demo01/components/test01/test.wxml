@@ -1,2 +1,6 @@
 <!--components/test01/test.wxml-->
-<text>组件测试</text>
+<text class="g-text-red">组件测试</text>
+<view>
+  count: {{count}}
+  <button bindtap="addCount">count+1</button>
+</view>
