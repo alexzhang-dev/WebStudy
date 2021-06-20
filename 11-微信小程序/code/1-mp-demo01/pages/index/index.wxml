@@ -40,7 +40,7 @@
     用户名：李四
     操作：<button bindtap="goToInfo" data-username="李四">详情</button>
   </view>
-  <view>
-    <my-test01 max="10" min="1"></my-test01>
+  <view class="component">
+    <my-test01 max="10" min="1">index</my-test01>
   </view>
 </view>

@@ -1,6 +1,9 @@
 <!--components/test01/test.wxml-->
 <text class="g-text-red">组件测试</text>
-<view>
-  count: {{count}}
-  <button bindtap="addCount">count+1</button>
+<view class="allColors" style="background: rgba({{allColors}})">
+  颜色值：{{allColors}}
 </view>
+<button size="mini" style="color: red" bindtap="addRedValue">R</button>
+<button size="mini" type="primary" bindtap="addGreenValue">G</button>
+<button size="mini" style="color: blue" bindtap="addBlueValue">B</button>
+我在：<slot></slot>

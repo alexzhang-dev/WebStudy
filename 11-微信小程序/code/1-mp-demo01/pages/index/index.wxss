@@ -17,3 +17,6 @@
 .usermotto {
   margin-top: 200px;
 }
+.component{
+  width: 100%;
+}

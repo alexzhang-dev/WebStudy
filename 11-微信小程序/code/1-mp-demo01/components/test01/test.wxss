@@ -1,1 +1,10 @@
 /* components/test01/test.wxss */
+.allColors{
+  width: 100%;
+  height: 240rpx;
+  background-color: red;
+  display: flex;
+  color: white;
+  justify-content: center;
+  align-items: center;
+}
